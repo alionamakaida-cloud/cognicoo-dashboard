@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COGNICOO — Навантаження 2026</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+::-webkit-scrollbar{height:6px;width:6px}
+::-webkit-scrollbar-track{background:#1e293b;border-radius:4px}
+::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}
+body{font-family:system-ui,-apple-system,sans-serif;background:#0f172a;color:#e2e8f0;padding:20px;user-select:none}
+h1{font-size:20px;font-weight:700;letter-spacing:-.3px}
+h2{font-size:14px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.badge{font-size:10px;background:#334155;color:#94a3b8;padding:2px 8px;border-radius:10px;font-weight:500}
+.sub{color:#64748b;font-size:12px;margin-bottom:14px}
+.card{background:#1e293b;border-radius:14px;padding:16px;margin-bottom:14px;transition:box-shadow .2s}
+.card:hover{box-shadow:0 0 0 1px #334155}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.ind{background:#1e293b;border-radius:12px;padding:14px 16px;flex:1 1 160px;cursor:default;transition:transform .15s}
+.ind:hover{transform:translateY(-2px)}
+.ind-l{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px}
+.ind-v{font-size:17px;font-weight:700;margin-top:3px}
+.btn{border:none;border-radius:10px;padding:10px 18px;cursor:pointer;font-size:13px;font-weight:600;color:#fff;transition:all .15s;touch-action:manipulation}
+.btn:active{transform:scale(.97)}
+.btn-p{background:#6366f1}.btn-p:hover{background:#818cf8}
+.btn-s{background:#334155;color:#e2e8f0}.btn-s:hover{background:#475569}
+.btn-save{background:#22c55e}.btn-save:hover{background:#4ade80}
+.btn-del{background:#dc2626}.btn-del:hover{background:#ef4444}
+.chip{border:none;border-radius:20px;padding:8px 14px;cursor:pointer;font-size:12px;font-weight:600;transition:all .15s;touch-action:manipulation}
+.chip:active{transform:scale(.95)}
+.chip-off{background:#334155;color:#94a3b8}
+.chip-off:hover{background:#3f4f6b}
+table{border-collapse:separate;border-spacing:4px;width:100%}
+th{font-size:11px;color:#64748b;padding:4px 4px;text-align:center;min-width:44px}
+th:first-child{text-align:left;min-width:80px}
+td{text-align:center;padding:10px 4px;font-size:13px;font-weight:700;border-radius:8px;min-width:44px;cursor:default;transition:transform .12s}
+td:hover:not(:first-child){transform:scale(1.08)}
+td:first-child{text-align:left;font-size:13px;padding:6px 6px;font-weight:600}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.gg{display:grid;grid-template-columns:200px repeat(12,1fr);gap:3px;align-items:center}
+.gh{font-size:11px;color:#64748b;text-align:center;padding:6px 0}
+.gn{display:flex;align-items:center;gap:6px;font-size:12px;padding:8px 6px;overflow:hidden;border-radius:8px;transition:background .15s}
+.gn:hover{background:#0f172a}
+.gn span{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.gc{border-radius:6px;height:34px;display:flex;align-items:center;justify-content:center;transition:transform .12s}
+.gc:hover{transform:scale(1.05)}
+.gd{width:8px;height:8px;border-radius:50%;display:inline-block;margin:0 2px}
+.eb{background:none;border:none;color:#64748b;cursor:pointer;font-size:13px;padding:4px;flex-shrink:0;border-radius:6px;transition:all .15s;touch-action:manipulation}
+.eb:hover{background:#334155;color:#e2e8f0}
+.leg{display:flex;gap:10px;margin-top:10px;font-size:11px;color:#64748b;flex-wrap:wrap}
+.li{display:flex;align-items:center;gap:5px}
+.lb{width:16px;height:16px;border-radius:5px}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.sc{background:#1e293b;border-radius:14px;padding:16px;transition:transform .15s}
+.sc:hover{transform:translateY(-2px)}
+.sn{font-size:15px;font-weight:700;margin-bottom:6px}
+.si{font-size:12px;color:#94a3b8;line-height:1.9}
+.mb{display:flex;gap:2px;margin-top:8px}
+.mbi{flex:1;border-radius:3px;transition:height .3s}
+.fb{display:flex;gap:5px;flex-wrap:wrap}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.fl{font-size:11px;color:#94a3b8;display:block;margin-bottom:5px}
+.fi{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:10px 12px;color:#e2e8f0;font-size:14px;width:100%;outline:none;transition:border-color .15s}
+.fi:focus{border-color:#6366f1}
+.mc{min-width:40px;text-align:center;padding:8px 10px}
+.efb{width:36px;text-align:center;padding:8px 0}
+.hidden{display:none}
+.hi{margin-top:8px;font-size:13px;color:#94a3b8;min-height:22px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.gt{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.tabs{display:flex;gap:2px;background:#0f172a;border-radius:12px;padding:3px;margin-bottom:14px}
+.tab{flex:1;text-align:center;padding:10px 8px;border:none;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;background:transparent;color:#64748b;transition:all .15s;touch-action:manipulation}
+.tab.active{background:#1e293b;color:#e2e8f0;box-shadow:0 2px 8px #0003}
+.tab:hover:not(.active){color:#94a3b8}
+@media(max-width:700px){.fg{grid-template-columns:1fr}.gg{grid-template-columns:140px repeat(12,1fr)}.sg{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div>
+    <h1>COGNICOO — Навантаження 2026</h1>
+    <p class="sub">Дашборд планування команди</p>
+  </div>
+  <button class="btn btn-p" id="addBtn" onclick="toggleForm()">+ Додати</button>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <button class="tab active" id="tab0" onclick="switchTab(0)">Огляд</button>
+  <button class="tab" id="tab1" onclick="switchTab(1)">Таймлайн</button>
+  <button class="tab" id="tab2" onclick="switchTab(2)">Команда</button>
+</div>
+
+<!-- Form -->
+<div class="card hidden" id="formCard" style="border-left:4px solid #6366f1">
+  <h2 id="formTitle">Додати клієнта / задачу</h2>
+  <div class="fg">
+    <div><label class="fl">Назва</label><input class="fi" id="iName" placeholder="Назва проєкту / клієнта"></div>
+    <div><label class="fl">Категорія</label><div id="catC" class="fb"></div></div>
+  </div>
+  <div style="margin-bottom:12px"><label class="fl">Команда</label><div id="teamC" class="fb"></div></div>
+  <div style="margin-bottom:12px"><label class="fl">Місяці</label><div id="monC" class="fb"></div></div>
+  <div style="margin-bottom:14px"><label class="fl" id="efL">Інтенсивність: 2/5</label><div id="efC" class="fb"></div></div>
+  <div style="display:flex;gap:8px">
+    <button class="btn btn-save" id="saveB" onclick="saveItem()">Додати</button>
+    <button class="btn btn-s" onclick="toggleForm()">Скасувати</button>
+    <button class="btn btn-del hidden" id="delB" onclick="delFromForm()">Видалити</button>
+  </div>
+</div>
+
+<!-- Tab 0: Overview -->
+<div id="panel0">
+  <div class="row" id="inds"></div>
+  <div class="card">
+    <h2>Навантаження команди <span class="badge">по місяцях</span></h2>
+    <div style="overflow-x:auto"><table id="htab"></table></div>
+    <div class="hi" id="hinfo"></div>
+    <div class="leg" id="hleg"></div>
+  </div>
+</div>
+
+<!-- Tab 1: Timeline -->
+<div id="panel1" class="hidden">
+  <div class="card">
+    <div class="gt">
+      <h2 style="margin:0">Таймлайн <span class="badge" id="countBadge"></span></h2>
+      <div class="fb" id="fbar"></div>
+    </div>
+    <div style="overflow-x:auto" id="gantt"></div>
+  </div>
+</div>
+
+<!-- Tab 2: Team -->
+<div id="panel2" class="hidden">
+  <div class="sg" id="stats"></div>
+</div>
+
+<script>
+const M=["Січ","Лют","Бер","Кві","Тра","Чер","Лип","Сер","Вер","Жов","Лис","Гру"];
+const MF=["Січень","Лютий","Березень","Квітень","Травень","Червень","Липень","Серпень","Вересень","Жовтень","Листопад","Грудень"];
+const TM=["Андрій","Таня","Альона"];
+const TC={"Андрій":"#6366f1","Таня":"#f59e0b","Альона":"#10b981"};
+const CS=["Проєкт","Ретрит","Подкаст","Вебінар","Клієнт","Задача"];
+const CC={"Проєкт":"#818cf8","Ретрит":"#f472b6","Подкаст":"#34d399","Вебінар":"#fbbf24","Клієнт":"#fb923c","Задача":"#94a3b8"};
+const CB={"Проєкт":"#312e81","Ретрит":"#831843","Подкаст":"#064e3b","Вебінар":"#78350f","Клієнт":"#7c2d12","Задача":"#1e293b"};
+
+let items=[
+  {id:1,name:"Soft sich",cat:"Проєкт",team:["Андрій","Таня","Альона"],months:[0,1,2,3,4,5,6,7,8,9,10,11],effort:3},
+  {id:2,name:"Lantec",cat:"Проєкт",team:["Андрій","Альона"],months:[0,1,2,3,4,5],effort:2},
+  {id:3,name:"Blagoda (Коробка)",cat:"Проєкт",team:["Таня","Альона"],months:[1,2,3,4,5,6],effort:2},
+  {id:4,name:"KIDDISVIT (Овчинніков)",cat:"Проєкт",team:["Андрій","Таня"],months:[2,3,4,5,6,7],effort:3},
+  {id:5,name:"VBET",cat:"Проєкт",team:["Андрій"],months:[0,1,2,3,4,5,6,7,8,9,10,11],effort:2},
+  {id:6,name:"Ретрит (травень)",cat:"Ретрит",team:["Андрій","Таня","Альона"],months:[3,4],effort:4},
+  {id:7,name:"Ретрит (осінь)",cat:"Ретрит",team:["Андрій","Таня","Альона"],months:[8,9],effort:4},
+  {id:8,name:"Записи подкастів",cat:"Подкаст",team:["Альона"],months:[0,1,2,3,4,5,6,7,8,9,10,11],effort:1},
+  {id:9,name:"Вебінар (березень)",cat:"Вебінар",team:["Андрій","Таня","Альона"],months:[2],effort:3},
+  {id:10,name:"Сергій Салата",cat:"Клієнт",team:["Альона"],months:[0,1,2,3],effort:2},
+  {id:11,name:"Едуард Чудайкін",cat:"Клієнт",team:["Таня"],months:[1,2,3,4],effort:2},
+];
+let nid=12,fil="all",eid=null,tab=0;
+let fCat="Проєкт",fTeam=[],fMon=[],fEf=2;
+
+const ic=(v,mx)=>{if(!mx)return"#1e293b";const r=v/mx;return r<=.3?"#064e3b":r<=.5?"#166534":r<=.7?"#854d0e":r<=.85?"#9a3412":"#991b1b"};
+const ib=(v,mx)=>{if(!mx)return"#334155";const r=v/mx;return r<=.3?"#22c55e":r<=.5?"#4ade80":r<=.7?"#eab308":r<=.85?"#f97316":"#ef4444"};
+
+function hm(){const m={};TM.forEach(t=>{m[t]=Array(12).fill(0)});items.forEach(it=>{it.months.forEach(mi=>{it.team.forEach(t=>{if(m[t])m[t][mi]+=it.effort})})});return m}
+
+function switchTab(n){tab=n;for(let i=0;i<3;i++){document.getElementById("panel"+i).classList.toggle("hidden",i!==n);document.getElementById("tab"+i).classList.toggle("active",i===n)}render()}
+
+function render(){
+  const hmap=hm();let mx=1;Object.values(hmap).forEach(a=>a.forEach(v=>{if(v>mx)mx=v}));
+  const tbm=Array(12).fill(0);items.forEach(it=>it.months.forEach(mi=>{tbm[mi]+=it.effort*it.team.length}));
+  const yt=Object.values(hmap).reduce((s,a)=>s+a.reduce((x,y)=>x+y,0),0);
+  const ya=Math.round(yt/36);
+  let pm=0,pv=0;tbm.forEach((v,i)=>{if(v>pv){pv=v;pm=i}});
+  let bp="",bv=0;TM.forEach(t=>{const s=hmap[t].reduce((a,b)=>a+b,0);if(s>bv){bv=s;bp=t}});
+
+  // Indicators
+  document.getElementById("inds").innerHTML=[
+    {l:"Середнє",v:ya,c:"#eab308"},{l:"Пік",v:`${MF[pm]}`,c:"#ef4444"},{l:"Макс навантаження",v:bp,c:"#f97316"}
+  ].map(i=>`<div class="ind" style="border-left:4px solid ${i.c}"><div class="ind-l">${i.l}</div><div class="ind-v">${i.v}</div></div>`).join("");
+
+  // Heatmap
+  let ht=`<thead><tr><th></th>${M.map(m=>`<th>${m}</th>`).join("")}</tr></thead><tbody>`;
+  TM.forEach(t=>{
+    ht+=`<tr><td><span class="dot" style="background:${TC[t]}"></span>${t}</td>`;
+    hmap[t].forEach((v,mi)=>{ht+=`<td style="background:${ic(v,mx)};border:2px solid ${ib(v,mx)}" onmouseenter="sh('${t}',${mi},${v})" onmouseleave="hh()">${v||"—"}</td>`});
+    ht+=`</tr>`;
+  });
+  ht+=`<tr><td style="font-size:11px;color:#64748b;font-weight:700">Σ</td>`;
+  tbm.forEach(v=>{ht+=`<td style="font-size:11px;color:#94a3b8;font-weight:700">${v}</td>`});
+  ht+=`</tr></tbody>`;
+  document.getElementById("htab").innerHTML=ht;
+  document.getElementById("hleg").innerHTML=[
+    {l:"Вільно",c:"#064e3b",b:"#22c55e"},{l:"Помірно",c:"#166534",b:"#4ade80"},{l:"Норма",c:"#854d0e",b:"#eab308"},{l:"Багато",c:"#9a3412",b:"#f97316"},{l:"Макс",c:"#991b1b",b:"#ef4444"}
+  ].map(x=>`<div class="li"><div class="lb" style="background:${x.c};border:2px solid ${x.b}"></div>${x.l}</div>`).join("");
+
+  // Gantt
+  const fd=fil==="all"?items:items.filter(it=>it.cat===fil);
+  document.getElementById("countBadge").textContent=fd.length+" елементів";
+  document.getElementById("fbar").innerHTML=
+    `<button class="chip ${fil==="all"?"":"chip-off"}" style="${fil==="all"?"background:#475569;color:#fff":""}" onclick="sf('all')">Всі</button>`+
+    CS.map(c=>`<button class="chip ${fil===c?"":"chip-off"}" style="${fil===c?`background:${CC[c]};color:#fff`:""}" onclick="sf('${c}')">${c}</button>`).join("");
+  let g=`<div class="gg"><div></div>${M.map(m=>`<div class="gh">${m}</div>`).join("")}</div>`;
+  fd.forEach(it=>{
+    g+=`<div class="gg"><div class="gn"><span class="dot" style="background:${CC[it.cat]};width:8px;height:8px;flex-shrink:0"></span><span>${it.name}</span><button class="eb" onclick="startEdit(${it.id})">✎</button><button class="eb" onclick="delItem(${it.id})">✕</button></div>`;
+    for(let mi=0;mi<12;mi++){const a=it.months.includes(mi);
+      g+=`<div class="gc" style="background:${a?CB[it.cat]:"transparent"};border:${a?`1px solid ${CC[it.cat]}55`:"1px solid transparent"}">${a?it.team.map(t=>`<span class="gd" style="background:${TC[t]||"#94a3b8"}"></span>`).join(""):""}</div>`}
+    g+=`</div>`;
+  });
+  document.getElementById("gantt").innerHTML=g;
+
+  // Stats
+  document.getElementById("stats").innerHTML=TM.map(t=>{
+    const tot=hmap[t].reduce((a,b)=>a+b,0);const pk=Math.max(...hmap[t]);const pkm=M[hmap[t].indexOf(pk)];
+    const mi=items.filter(it=>it.team.includes(t)).length;
+    const bars=hmap[t].map((v,i)=>`<div class="mbi" style="height:${Math.max(4,v/mx*40)}px;background:${ib(v,mx)}" title="${M[i]}: ${v}"></div>`).join("");
+    const myItems=items.filter(it=>it.team.includes(t));
+    const itemList=myItems.map(it=>`<div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid #0f172a"><span class="dot" style="background:${CC[it.cat]};width:6px;height:6px"></span><span style="font-size:11px;flex:1">${it.name}</span><span style="font-size:10px;color:#64748b">${it.effort}/5</span></div>`).join("");
+    return `<div class="sc" style="border-top:3px solid ${TC[t]}"><div class="sn">${t}</div><div class="si">Проєктів: ${mi} · Навантаження: ${tot} · Пік: ${pkm} (${pk})<div class="mb" style="align-items:flex-end;height:40px">${bars}</div></div><div style="margin-top:10px;max-height:200px;overflow-y:auto">${itemList}</div></div>`;
+  }).join("");
+}
+
+function sh(t,mi,v){document.getElementById("hinfo").innerHTML=`${t} · ${MF[mi]} · <strong style="color:${ib(v,15)}">${v}</strong>`}
+function hh(){document.getElementById("hinfo").innerHTML=""}
+function sf(f){fil=f;render()}
+
+function toggleForm(){
+  const fc=document.getElementById("formCard"),b=document.getElementById("addBtn");
+  if(fc.classList.contains("hidden")){fc.classList.remove("hidden");b.textContent="✕ Закрити";eid=null;resetF();renderF()}
+  else{fc.classList.add("hidden");b.textContent="+ Додати";eid=null}
+}
+function resetF(){fCat="Проєкт";fTeam=[];fMon=[];fEf=2;document.getElementById("iName").value=""}
+function renderF(){
+  document.getElementById("formTitle").textContent=eid?"Редагувати":"Додати клієнта / задачу";
+  document.getElementById("saveB").textContent=eid?"Зберегти":"Додати";
+  document.getElementById("delB").classList.toggle("hidden",!eid);
+  document.getElementById("catC").innerHTML=CS.map(c=>`<button class="chip ${fCat===c?"":"chip-off"}" style="${fCat===c?`background:${CC[c]};color:#fff`:""}" onclick="sc('${c}')">${c}</button>`).join("");
+  document.getElementById("teamC").innerHTML=TM.map(t=>`<button class="chip ${fTeam.includes(t)?"":"chip-off"}" style="${fTeam.includes(t)?`background:${TC[t]};color:#fff`:""}" onclick="st('${t}')">${t}</button>`).join("");
+  document.getElementById("monC").innerHTML=M.map((m,i)=>`<button class="chip mc ${fMon.includes(i)?"":"chip-off"}" style="${fMon.includes(i)?"background:#475569;color:#fff":""}" onclick="sm(${i})">${m}</button>`).join("");
+  document.getElementById("efL").textContent=`Інтенсивність: ${fEf}/5`;
+  document.getElementById("efC").innerHTML=[1,2,3,4,5].map(v=>`<button class="chip efb ${fEf>=v?"":"chip-off"}" style="${fEf>=v?"background:#6366f1;color:#fff":""}" onclick="se(${v})">${v}</button>`).join("");
+}
+function sc(c){fCat=c;renderF()}
+function st(t){fTeam.includes(t)?fTeam=fTeam.filter(x=>x!==t):fTeam.push(t);renderF()}
+function sm(m){fMon.includes(m)?fMon=fMon.filter(x=>x!==m):fMon.push(m);renderF()}
+function se(v){fEf=v;renderF()}
+
+function saveItem(){
+  const n=document.getElementById("iName").value.trim();
+  if(!n||!fTeam.length||!fMon.length)return;
+  if(eid!==null){items=items.map(it=>it.id===eid?{id:eid,name:n,cat:fCat,team:[...fTeam],months:[...fMon].sort((a,b)=>a-b),effort:fEf}:it);eid=null}
+  else{items.push({id:nid++,name:n,cat:fCat,team:[...fTeam],months:[...fMon].sort((a,b)=>a-b),effort:fEf})}
+  document.getElementById("formCard").classList.add("hidden");
+  document.getElementById("addBtn").textContent="+ Додати";
+  resetF();render();
+}
+
+function startEdit(id){
+  const it=items.find(x=>x.id===id);if(!it)return;
+  eid=id;document.getElementById("iName").value=it.name;
+  fCat=it.cat;fTeam=[...it.team];fMon=[...it.months];fEf=it.effort;
+  document.getElementById("formCard").classList.remove("hidden");
+  document.getElementById("addBtn").textContent="✕ Закрити";
+  renderF();document.getElementById("formCard").scrollIntoView({behavior:"smooth"});
+}
+
+function delItem(id){if(!confirm("Видалити?"))return;items=items.filter(it=>it.id!==id);if(eid===id){eid=null;document.getElementById("formCard").classList.add("hidden");document.getElementById("addBtn").textContent="+ Додати"}render()}
+function delFromForm(){if(eid&&confirm("Видалити?")){items=items.filter(it=>it.id!==eid);eid=null;document.getElementById("formCard").classList.add("hidden");document.getElementById("addBtn").textContent="+ Додати";render()}}
+
+render();
+</script>
+</body>
+</html>
