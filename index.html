@@ -182,29 +182,29 @@ function parseDate(s) { return s ? new Date(s) : null; }
 function monthKey(y, m) { return y * 12 + m; }
 function activeTasks() { return allTasks.filter(t => filterTeam.size === 0 || t.team.some(m => filterTeam.has(m))); }
 
-// Build projects by grouping tasks by client
+// Build projects: group tasks by client + member (each member gets their own bar)
 function buildProjects() {
   const map = {};
   activeTasks().forEach(t => {
     const cList = t.clients && t.clients.length ? t.clients : ['Інше'];
+    const members = t.team.length ? t.team : ['—'];
     cList.forEach(c => {
-      if (!map[c]) map[c] = { name: c, tasks: [], team: new Set(), startDates: [], endDates: [], statuses: new Set() };
-      map[c].tasks.push(t);
-      t.team.forEach(m => map[c].team.add(m));
-      if (t.start) map[c].startDates.push(new Date(t.start));
-      if (t.end) map[c].endDates.push(new Date(t.end));
-      else if (t.start) map[c].endDates.push(new Date(t.start)); // fallback
-      map[c].statuses.add(t.status);
+      members.forEach(m => {
+        const key = c + '||' + m;
+        if (!map[key]) map[key] = { name: c, member: m, tasks: [], startDates: [], endDates: [], statuses: new Set() };
+        map[key].tasks.push(t);
+        if (t.start) map[key].startDates.push(new Date(t.start));
+        if (t.end) map[key].endDates.push(new Date(t.end));
+        else if (t.start) map[key].endDates.push(new Date(t.start));
+        map[key].statuses.add(t.status);
+      });
     });
   });
   return Object.values(map).map(p => {
-    p.team = [...p.team];
     const allDates = [...p.startDates, ...p.endDates];
     if (allDates.length) {
-      allDates.sort((a,b) => a-b);
-      p.startDate = p.startDates.length ? new Date(Math.min(...p.startDates)) : allDates[0];
-      p.endDate = p.endDates.length ? new Date(Math.max(...p.endDates)) : allDates[allDates.length-1];
-      // If start === end, extend by 2 weeks for visibility
+      p.startDate = p.startDates.length ? new Date(Math.min(...p.startDates)) : new Date(Math.min(...allDates));
+      p.endDate = p.endDates.length ? new Date(Math.max(...p.endDates)) : new Date(Math.max(...allDates));
       if (p.endDate - p.startDate < 7*24*3600*1000) {
         p.endDate = new Date(p.endDate.getTime() + 14*24*3600*1000);
       }
@@ -213,9 +213,6 @@ function buildProjects() {
       p.endDate = new Date(CUR_YEAR, CUR_MONTH + 1, 15);
     }
     p.active = p.tasks.some(t => ['in process', 'Перевірка', 'Backlog'].includes(t.status));
-    const counts = {};
-    p.tasks.forEach(t => t.team.forEach(m => { counts[m] = (counts[m]||0) + 1; }));
-    p.primaryMember = Object.entries(counts).sort((a,b) => b[1]-a[1])[0]?.[0] || '';
     return p;
   }).sort((a,b) => a.startDate - b.startDate);
 }
@@ -343,17 +340,12 @@ function renderTimeline() {
   const { start: startMK, count: mCount } = range;
   const curMK = monthKey(CUR_YEAR, CUR_MONTH);
 
-  // Group projects by primary team member
+  // Group projects by member (each project already has a specific member)
   const groups = {};
   TEAM.forEach(m => { if (filterTeam.has(m)) groups[m] = []; });
   projects.forEach(p => {
-    const m = p.primaryMember;
+    const m = p.member;
     if (groups[m]) groups[m].push(p);
-    else {
-      // Assign to first team member in filter
-      const fallback = p.team.find(t => filterTeam.has(t)) || TEAM.find(t => filterTeam.has(t));
-      if (fallback && groups[fallback]) groups[fallback].push(p);
-    }
   });
 
   // Calculate today position
@@ -388,7 +380,7 @@ function renderTimeline() {
       const widthPct = Math.max(rightPct - leftPct, 2);
 
       const barColor = p.active ? TBAR[member] : TBAR[member] + '88';
-      const taskInfo = JSON.stringify({name:p.name,team:p.team,tasks:p.tasks.length,active:p.tasks.filter(t=>['in process','Перевірка'].includes(t.status)).length,status:[...p.statuses]}).replace(/"/g,'&quot;');
+      const taskInfo = JSON.stringify({name:p.name,team:[p.member],tasks:p.tasks.length,active:p.tasks.filter(t=>['in process','Перевірка'].includes(t.status)).length,status:[...p.statuses]}).replace(/"/g,'&quot;');
 
       h += `<div class="tl-row">
         <div class="tl-row-label" title="${p.name}">${p.name}</div>
