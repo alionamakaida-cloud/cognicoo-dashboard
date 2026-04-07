@@ -18,7 +18,6 @@ h1{font-size:20px;font-weight:700;letter-spacing:-.3px;color:#0f172a}
 .tab.on{background:#fff;color:#0f172a;box-shadow:0 1px 3px #0001}
 .tab:hover:not(.on){color:#64748b}
 
-/* Cards row */
 .cards{display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap}
 .tcard{flex:1;min-width:180px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:14px 16px;transition:transform .12s,box-shadow .12s}
 .tcard:hover{transform:translateY(-2px);box-shadow:0 3px 10px #0001}
@@ -28,39 +27,54 @@ h1{font-size:20px;font-weight:700;letter-spacing:-.3px;color:#0f172a}
 .tcard-bar{height:6px;border-radius:3px;background:#e2e8f0;margin-top:8px;overflow:hidden}
 .tcard-fill{height:100%;border-radius:3px;transition:width .4s}
 
-/* Summary indicators */
 .inds{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
-.ind{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px 16px;flex:1;min-width:120px}
+.ind{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px 16px;flex:1;min-width:110px}
 .ind-l{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.6px}
 .ind-v{font-size:22px;font-weight:700;color:#0f172a;margin-top:2px}
-.ind-s{font-size:11px;color:#64748b;margin-top:1px}
 
-/* Pipeline */
 .pipe{display:flex;gap:2px;margin-bottom:18px;border-radius:10px;overflow:hidden;height:32px}
-.pipe-seg{display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:600;transition:flex .3s;cursor:default;min-width:40px;position:relative}
-.pipe-seg span{position:relative;z-index:1;white-space:nowrap;text-shadow:0 1px 2px #0002}
+.pipe-seg{display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:600;min-width:40px;cursor:default}
+.pipe-seg span{white-space:nowrap;text-shadow:0 1px 2px #0002}
 
-/* Main table */
-.tbl-wrap{overflow-x:auto;margin-bottom:18px}
-table{border-collapse:separate;border-spacing:3px;width:100%}
-th{font-size:10px;color:#94a3b8;padding:4px;text-align:center;min-width:40px;cursor:pointer;transition:color .12s}
-th:first-child{text-align:left;min-width:80px;cursor:default}
-th:hover:not(:first-child){color:#6366f1}
-th.cur{color:#6366f1;font-weight:700}
-td{text-align:center;padding:8px 4px;font-size:12px;font-weight:700;border-radius:6px;min-width:40px;cursor:pointer;transition:transform .1s}
-td:hover:not(:first-child){transform:scale(1.06)}
-td:first-child{text-align:left;font-size:12px;font-weight:600;color:#334155;cursor:default}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.fchip{border:none;border-radius:20px;padding:6px 14px;cursor:pointer;font-size:11px;font-weight:600;transition:all .12s}
+.fchip.off{background:#f1f5f9;color:#94a3b8}
+.fchip.off:hover{background:#e2e8f0;color:#64748b}
+.fchip.on{color:#fff}
 
-/* Gantt */
-.gantt{margin-bottom:18px}
-.gantt-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.gantt-lbl{width:100px;font-size:11px;font-weight:600;color:#475569;text-align:right;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.gantt-track{flex:1;height:24px;background:#f1f5f9;border-radius:6px;position:relative;overflow:hidden}
-.gantt-bar{position:absolute;height:100%;border-radius:6px;display:flex;align-items:center;padding:0 6px;font-size:10px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;transition:opacity .15s;min-width:4px}
-.gantt-bar:hover{opacity:.85}
+/* ─── TIMELINE GANTT ─── */
+.timeline-wrap{overflow-x:auto;margin-bottom:18px;border:1px solid #e2e8f0;border-radius:14px;background:#fafbfc}
+.timeline{position:relative;min-width:900px}
 
-/* Month detail panel */
+.tl-header{display:flex;border-bottom:1px solid #e2e8f0;position:sticky;top:0;background:#f8fafc;z-index:5}
+.tl-label-col{width:180px;min-width:180px;padding:10px 14px;font-size:11px;font-weight:600;color:#94a3b8;border-right:1px solid #e2e8f0;flex-shrink:0}
+.tl-months{display:flex;flex:1}
+.tl-month{flex:1;text-align:center;padding:10px 0;font-size:11px;font-weight:600;color:#64748b;border-right:1px solid #f1f5f9;position:relative}
+.tl-month.cur{color:#6366f1;font-weight:700;background:#eef2ff}
+
+/* Team section */
+.tl-section{border-bottom:1px solid #e2e8f0}
+.tl-section:last-child{border-bottom:none}
+.tl-section-hdr{display:flex;align-items:center;padding:8px 14px;background:#f1f5f9;font-size:12px;font-weight:700;gap:8px;cursor:pointer}
+.tl-section-hdr:hover{background:#e8ecf1}
+.tl-section-dot{width:10px;height:10px;border-radius:50%}
+
+/* Gantt row */
+.tl-row{display:flex;min-height:34px;position:relative;border-bottom:1px solid #f8fafc}
+.tl-row:hover{background:#f8fafc}
+.tl-row-label{width:180px;min-width:180px;padding:7px 14px;font-size:11px;color:#475569;border-right:1px solid #e2e8f0;display:flex;align-items:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex-shrink:0}
+.tl-row-track{flex:1;position:relative;display:flex}
+.tl-row-cell{flex:1;border-right:1px solid #f5f5f5;position:relative}
+
+/* Gantt bar */
+.tl-bar{position:absolute;height:22px;top:6px;border-radius:6px;display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;z-index:2;transition:opacity .15s,transform .1s;min-width:16px}
+.tl-bar:hover{opacity:.85;transform:scaleY(1.1)}
+
+/* Today marker */
+.tl-today{position:absolute;top:0;bottom:0;width:2px;background:#ef4444;z-index:4;pointer-events:none}
+.tl-today::before{content:'Сьогодні';position:absolute;top:-20px;left:-24px;font-size:10px;color:#ef4444;font-weight:600;white-space:nowrap}
+
+/* Detail panel */
 .detail{background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:18px;margin-bottom:18px;display:none}
 .detail.open{display:block}
 .det-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
@@ -73,34 +87,23 @@ td:first-child{text-align:left;font-size:12px;font-weight:600;color:#334155;curs
 .det-task{font-size:12px;color:#475569;padding:5px 0;border-bottom:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center}
 .det-task:last-child{border-bottom:none}
 .det-badge{font-size:10px;padding:2px 8px;border-radius:8px;font-weight:600}
-
-/* Week breakdown */
 .weeks{display:flex;gap:4px;margin-top:10px}
 .week{flex:1;background:#f1f5f9;border-radius:6px;padding:6px 4px;text-align:center}
-.week-lbl{font-size:9px;color:#94a3b8;text-transform:uppercase}
+.week-lbl{font-size:9px;color:#94a3b8}
 .week-v{font-size:14px;font-weight:700;color:#0f172a;margin-top:2px}
 
-/* Legend */
 .leg{display:flex;gap:12px;font-size:11px;color:#94a3b8;flex-wrap:wrap;margin-top:8px}
 .li{display:flex;align-items:center;gap:4px}
 .lb{width:14px;height:14px;border-radius:4px}
 
-/* Tooltip */
-.tip{position:fixed;background:#0f172a;color:#fff;padding:10px 14px;border-radius:10px;font-size:12px;pointer-events:none;z-index:999;max-width:260px;box-shadow:0 4px 12px #0003;display:none}
+.tip{position:fixed;background:#0f172a;color:#fff;padding:10px 14px;border-radius:10px;font-size:12px;pointer-events:none;z-index:999;max-width:280px;box-shadow:0 4px 12px #0003;display:none;line-height:1.5}
 .tip b{color:#93c5fd}
 
-/* Loading */
-.loading{text-align:center;padding:40px;color:#94a3b8;font-size:14px}
+.loading{text-align:center;padding:40px;color:#94a3b8}
 .spin{display:inline-block;width:20px;height:20px;border:3px solid #e2e8f0;border-top-color:#6366f1;border-radius:50%;animation:sp .6s linear infinite;margin-right:8px;vertical-align:middle}
 @keyframes sp{to{transform:rotate(360deg)}}
 .err{background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:16px;color:#dc2626;font-size:13px;margin-bottom:16px}
-
-/* Filter */
-.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.fchip{border:none;border-radius:20px;padding:6px 14px;cursor:pointer;font-size:11px;font-weight:600;transition:all .12s;touch-action:manipulation}
-.fchip.off{background:#f1f5f9;color:#94a3b8}
-.fchip.off:hover{background:#e2e8f0;color:#64748b}
-.fchip.on{color:#fff}
+.info{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:12px 16px;color:#1e40af;font-size:12px;margin-bottom:16px}
 </style>
 </head>
 <body>
@@ -111,62 +114,43 @@ td:first-child{text-align:left;font-size:12px;font-weight:600;color:#334155;curs
     <div class="sub" id="subtitle">Завантаження даних...</div>
   </div>
   <div class="tabs" id="viewTabs">
-    <button class="tab on" onclick="setView('month')">Місяць</button>
-    <button class="tab" onclick="setView('quarter')">Квартал</button>
-    <button class="tab" onclick="setView('year')">Рік</button>
+    <button class="tab" onclick="setView('half')">6 міс</button>
+    <button class="tab on" onclick="setView('year')">Рік</button>
+    <button class="tab" onclick="setView('all')">Все</button>
   </div>
 </div>
 
 <div id="error"></div>
-
-<!-- Team cards -->
 <div class="cards" id="teamCards"></div>
-
-<!-- Summary indicators -->
 <div class="inds" id="indicators"></div>
-
-<!-- Pipeline status bar -->
 <div id="pipeline"></div>
-
-<!-- Team member filters -->
 <div class="filters" id="filters"></div>
-
-<!-- Workload table -->
-<div class="tbl-wrap" id="tableWrap"></div>
-
-<!-- Gantt chart -->
-<div class="gantt" id="gantt"></div>
-
-<!-- Month detail panel -->
+<div class="timeline-wrap" id="timelineWrap"><div class="loading"><span class="spin"></span>Завантаження...</div></div>
 <div class="detail" id="detail"></div>
-
-<!-- Legend -->
 <div class="leg" id="legend"></div>
-
 <div class="tip" id="tip"></div>
 
 <script>
-// ─── CONFIG ───
 const WORKER_URL = 'https://cognicoo-notion-proxy.alionamakaida.workers.dev/';
 const TEAM = ['Андрій', 'Таня', 'Альона'];
 const TCOLOR = {'Андрій': '#6366f1', 'Таня': '#f59e0b', 'Альона': '#10b981'};
-const TBAR = {'Андрій': '#93a3f8', 'Таня': '#6ee7b7', 'Альона': '#f9a8d4'};
+const TBAR = {'Андрій': '#a5b4fc', 'Таня': '#6ee7b7', 'Альона': '#f9a8d4'};
+const TBAR_DARK = {'Андрій': '#818cf8', 'Таня': '#34d399', 'Альона': '#f472b6'};
 const STATUS_ORDER = ['Backlog', 'in process', 'Перевірка', 'Підтверджено', 'Done all'];
-const STATUS_UA = {'Backlog': 'Запит', 'in process': 'В роботі', 'Перевірка': 'Перевірка', 'Підтверджено': 'Підтверджено', 'Done all': 'Виконано'};
-const STATUS_CLR = {'Backlog': '#94a3b8', 'in process': '#6366f1', 'Перевірка': '#f59e0b', 'Підтверджено': '#22c55e', 'Done all': '#10b981'};
+const STATUS_UA = {'Backlog':'Запит','in process':'В роботі','Перевірка':'Перевірка','Підтверджено':'Підтверджено','Done all':'Виконано'};
+const STATUS_CLR = {'Backlog':'#94a3b8','in process':'#6366f1','Перевірка':'#f59e0b','Підтверджено':'#22c55e','Done all':'#10b981'};
 const MONTHS_UA = ['Січ','Лют','Бер','Кві','Тра','Чер','Лип','Сер','Вер','Жов','Лис','Гру'];
 const MONTHS_FULL = ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'];
-const MAX_DAYS = 22;
 
 let allTasks = [];
-let view = 'month';
+let view = 'year';
 let filterTeam = new Set(TEAM);
-let currentYear = new Date().getFullYear();
-let currentMonth = new Date().getMonth();
+const NOW = new Date();
+const CUR_YEAR = NOW.getFullYear();
+const CUR_MONTH = NOW.getMonth();
 
-// ─── DATA LOADING ───
+// ─── DATA ───
 async function loadData() {
-  // Try Cloudflare Worker first
   if (WORKER_URL) {
     try {
       const r = await fetch(WORKER_URL);
@@ -177,144 +161,169 @@ async function loadData() {
         render();
         return;
       }
-    } catch(e) { console.warn('Worker fetch failed:', e); }
+    } catch(e) { console.warn('Worker error:', e); }
   }
-
-  // No Worker URL — show demo data with instructions
-  document.getElementById('error').innerHTML = `<div class="err" style="background:#eff6ff;border-color:#bfdbfe;color:#1e40af">
-    ℹ️ Для підключення до Notion у реальному часі потрібно налаштувати Cloudflare Worker.<br>
-    <small>Зараз показані демо-дані. Інструкція в файлі worker.js</small>
-  </div>`;
+  document.getElementById('error').innerHTML = '<div class="info">ℹ️ Не вдалося підключитися до Notion. Показані демо-дані.</div>';
   loadDemo();
 }
 
 function loadDemo() {
   allTasks = [
     {id:1,name:'Soft Sich профілі',team:['Альона'],status:'Перевірка',start:'2026-03-29',end:null,clients:['Soft Sich'],priority:'Medium',tags:[]},
-    {id:2,name:'CastDev клієнтів',team:['Таня'],status:'in process',start:null,end:null,clients:['Cognicoo'],priority:'',tags:[]},
-    {id:3,name:'Gallup Analytics Notion',team:['Альона'],status:'in process',start:'2026-03-26',end:null,clients:['Cognicoo'],priority:'',tags:[]},
-    {id:4,name:'Gantt chart',team:['Альона'],status:'in process',start:null,end:null,clients:['Cognicoo'],priority:'',tags:[]},
-    {id:5,name:'Стратегування івентів',team:['Таня','Альона'],status:'in process',start:null,end:null,clients:['Cognicoo'],priority:'',tags:[]},
-    {id:6,name:'Аналіз клієнтів',team:['Андрій'],status:'Backlog',start:null,end:null,clients:['Cognicoo'],priority:'',tags:[]},
-    {id:7,name:'Контракт Салата',team:['Андрій'],status:'Перевірка',start:null,end:null,clients:['Salata'],priority:'',tags:[]},
-    {id:8,name:'Bloom Print update',team:['Альона'],status:'Підтверджено',start:'2026-02-26',end:null,clients:['Bloom Print'],priority:'Medium',tags:['promo']},
+    {id:2,name:'CastDev клієнтів',team:['Таня'],status:'in process',start:'2026-02-01',end:null,clients:['Cognicoo'],priority:'',tags:[]},
+    {id:3,name:'Gallup Analytics',team:['Альона'],status:'in process',start:'2026-03-26',end:null,clients:['Cognicoo'],priority:'',tags:[]},
   ];
-  document.getElementById('subtitle').textContent = 'Демо-дані (Notion не підключений)';
+  document.getElementById('subtitle').textContent = 'Демо-дані';
   render();
 }
 
 // ─── HELPERS ───
-function taskMonth(t) {
-  if (t.start) return new Date(t.start).getMonth();
-  return null;
-}
-function taskYear(t) {
-  if (t.start) return new Date(t.start).getFullYear();
-  return currentYear;
-}
-function taskWeek(t) {
-  if (!t.start) return 0;
-  const d = new Date(t.start);
-  return Math.min(3, Math.floor((d.getDate() - 1) / 7));
-}
+function parseDate(s) { return s ? new Date(s) : null; }
+function monthKey(y, m) { return y * 12 + m; }
+function activeTasks() { return allTasks.filter(t => filterTeam.size === 0 || t.team.some(m => filterTeam.has(m))); }
 
-function activeTasks() {
-  return allTasks.filter(t => filterTeam.size === 0 || t.team.some(m => filterTeam.has(m)));
-}
-
-function tasksByMemberMonth(member, monthIdx, yr) {
-  return activeTasks().filter(t => {
-    if (!t.team.includes(member)) return false;
-    const m = taskMonth(t);
-    const y = taskYear(t);
-    if (m === null) return monthIdx === currentMonth && y === yr; // undated → current month
-    return m === monthIdx && y === yr;
+// Build projects by grouping tasks by client
+function buildProjects() {
+  const map = {};
+  activeTasks().forEach(t => {
+    const cList = t.clients && t.clients.length ? t.clients : ['Інше'];
+    cList.forEach(c => {
+      if (!map[c]) map[c] = { name: c, tasks: [], team: new Set(), dates: [], statuses: new Set() };
+      map[c].tasks.push(t);
+      t.team.forEach(m => map[c].team.add(m));
+      if (t.start) map[c].dates.push(new Date(t.start));
+      if (t.end) map[c].dates.push(new Date(t.end));
+      map[c].statuses.add(t.status);
+    });
   });
+  // Compute start/end for each project
+  return Object.values(map).map(p => {
+    p.team = [...p.team];
+    if (p.dates.length) {
+      p.dates.sort((a,b) => a-b);
+      p.startDate = p.dates[0];
+      p.endDate = p.dates[p.dates.length - 1];
+      // Extend end by at least 1 month for visibility
+      const ext = new Date(p.endDate);
+      ext.setMonth(ext.getMonth() + 1);
+      p.endDate = ext;
+    } else {
+      // No dates — put in current month
+      p.startDate = new Date(CUR_YEAR, CUR_MONTH, 1);
+      p.endDate = new Date(CUR_YEAR, CUR_MONTH + 2, 1);
+    }
+    // Active?
+    p.active = p.tasks.some(t => ['in process', 'Перевірка', 'Backlog'].includes(t.status));
+    // Primary member
+    const counts = {};
+    p.tasks.forEach(t => t.team.forEach(m => { counts[m] = (counts[m]||0) + 1; }));
+    p.primaryMember = Object.entries(counts).sort((a,b) => b[1]-a[1])[0]?.[0] || '';
+    return p;
+  }).sort((a,b) => a.startDate - b.startDate);
 }
 
-function colorForStatus(s) { return STATUS_CLR[s] || '#94a3b8'; }
-function uaStatus(s) { return STATUS_UA[s] || s; }
-
-// ─── VIEW SWITCHING ───
-function setView(v) {
-  view = v;
-  document.querySelectorAll('.tab').forEach(b => b.classList.toggle('on', b.textContent.includes(
-    v === 'month' ? 'Місяць' : v === 'quarter' ? 'Квартал' : 'Рік'
-  )));
-  render();
+// Get visible months range
+function getMonthRange() {
+  if (view === 'half') {
+    const s = monthKey(CUR_YEAR, CUR_MONTH) - 2;
+    return { start: s, count: 6 };
+  } else if (view === 'year') {
+    // From 3 months ago to 9 months ahead
+    const s = monthKey(CUR_YEAR, CUR_MONTH) - 3;
+    return { start: s, count: 13 };
+  } else {
+    // All — find min/max from projects
+    const projects = buildProjects();
+    let minM = monthKey(CUR_YEAR, CUR_MONTH) - 3;
+    let maxM = monthKey(CUR_YEAR, CUR_MONTH) + 9;
+    projects.forEach(p => {
+      const sm = monthKey(p.startDate.getFullYear(), p.startDate.getMonth());
+      const em = monthKey(p.endDate.getFullYear(), p.endDate.getMonth());
+      if (sm < minM) minM = sm;
+      if (em > maxM) maxM = em;
+    });
+    return { start: minM - 1, count: maxM - minM + 3 };
+  }
 }
 
-// ─── MAIN RENDER ───
+function monthLabel(mk) {
+  const y = Math.floor(mk / 12);
+  const m = mk % 12;
+  return MONTHS_UA[m] + ' ' + y;
+}
+
+// ─── RENDER ───
 function render() {
   renderTeamCards();
   renderIndicators();
   renderPipeline();
   renderFilters();
-  renderTable();
-  renderGantt();
+  renderTimeline();
   renderLegend();
+}
+
+function setView(v) {
+  view = v;
+  document.querySelectorAll('.tab').forEach(b => {
+    b.classList.toggle('on', (v==='half' && b.textContent==='6 міс') || (v==='year' && b.textContent==='Рік') || (v==='all' && b.textContent==='Все'));
+  });
+  render();
 }
 
 // ─── TEAM CARDS ───
 function renderTeamCards() {
-  const el = document.getElementById('teamCards');
   let h = '';
   TEAM.forEach(m => {
     if (!filterTeam.has(m)) return;
-    const tasks = activeTasks().filter(t => t.team.includes(m));
+    const tasks = allTasks.filter(t => t.team.includes(m));
     const active = tasks.filter(t => t.status === 'in process' || t.status === 'Перевірка');
     const done = tasks.filter(t => t.status === 'Done all' || t.status === 'Підтверджено');
     const pct = tasks.length ? Math.round(done.length / tasks.length * 100) : 0;
-    // Current month load
-    const mTasks = tasksByMemberMonth(m, currentMonth, currentYear);
     h += `<div class="tcard">
       <div class="tcard-name"><span class="tcard-dot" style="background:${TCOLOR[m]}"></span>${m}</div>
-      <div class="tcard-stat">${active.length} активних · ${mTasks.length} цей місяць</div>
-      <div class="tcard-bar"><div class="tcard-fill" style="width:${pct}%;background:${TBAR[m]}"></div></div>
+      <div class="tcard-stat">${active.length} активних · ${tasks.length} всього</div>
+      <div class="tcard-bar"><div class="tcard-fill" style="width:${pct}%;background:${TBAR_DARK[m]}"></div></div>
       <div class="tcard-stat">${pct}% виконано (${done.length}/${tasks.length})</div>
     </div>`;
   });
-  el.innerHTML = h;
+  document.getElementById('teamCards').innerHTML = h;
 }
 
-// ─── INDICATORS ───
 function renderIndicators() {
-  const tasks = activeTasks();
-  const active = tasks.filter(t => t.status === 'in process').length;
-  const review = tasks.filter(t => t.status === 'Перевірка').length;
-  const done = tasks.filter(t => t.status === 'Done all' || t.status === 'Підтверджено').length;
-  const clients = new Set(tasks.flatMap(t => t.clients)).size;
+  const t = activeTasks();
+  const active = t.filter(x => x.status === 'in process').length;
+  const review = t.filter(x => x.status === 'Перевірка').length;
+  const done = t.filter(x => x.status === 'Done all' || x.status === 'Підтверджено').length;
+  const clients = new Set(t.flatMap(x => x.clients)).size;
   document.getElementById('indicators').innerHTML = `
-    <div class="ind"><div class="ind-l">Всього задач</div><div class="ind-v">${tasks.length}</div></div>
+    <div class="ind"><div class="ind-l">Всього</div><div class="ind-v">${t.length}</div></div>
     <div class="ind"><div class="ind-l">В роботі</div><div class="ind-v" style="color:#6366f1">${active}</div></div>
-    <div class="ind"><div class="ind-l">На перевірці</div><div class="ind-v" style="color:#f59e0b">${review}</div></div>
+    <div class="ind"><div class="ind-l">Перевірка</div><div class="ind-v" style="color:#f59e0b">${review}</div></div>
     <div class="ind"><div class="ind-l">Виконано</div><div class="ind-v" style="color:#22c55e">${done}</div></div>
-    <div class="ind"><div class="ind-l">Клієнтів</div><div class="ind-v">${clients}</div></div>
-  `;
+    <div class="ind"><div class="ind-l">Клієнтів</div><div class="ind-v">${clients}</div></div>`;
 }
 
-// ─── PIPELINE ───
 function renderPipeline() {
-  const tasks = activeTasks();
-  const total = tasks.length || 1;
+  const t = activeTasks();
+  const total = t.length || 1;
   let h = '<div class="pipe">';
   STATUS_ORDER.forEach(s => {
-    const cnt = tasks.filter(t => t.status === s).length;
-    const pct = Math.max(cnt / total * 100, 4);
-    h += `<div class="pipe-seg" style="flex:${pct};background:${STATUS_CLR[s]}" title="${uaStatus(s)}: ${cnt}"><span>${uaStatus(s)} ${cnt}</span></div>`;
+    const cnt = t.filter(x => x.status === s).length;
+    if (cnt === 0) return;
+    const pct = Math.max(cnt / total * 100, 5);
+    h += `<div class="pipe-seg" style="flex:${pct};background:${STATUS_CLR[s]}"><span>${STATUS_UA[s]} ${cnt}</span></div>`;
   });
   h += '</div>';
   document.getElementById('pipeline').innerHTML = h;
 }
 
-// ─── FILTERS ───
 function renderFilters() {
   let h = '';
   TEAM.forEach(m => {
     const on = filterTeam.has(m);
-    h += `<button class="fchip ${on ? 'on' : 'off'}" style="${on ? 'background:' + TCOLOR[m] : ''}" onclick="toggleFilter('${m}')">${m}</button>`;
+    h += `<button class="fchip ${on?'on':'off'}" style="${on?'background:'+TCOLOR[m]:''}" onclick="toggleFilter('${m}')">${m}</button>`;
   });
-  h += `<button class="fchip ${filterTeam.size === TEAM.length ? 'on' : 'off'}" style="${filterTeam.size === TEAM.length ? 'background:#64748b' : ''}" onclick="toggleAll()">Всі</button>`;
+  h += `<button class="fchip ${filterTeam.size===TEAM.length?'on':'off'}" style="${filterTeam.size===TEAM.length?'background:#64748b':''}" onclick="toggleAll()">Всі</button>`;
   document.getElementById('filters').innerHTML = h;
 }
 
@@ -329,201 +338,173 @@ function toggleAll() {
   render();
 }
 
-// ─── TABLE ───
-function renderTable() {
-  const wrap = document.getElementById('tableWrap');
-  let months, labels;
-  if (view === 'month') {
-    // Show 3 months around current
-    const start = Math.max(0, currentMonth - 1);
-    const end = Math.min(11, currentMonth + 1);
-    months = []; labels = [];
-    for (let i = start; i <= end; i++) { months.push(i); labels.push(MONTHS_UA[i]); }
-  } else if (view === 'quarter') {
-    const qStart = Math.floor(currentMonth / 3) * 3;
-    months = [qStart, qStart+1, qStart+2].filter(i => i < 12);
-    labels = months.map(i => MONTHS_UA[i]);
-  } else {
-    months = [...Array(12)].map((_,i) => i);
-    labels = MONTHS_UA.slice();
+// ─── TIMELINE ───
+function renderTimeline() {
+  const projects = buildProjects();
+  const range = getMonthRange();
+  const { start: startMK, count: mCount } = range;
+  const curMK = monthKey(CUR_YEAR, CUR_MONTH);
+
+  // Group projects by primary team member
+  const groups = {};
+  TEAM.forEach(m => { if (filterTeam.has(m)) groups[m] = []; });
+  projects.forEach(p => {
+    const m = p.primaryMember;
+    if (groups[m]) groups[m].push(p);
+    else {
+      // Assign to first team member in filter
+      const fallback = p.team.find(t => filterTeam.has(t)) || TEAM.find(t => filterTeam.has(t));
+      if (fallback && groups[fallback]) groups[fallback].push(p);
+    }
+  });
+
+  // Calculate today position
+  const todayMK = curMK + (NOW.getDate() - 1) / 30;
+  const todayPct = ((todayMK - startMK) / mCount) * 100;
+
+  let h = '<div class="timeline" style="position:relative">';
+
+  // Month header
+  h += '<div class="tl-header"><div class="tl-label-col">Проєкт / Клієнт</div><div class="tl-months">';
+  for (let i = 0; i < mCount; i++) {
+    const mk = startMK + i;
+    const isCur = mk === curMK;
+    h += `<div class="tl-month${isCur ? ' cur' : ''}" onclick="showMonthDetail(${mk % 12}, ${Math.floor(mk/12)})">${monthLabel(mk)}</div>`;
   }
-
-  let h = '<table><tr><th></th>';
-  months.forEach((mi, idx) => {
-    const isCur = mi === currentMonth;
-    h += `<th class="${isCur ? 'cur' : ''}" onclick="showMonthDetail(${mi})">${labels[idx]}</th>`;
-  });
-  h += '</tr>';
-
-  TEAM.forEach(m => {
-    if (!filterTeam.has(m)) return;
-    h += `<tr><td><span class="dot" style="background:${TCOLOR[m]}"></span>${m}</td>`;
-    months.forEach(mi => {
-      const tasks = tasksByMemberMonth(m, mi, currentYear);
-      const cnt = tasks.length;
-      const load = Math.min(cnt, MAX_DAYS);
-      const pct = load / MAX_DAYS;
-      let bg = '#f1f5f9', color = '#94a3b8';
-      if (cnt > 0) {
-        const alpha = Math.min(0.15 + pct * 0.6, 0.75);
-        bg = TBAR[m] + Math.round(alpha * 255).toString(16).padStart(2,'0');
-        color = pct > 0.6 ? '#0f172a' : '#334155';
-      }
-      h += `<td style="background:${bg};color:${color}" onclick="showMonthDetail(${mi})" onmouseenter="showCellTip(event,'${m}',${mi})" onmouseleave="hideTip()">${cnt || '·'}</td>`;
-    });
-    h += '</tr>';
-  });
-  h += '</table>';
-  wrap.innerHTML = h;
-}
-
-// ─── GANTT ───
-function renderGantt() {
-  const el = document.getElementById('gantt');
-  let months;
-  if (view === 'month') {
-    const s = Math.max(0, currentMonth - 1);
-    months = [];
-    for (let i = s; i <= Math.min(11, currentMonth + 1); i++) months.push(i);
-  } else if (view === 'quarter') {
-    const q = Math.floor(currentMonth / 3) * 3;
-    months = [q, q+1, q+2].filter(i => i < 12);
-  } else {
-    months = [...Array(12)].map((_, i) => i);
-  }
-
-  const totalMonths = months.length;
-  const startMonth = months[0];
-
-  // Header
-  let h = '<div class="gantt-row"><div class="gantt-lbl" style="color:#94a3b8;font-size:10px">Задача</div><div class="gantt-track" style="background:none;display:flex">';
-  months.forEach((mi, i) => {
-    const isCur = mi === currentMonth;
-    h += `<div style="flex:1;text-align:center;font-size:10px;font-weight:${isCur ? 700 : 500};color:${isCur ? '#6366f1' : '#94a3b8'};border-right:${i < totalMonths - 1 ? '1px solid #e2e8f0' : 'none'};padding:2px 0">${MONTHS_UA[mi]}</div>`;
-  });
   h += '</div></div>';
 
-  // Rows
-  const tasks = activeTasks().filter(t => t.status !== 'Done all');
-  const shown = tasks.slice(0, 30); // limit for performance
+  // Team sections
+  TEAM.forEach(member => {
+    if (!groups[member] || !filterTeam.has(member)) return;
+    const memberProjects = groups[member];
 
-  shown.forEach(t => {
-    const mi = taskMonth(t);
-    const monthPos = mi !== null ? mi : currentMonth;
-    const teamClr = t.team.length ? (TBAR[t.team[0]] || '#94a3b8') : '#94a3b8';
+    h += `<div class="tl-section">`;
+    h += `<div class="tl-section-hdr"><span class="tl-section-dot" style="background:${TCOLOR[member]}"></span>${member} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${memberProjects.length} проєктів)</span></div>`;
 
-    // Bar position
-    const relPos = monthPos - startMonth;
-    if (relPos < 0 || relPos >= totalMonths) return;
-    const left = (relPos / totalMonths) * 100;
-    const width = Math.max(1 / totalMonths * 100, 3);
+    memberProjects.forEach(p => {
+      const pStartMK = monthKey(p.startDate.getFullYear(), p.startDate.getMonth()) + (p.startDate.getDate()-1)/30;
+      const pEndMK = monthKey(p.endDate.getFullYear(), p.endDate.getMonth()) + (p.endDate.getDate()-1)/30;
 
-    const label = t.name.length > 30 ? t.name.slice(0, 28) + '…' : t.name;
-    const memberLabel = t.team.join(', ') || '—';
+      const leftPct = Math.max(0, ((pStartMK - startMK) / mCount) * 100);
+      const rightPct = Math.min(100, ((pEndMK - startMK) / mCount) * 100);
+      const widthPct = Math.max(rightPct - leftPct, 2);
 
-    h += `<div class="gantt-row">
-      <div class="gantt-lbl" title="${memberLabel}">${memberLabel}</div>
-      <div class="gantt-track">
-        <div class="gantt-bar" style="left:${left}%;width:${width}%;background:${teamClr}"
-             onmouseenter="showTaskTip(event,${JSON.stringify(t).replace(/"/g, '&quot;')})" onmouseleave="hideTip()"
-             title="${t.name}">${label}</div>
-      </div>
-    </div>`;
+      const barColor = p.active ? TBAR[member] : TBAR[member] + '88';
+      const taskInfo = JSON.stringify({name:p.name,team:p.team,tasks:p.tasks.length,active:p.tasks.filter(t=>['in process','Перевірка'].includes(t.status)).length,status:[...p.statuses]}).replace(/"/g,'&quot;');
+
+      h += `<div class="tl-row">
+        <div class="tl-row-label" title="${p.name}">${p.name}</div>
+        <div class="tl-row-track">`;
+
+      // Grid lines
+      for (let i = 0; i < mCount; i++) {
+        h += `<div class="tl-row-cell"></div>`;
+      }
+
+      // Bar
+      h += `<div class="tl-bar" style="left:${leftPct}%;width:${widthPct}%;background:${barColor}"
+                 onmouseenter="showProjectTip(event, this)" onmouseleave="hideTip()"
+                 data-info="${taskInfo}">${p.name}</div>`;
+
+      h += '</div></div>';
+    });
+
+    // If no projects
+    if (memberProjects.length === 0) {
+      h += '<div class="tl-row"><div class="tl-row-label" style="color:#94a3b8">Немає проєктів</div><div class="tl-row-track">';
+      for (let i = 0; i < mCount; i++) h += '<div class="tl-row-cell"></div>';
+      h += '</div></div>';
+    }
+
+    h += '</div>';
   });
 
-  if (tasks.length > 30) {
-    h += `<div style="text-align:center;font-size:11px;color:#94a3b8;padding:8px">... ще ${tasks.length - 30} задач</div>`;
+  // Today marker
+  if (todayPct > 0 && todayPct < 100) {
+    const leftOffset = 180; // label column width
+    h += `<div class="tl-today" style="left:calc(180px + ${todayPct}% * (100% - 180px) / 100%)"></div>`;
   }
 
-  el.innerHTML = h;
+  h += '</div>';
+
+  // Fix today line position with JS after render
+  document.getElementById('timelineWrap').innerHTML = h;
+
+  // Position today line correctly
+  requestAnimationFrame(() => {
+    const timeline = document.querySelector('.timeline');
+    const track = document.querySelector('.tl-row-track');
+    const label = document.querySelector('.tl-label-col');
+    if (timeline && track && label) {
+      const labelW = label.offsetWidth;
+      const trackW = track.offsetWidth;
+      const todayX = labelW + (todayPct / 100) * trackW;
+      const todayEl = document.querySelector('.tl-today');
+      if (todayEl) {
+        todayEl.style.left = todayX + 'px';
+      }
+    }
+  });
 }
 
 // ─── MONTH DETAIL ───
-function showMonthDetail(mi) {
+function showMonthDetail(mi, yr) {
   const el = document.getElementById('detail');
   el.classList.add('open');
-
-  let h = `<div class="det-hdr"><div class="det-title">📅 ${MONTHS_FULL[mi]} ${currentYear}</div><button class="det-close" onclick="hideDetail()">✕</button></div>`;
+  let h = `<div class="det-hdr"><div class="det-title">📅 ${MONTHS_FULL[mi]} ${yr}</div><button class="det-close" onclick="hideDetail()">✕</button></div>`;
   h += '<div class="det-grid">';
 
   TEAM.forEach(m => {
     if (!filterTeam.has(m)) return;
-    const tasks = tasksByMemberMonth(m, mi, currentYear);
+    const tasks = allTasks.filter(t => {
+      if (!t.team.includes(m)) return false;
+      if (!t.start) return mi === CUR_MONTH && yr === CUR_YEAR;
+      const d = new Date(t.start);
+      return d.getMonth() === mi && d.getFullYear() === yr;
+    });
 
-    h += `<div class="det-person">
-      <div class="det-pname"><span class="dot" style="background:${TCOLOR[m]}"></span>${m} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${tasks.length} задач)</span></div>`;
-
-    if (tasks.length === 0) {
+    h += `<div class="det-person"><div class="det-pname"><span class="dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${TCOLOR[m]}"></span>${m} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${tasks.length})</span></div>`;
+    if (!tasks.length) {
       h += '<div style="color:#94a3b8;font-size:12px;padding:8px 0">Вільний</div>';
     } else {
       tasks.forEach(t => {
-        const clr = colorForStatus(t.status);
-        h += `<div class="det-task">
-          <span>${t.name.length > 40 ? t.name.slice(0,38)+'…' : t.name}</span>
-          <span class="det-badge" style="background:${clr}22;color:${clr}">${uaStatus(t.status)}</span>
-        </div>`;
+        const clr = STATUS_CLR[t.status] || '#94a3b8';
+        h += `<div class="det-task"><span>${t.name.length>40?t.name.slice(0,38)+'…':t.name}</span><span class="det-badge" style="background:${clr}22;color:${clr}">${STATUS_UA[t.status]||t.status}</span></div>`;
       });
     }
-
-    // Weekly breakdown
+    // Weeks
     h += '<div class="weeks">';
     for (let w = 0; w < 4; w++) {
-      const wTasks = tasks.filter(t => taskWeek(t) === w);
+      const wTasks = tasks.filter(t => { if (!t.start) return w===0; return Math.min(3, Math.floor((new Date(t.start).getDate()-1)/7)) === w; });
       h += `<div class="week"><div class="week-lbl">Тиж ${w+1}</div><div class="week-v">${wTasks.length}</div></div>`;
     }
-    h += '</div>';
-
-    h += '</div>';
+    h += '</div></div>';
   });
-
   h += '</div>';
   el.innerHTML = h;
   el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-function hideDetail() {
-  document.getElementById('detail').classList.remove('open');
-}
+function hideDetail() { document.getElementById('detail').classList.remove('open'); }
 
 // ─── LEGEND ───
 function renderLegend() {
   let h = '';
-  TEAM.forEach(m => {
-    h += `<div class="li"><div class="lb" style="background:${TBAR[m]}"></div>${m}</div>`;
-  });
-  h += '<span style="margin-left:12px">|</span>';
-  STATUS_ORDER.forEach(s => {
-    h += `<div class="li"><div class="lb" style="background:${STATUS_CLR[s]}"></div>${uaStatus(s)}</div>`;
-  });
+  TEAM.forEach(m => { h += `<div class="li"><div class="lb" style="background:${TBAR[m]}"></div>${m}</div>`; });
+  h += '<span style="margin:0 8px;color:#cbd5e1">|</span>';
+  STATUS_ORDER.forEach(s => { h += `<div class="li"><div class="lb" style="background:${STATUS_CLR[s]}"></div>${STATUS_UA[s]}</div>`; });
   document.getElementById('legend').innerHTML = h;
 }
 
 // ─── TOOLTIPS ───
-function showCellTip(e, member, mi) {
-  const tasks = tasksByMemberMonth(member, mi, currentYear);
+function showProjectTip(e, el) {
+  const info = JSON.parse(el.dataset.info);
   const tip = document.getElementById('tip');
-  let h = `<b>${member} — ${MONTHS_FULL[mi]}</b><br>${tasks.length} задач`;
-  if (tasks.length > 0) {
-    h += '<br>' + tasks.slice(0, 5).map(t => `• ${t.name.slice(0, 30)}`).join('<br>');
-    if (tasks.length > 5) h += `<br>... ще ${tasks.length - 5}`;
-  }
-  tip.innerHTML = h;
+  tip.innerHTML = `<b>${info.name}</b><br>👥 ${info.team.join(', ')}<br>📋 ${info.tasks} задач (${info.active} активних)<br>📊 ${info.status.map(s => STATUS_UA[s]||s).join(', ')}`;
   tip.style.display = 'block';
-  positionTip(e);
-}
-
-function showTaskTip(e, t) {
-  const tip = document.getElementById('tip');
-  tip.innerHTML = `<b>${t.name}</b><br>👥 ${t.team.join(', ') || '—'}<br>📊 ${uaStatus(t.status)}<br>🏢 ${t.clients.join(', ') || '—'}${t.start ? '<br>📅 ' + t.start : ''}${t.priority ? '<br>⚡ ' + t.priority : ''}`;
-  tip.style.display = 'block';
-  positionTip(e);
-}
-
-function positionTip(e) {
-  const tip = document.getElementById('tip');
-  let x = e.clientX + 12, y = e.clientY + 12;
-  if (x + 260 > window.innerWidth) x = e.clientX - 270;
-  if (y + 150 > window.innerHeight) y = e.clientY - 160;
+  let x = e.clientX + 14, y = e.clientY + 14;
+  if (x + 280 > window.innerWidth) x = e.clientX - 290;
+  if (y + 120 > window.innerHeight) y = e.clientY - 130;
   tip.style.left = x + 'px';
   tip.style.top = y + 'px';
 }
@@ -531,7 +512,7 @@ function positionTip(e) {
 function hideTip() { document.getElementById('tip').style.display = 'none'; }
 
 // ─── AUTO-REFRESH ───
-setInterval(() => { loadData(); }, 5 * 60 * 1000); // Refresh every 5 min
+setInterval(loadData, 5 * 60 * 1000);
 
 // ─── INIT ───
 loadData();
