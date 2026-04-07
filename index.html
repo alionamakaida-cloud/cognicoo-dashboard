@@ -199,6 +199,9 @@ const M=["Січ","Лют","Бер","Кві","Тра","Чер","Лип","Сер"
 const MF=["Січень","Лютий","Березень","Квітень","Травень","Червень","Липень","Серпень","Вересень","Жовтень","Листопад","Грудень"];
 const TM=["Андрій","Таня","Альона"];
 const TC={"Андрій":"#6366f1","Таня":"#f59e0b","Альона":"#10b981"};
+// Pastel bar colors per team member (like the original screenshot)
+const TBar={"Андрій":"#7c8cf8","Таня":"#6ee7b7","Альона":"#f9a8d4"};
+const TBarBg={"Андрій":"#4f46e5","Таня":"#059669","Альона":"#db2777"};
 const CS=["Проєкт","Ретрит","Подкаст","Вебінар","Клієнт","Задача"];
 const CC={"Проєкт":"#818cf8","Ретрит":"#f472b6","Подкаст":"#34d399","Вебінар":"#fbbf24","Клієнт":"#fb923c","Задача":"#94a3b8"};
 const CB={"Проєкт":"#312e81","Ретрит":"#831843","Подкаст":"#064e3b","Вебінар":"#78350f","Клієнт":"#7c2d12","Задача":"#1e293b"};
@@ -324,11 +327,11 @@ function render(){
       const memberItems=fd.filter(it=>it.team.includes(t));
       if(!memberItems.length)return;
       ghtml+=`<div class="gantt-group"><div class="gantt-group-title"><span class="dot" style="width:8px;height:8px;background:${TC[t]}"></span> ${t} <span style="font-weight:400;color:#64748b;text-transform:none;letter-spacing:0">(${memberItems.length})</span></div>`;
-      memberItems.forEach(it=>{ghtml+=ganttRow(it)});
+      memberItems.forEach(it=>{ghtml+=ganttRow(it,t)});
       ghtml+='</div>';
     });
   } else {
-    fd.forEach(it=>{ghtml+=ganttRow(it)});
+    fd.forEach(it=>{ghtml+=ganttRow(it,null)});
   }
 
   // Today line
@@ -408,7 +411,7 @@ function render(){
   }).join("");
 }
 
-function ganttRow(it){
+function ganttRow(it,forMember){
   const ms=it.months;
   // Find contiguous segments
   const segs=[];
@@ -419,13 +422,17 @@ function ganttRow(it){
   }
   segs.push([start,prev]);
 
-  let row=`<div class="gantt-row"><div class="gantt-label"><span class="dot" style="background:${CBar[it.cat]};width:7px;height:7px;flex-shrink:0"></span><span>${it.name}</span></div><div class="gantt-bars">`;
+  // Use team member color when grouped, category color otherwise
+  const barColor=forMember?TBar[forMember]:CBar[it.cat];
+  const dotColor=forMember?TBar[forMember]:CBar[it.cat];
+
+  let row=`<div class="gantt-row"><div class="gantt-label"><span class="dot" style="background:${dotColor};width:7px;height:7px;flex-shrink:0"></span><span>${it.name}</span></div><div class="gantt-bars">`;
 
   segs.forEach(([s,e])=>{
     const left=(s/12*100).toFixed(2);
     const width=((e-s+1)/12*100).toFixed(2);
-    const opacity=0.5+it.effort*0.1;
-    row+=`<div class="gantt-bar" data-id="${it.id}" style="left:${left}%;width:${width}%;background:${CBar[it.cat]};opacity:${opacity}">`;
+    const opacity=0.55+it.effort*0.09;
+    row+=`<div class="gantt-bar" data-id="${it.id}" style="left:${left}%;width:${width}%;background:${barColor};opacity:${opacity}">`;
     if(e-s>=2)row+=`<span class="bar-text">${it.name}</span>`;
     row+=`</div>`;
   });
