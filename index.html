@@ -9,18 +9,18 @@
 ::-webkit-scrollbar{height:6px;width:6px}
 ::-webkit-scrollbar-track{background:#1e293b;border-radius:4px}
 ::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}
-body{font-family:system-ui,-apple-system,sans-serif;background:#0f172a;color:#e2e8f0;padding:20px;user-select:none}
-h1{font-size:20px;font-weight:700;letter-spacing:-.3px}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#0f172a;color:#e2e8f0;padding:24px;user-select:none}
+h1{font-size:22px;font-weight:700;letter-spacing:-.4px}
 h2{font-size:14px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .badge{font-size:10px;background:#334155;color:#94a3b8;padding:2px 8px;border-radius:10px;font-weight:500}
-.sub{color:#64748b;font-size:12px;margin-bottom:14px}
-.card{background:#1e293b;border-radius:14px;padding:16px;margin-bottom:14px;transition:box-shadow .2s}
+.sub{color:#64748b;font-size:12px;margin-bottom:16px}
+.card{background:#1e293b;border-radius:16px;padding:18px;margin-bottom:16px;transition:box-shadow .2s}
 .card:hover{box-shadow:0 0 0 1px #334155}
-.row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
-.ind{background:#1e293b;border-radius:12px;padding:14px 16px;flex:1 1 160px;cursor:default;transition:transform .15s}
-.ind:hover{transform:translateY(-2px)}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.ind{background:#1e293b;border-radius:14px;padding:16px 18px;flex:1 1 160px;cursor:default;transition:transform .15s,box-shadow .15s}
+.ind:hover{transform:translateY(-2px);box-shadow:0 4px 12px #0004}
 .ind-l{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px}
-.ind-v{font-size:17px;font-weight:700;margin-top:3px}
+.ind-v{font-size:20px;font-weight:700;margin-top:4px}
 .btn{border:none;border-radius:10px;padding:10px 18px;cursor:pointer;font-size:13px;font-weight:600;color:#fff;transition:all .15s;touch-action:manipulation}
 .btn:active{transform:scale(.97)}
 .btn-p{background:#6366f1}.btn-p:hover{background:#818cf8}
@@ -38,6 +38,7 @@ td{text-align:center;padding:10px 4px;font-size:13px;font-weight:700;border-radi
 td:hover:not(:first-child){transform:scale(1.08)}
 td:first-child{text-align:left;font-size:13px;padding:6px 6px;font-weight:600}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+/* Old grid gantt */
 .gg{display:grid;grid-template-columns:200px repeat(12,1fr);gap:3px;align-items:center}
 .gh{font-size:11px;color:#64748b;text-align:center;padding:6px 0}
 .gn{display:flex;align-items:center;gap:6px;font-size:12px;padding:8px 6px;overflow:hidden;border-radius:8px;transition:background .15s}
@@ -48,13 +49,13 @@ td:first-child{text-align:left;font-size:13px;padding:6px 6px;font-weight:600}
 .gd{width:8px;height:8px;border-radius:50%;display:inline-block;margin:0 2px}
 .eb{background:none;border:none;color:#64748b;cursor:pointer;font-size:13px;padding:4px;flex-shrink:0;border-radius:6px;transition:all .15s;touch-action:manipulation}
 .eb:hover{background:#334155;color:#e2e8f0}
-.leg{display:flex;gap:10px;margin-top:10px;font-size:11px;color:#64748b;flex-wrap:wrap}
+.leg{display:flex;gap:12px;margin-top:12px;font-size:11px;color:#64748b;flex-wrap:wrap}
 .li{display:flex;align-items:center;gap:5px}
 .lb{width:16px;height:16px;border-radius:5px}
-.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.sc{background:#1e293b;border-radius:14px;padding:16px;transition:transform .15s}
-.sc:hover{transform:translateY(-2px)}
-.sn{font-size:15px;font-weight:700;margin-bottom:6px}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.sc{background:#1e293b;border-radius:16px;padding:18px;transition:transform .15s,box-shadow .15s}
+.sc:hover{transform:translateY(-2px);box-shadow:0 4px 16px #0004}
+.sn{font-size:16px;font-weight:700;margin-bottom:8px}
 .si{font-size:12px;color:#94a3b8;line-height:1.9}
 .mb{display:flex;gap:2px;margin-top:8px}
 .mbi{flex:1;border-radius:3px;transition:height .3s}
@@ -67,13 +68,62 @@ td:first-child{text-align:left;font-size:13px;padding:6px 6px;font-weight:600}
 .efb{width:36px;text-align:center;padding:8px 0}
 .hidden{display:none}
 .hi{margin-top:8px;font-size:13px;color:#94a3b8;min-height:22px}
-.top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:8px}
 .gt{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px}
-.tabs{display:flex;gap:2px;background:#0f172a;border-radius:12px;padding:3px;margin-bottom:14px}
+.tabs{display:flex;gap:2px;background:#0f172a;border-radius:12px;padding:3px;margin-bottom:16px}
 .tab{flex:1;text-align:center;padding:10px 8px;border:none;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;background:transparent;color:#64748b;transition:all .15s;touch-action:manipulation}
 .tab.active{background:#1e293b;color:#e2e8f0;box-shadow:0 2px 8px #0003}
 .tab:hover:not(.active){color:#94a3b8}
-@media(max-width:700px){.fg{grid-template-columns:1fr}.gg{grid-template-columns:140px repeat(12,1fr)}.sg{grid-template-columns:1fr}}
+
+/* === GANTT TIMELINE === */
+.gantt-wrap{position:relative;overflow-x:auto;padding-bottom:8px}
+.gantt-tl{position:relative;min-width:900px}
+.gantt-header{display:flex;border-bottom:1px solid #334155;margin-left:180px}
+.gantt-mh{flex:1;text-align:center;font-size:11px;color:#64748b;padding:8px 0;position:relative}
+.gantt-mh.current{color:#f59e0b;font-weight:700}
+.gantt-group{margin-top:4px}
+.gantt-group-title{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;padding:12px 0 4px 0;border-bottom:1px solid #1e293b}
+.gantt-row{display:flex;align-items:center;min-height:38px;position:relative}
+.gantt-row:hover{background:#1e293b80;border-radius:8px}
+.gantt-label{width:180px;flex-shrink:0;font-size:12px;font-weight:600;padding:6px 8px;display:flex;align-items:center;gap:6px;overflow:hidden}
+.gantt-label span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gantt-bars{flex:1;position:relative;height:30px}
+.gantt-bar{position:absolute;height:22px;top:4px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;cursor:pointer;transition:transform .12s,box-shadow .12s;overflow:hidden;white-space:nowrap;padding:0 6px}
+.gantt-bar:hover{transform:scaleY(1.15);box-shadow:0 2px 8px #0004;z-index:10}
+.gantt-bar .bar-text{opacity:.85;font-size:9px;letter-spacing:.3px}
+.gantt-today{position:absolute;top:0;bottom:0;width:2px;background:#f59e0b;z-index:5;pointer-events:none}
+.gantt-today::before{content:"Сьогодні";position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:#f59e0b;font-weight:700;white-space:nowrap}
+.gantt-cat-leg{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap;font-size:11px;color:#94a3b8}
+.gantt-cat-leg .cli{display:flex;align-items:center;gap:5px;cursor:pointer;transition:opacity .15s}
+.gantt-cat-leg .cli:hover{opacity:.8}
+.gantt-cat-leg .clb{width:14px;height:14px;border-radius:4px}
+
+/* Tooltip */
+.tooltip{position:fixed;background:#1e293b;border:1px solid #475569;border-radius:10px;padding:12px 14px;font-size:12px;color:#e2e8f0;pointer-events:none;z-index:100;box-shadow:0 8px 24px #0006;max-width:260px;opacity:0;transition:opacity .15s}
+.tooltip.show{opacity:1}
+.tooltip .tt-name{font-weight:700;font-size:13px;margin-bottom:4px}
+.tooltip .tt-cat{font-size:10px;padding:2px 6px;border-radius:8px;color:#fff;display:inline-block;margin-bottom:6px}
+.tooltip .tt-row{display:flex;align-items:center;gap:4px;margin-top:2px;color:#94a3b8}
+
+/* Team member filter pills on timeline */
+.team-filters{display:flex;gap:6px;flex-wrap:wrap}
+.tf-pill{border:none;border-radius:20px;padding:6px 12px;cursor:pointer;font-size:11px;font-weight:600;transition:all .15s;touch-action:manipulation}
+.tf-pill:active{transform:scale(.95)}
+.tf-pill-off{background:#334155;color:#64748b}
+.tf-pill-off:hover{background:#3f4f6b;color:#94a3b8}
+
+/* Progress ring for team cards */
+.ring-wrap{width:56px;height:56px;flex-shrink:0}
+.ring-bg{fill:none;stroke:#0f172a;stroke-width:6}
+.ring-fg{fill:none;stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .6s ease}
+
+@media(max-width:700px){
+  .fg{grid-template-columns:1fr}
+  .gg{grid-template-columns:140px repeat(12,1fr)}
+  .sg{grid-template-columns:1fr}
+  .gantt-header{margin-left:120px}
+  .gantt-label{width:120px}
+}
 </style>
 </head>
 <body>
@@ -126,9 +176,13 @@ td:first-child{text-align:left;font-size:13px;padding:6px 6px;font-weight:600}
   <div class="card">
     <div class="gt">
       <h2 style="margin:0">Таймлайн <span class="badge" id="countBadge"></span></h2>
-      <div class="fb" id="fbar"></div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <div class="fb" id="fbar"></div>
+        <div class="team-filters" id="tfbar"></div>
+      </div>
     </div>
-    <div style="overflow-x:auto" id="gantt"></div>
+    <div id="ganttView"></div>
+    <div class="gantt-cat-leg" id="ganttLeg"></div>
   </div>
 </div>
 
@@ -136,6 +190,9 @@ td:first-child{text-align:left;font-size:13px;padding:6px 6px;font-weight:600}
 <div id="panel2" class="hidden">
   <div class="sg" id="stats"></div>
 </div>
+
+<!-- Tooltip -->
+<div class="tooltip" id="tip"></div>
 
 <script>
 const M=["Січ","Лют","Бер","Кві","Тра","Чер","Лип","Сер","Вер","Жов","Лис","Гру"];
@@ -145,6 +202,8 @@ const TC={"Андрій":"#6366f1","Таня":"#f59e0b","Альона":"#10b981"
 const CS=["Проєкт","Ретрит","Подкаст","Вебінар","Клієнт","Задача"];
 const CC={"Проєкт":"#818cf8","Ретрит":"#f472b6","Подкаст":"#34d399","Вебінар":"#fbbf24","Клієнт":"#fb923c","Задача":"#94a3b8"};
 const CB={"Проєкт":"#312e81","Ретрит":"#831843","Подкаст":"#064e3b","Вебінар":"#78350f","Клієнт":"#7c2d12","Задача":"#1e293b"};
+// Brighter bar colors for the gantt
+const CBar={"Проєкт":"#6366f1","Ретрит":"#ec4899","Подкаст":"#10b981","Вебінар":"#f59e0b","Клієнт":"#f97316","Задача":"#64748b"};
 
 let items=[
   {id:1,name:"Soft Sich",cat:"Проєкт",team:["Андрій","Таня","Альона"],months:[0,1,2,3,4,5,6,7,8,9,10,11],effort:5},
@@ -166,15 +225,43 @@ let items=[
   {id:17,name:"Odyssey",cat:"Клієнт",team:["Андрій","Таня"],months:[0,1,2,3,4,5,6,7,8,9,10,11],effort:1},
   {id:18,name:"Empat",cat:"Клієнт",team:["Андрій","Таня"],months:[0,1,2,3,4,5,6,7,8,9,10,11],effort:1},
 ];
-let nid=19,fil="all",eid=null,tab=0;
+let nid=19,fil="all",tfil="all",eid=null,tab=0;
 let fCat="Проєкт",fTeam=[],fMon=[],fEf=2;
 
 const ic=(v,mx)=>{if(!mx)return"#1e293b";const r=v/mx;return r<=.3?"#064e3b":r<=.5?"#166534":r<=.7?"#854d0e":r<=.85?"#9a3412":"#991b1b"};
 const ib=(v,mx)=>{if(!mx)return"#334155";const r=v/mx;return r<=.3?"#22c55e":r<=.5?"#4ade80":r<=.7?"#eab308":r<=.85?"#f97316":"#ef4444"};
 
+// Current month (0-indexed, April 2026 = 3)
+const NOW=new Date();
+const CUR_MONTH=NOW.getFullYear()===2026?NOW.getMonth():3;
+const CUR_DAY=NOW.getDate();
+const DAYS_IN_MONTH=[31,28,31,30,31,30,31,31,30,31,30,31];
+
 function hm(){const m={};TM.forEach(t=>{m[t]=Array(12).fill(0)});items.forEach(it=>{it.months.forEach(mi=>{it.team.forEach(t=>{if(m[t])m[t][mi]+=it.effort})})});return m}
 
 function switchTab(n){tab=n;for(let i=0;i<3;i++){document.getElementById("panel"+i).classList.toggle("hidden",i!==n);document.getElementById("tab"+i).classList.toggle("active",i===n)}render()}
+
+// Tooltip
+const tip=document.getElementById("tip");
+function showTip(e,it){
+  const months=it.months;
+  const from=MF[months[0]],to=MF[months[months.length-1]];
+  tip.innerHTML=`
+    <div class="tt-name">${it.name}</div>
+    <div class="tt-cat" style="background:${CBar[it.cat]}">${it.cat}</div>
+    <div class="tt-row"><span style="color:#e2e8f0">${from} — ${to}</span></div>
+    <div class="tt-row">Команда: ${it.team.map(t=>`<span class="dot" style="width:8px;height:8px;background:${TC[t]};margin:0 1px"></span>`).join("")} ${it.team.join(", ")}</div>
+    <div class="tt-row">Інтенсивність: ${"●".repeat(it.effort)}${"○".repeat(5-it.effort)} ${it.effort}/5</div>
+  `;
+  tip.classList.add("show");
+  const rect=tip.getBoundingClientRect();
+  let x=e.clientX+12,y=e.clientY-10;
+  if(x+rect.width>window.innerWidth)x=e.clientX-rect.width-12;
+  if(y+rect.height>window.innerHeight)y=e.clientY-rect.height-10;
+  tip.style.left=x+"px";tip.style.top=y+"px";
+}
+function hideTip(){tip.classList.remove("show")}
+document.addEventListener("mousemove",e=>{if(tip.classList.contains("show")){let x=e.clientX+12,y=e.clientY-10;const r=tip.getBoundingClientRect();if(x+r.width>window.innerWidth)x=e.clientX-r.width-12;if(y+r.height>window.innerHeight)y=e.clientY-r.height-10;tip.style.left=x+"px";tip.style.top=y+"px"}});
 
 function render(){
   const hmap=hm();let mx=1;Object.values(hmap).forEach(a=>a.forEach(v=>{if(v>mx)mx=v}));
@@ -190,13 +277,13 @@ function render(){
   ].map(i=>`<div class="ind" style="border-left:4px solid ${i.c}"><div class="ind-l">${i.l}</div><div class="ind-v">${i.v}</div></div>`).join("");
 
   // Heatmap
-  let ht=`<thead><tr><th></th>${M.map(m=>`<th>${m}</th>`).join("")}</tr></thead><tbody>`;
+  let ht=`<thead><tr><th></th>${M.map((m,i)=>`<th${i===CUR_MONTH?' style="color:#f59e0b;font-weight:700"':''}>${m}</th>`).join("")}</tr></thead><tbody>`;
   TM.forEach(t=>{
     ht+=`<tr><td><span class="dot" style="background:${TC[t]}"></span>${t}</td>`;
-    hmap[t].forEach((v,mi)=>{ht+=`<td style="background:${ic(v,mx)};border:2px solid ${ib(v,mx)}" onmouseenter="sh('${t}',${mi},${v})" onmouseleave="hh()">${v||"—"}</td>`});
+    hmap[t].forEach((v,mi)=>{ht+=`<td style="background:${ic(v,mx)};border:2px solid ${ib(v,mx)}${mi===CUR_MONTH?';box-shadow:inset 0 0 0 1px #f59e0b44':''}" onmouseenter="sh('${t}',${mi},${v})" onmouseleave="hh()">${v||"—"}</td>`});
     ht+=`</tr>`;
   });
-  ht+=`<tr><td style="font-size:11px;color:#64748b;font-weight:700">Σ</td>`;
+  ht+=`<tr><td style="font-size:11px;color:#64748b;font-weight:700">&Sigma;</td>`;
   tbm.forEach(v=>{ht+=`<td style="font-size:11px;color:#94a3b8;font-weight:700">${v}</td>`});
   ht+=`</tr></tbody>`;
   document.getElementById("htab").innerHTML=ht;
@@ -204,35 +291,153 @@ function render(){
     {l:"Вільно",c:"#064e3b",b:"#22c55e"},{l:"Помірно",c:"#166534",b:"#4ade80"},{l:"Норма",c:"#854d0e",b:"#eab308"},{l:"Багато",c:"#9a3412",b:"#f97316"},{l:"Макс",c:"#991b1b",b:"#ef4444"}
   ].map(x=>`<div class="li"><div class="lb" style="background:${x.c};border:2px solid ${x.b}"></div>${x.l}</div>`).join("");
 
-  // Gantt
-  const fd=fil==="all"?items:items.filter(it=>it.cat===fil);
+  // === GANTT TIMELINE ===
+  let fd=fil==="all"?[...items]:items.filter(it=>it.cat===fil);
+  if(tfil!=="all")fd=fd.filter(it=>it.team.includes(tfil));
   document.getElementById("countBadge").textContent=fd.length+" елементів";
+
+  // Category filters
   document.getElementById("fbar").innerHTML=
     `<button class="chip ${fil==="all"?"":"chip-off"}" style="${fil==="all"?"background:#475569;color:#fff":""}" onclick="sf('all')">Всі</button>`+
-    CS.map(c=>`<button class="chip ${fil===c?"":"chip-off"}" style="${fil===c?`background:${CC[c]};color:#fff`:""}" onclick="sf('${c}')">${c}</button>`).join("");
-  let g=`<div class="gg"><div></div>${M.map(m=>`<div class="gh">${m}</div>`).join("")}</div>`;
-  fd.forEach(it=>{
-    g+=`<div class="gg"><div class="gn"><span class="dot" style="background:${CC[it.cat]};width:8px;height:8px;flex-shrink:0"></span><span>${it.name}</span><button class="eb" onclick="startEdit(${it.id})">✎</button><button class="eb" onclick="delItem(${it.id})">✕</button></div>`;
-    for(let mi=0;mi<12;mi++){const a=it.months.includes(mi);
-      g+=`<div class="gc" style="background:${a?CB[it.cat]:"transparent"};border:${a?`1px solid ${CC[it.cat]}55`:"1px solid transparent"}">${a?it.team.map(t=>`<span class="gd" style="background:${TC[t]||"#94a3b8"}"></span>`).join(""):""}</div>`}
-    g+=`</div>`;
-  });
-  document.getElementById("gantt").innerHTML=g;
+    CS.map(c=>`<button class="chip ${fil===c?"":"chip-off"}" style="${fil===c?`background:${CBar[c]};color:#fff`:""}" onclick="sf('${c}')">${c}</button>`).join("");
 
-  // Stats
+  // Team filters
+  document.getElementById("tfbar").innerHTML=
+    `<button class="tf-pill ${tfil==="all"?"":"tf-pill-off"}" style="${tfil==="all"?"background:#475569;color:#fff":""}" onclick="stf('all')">Всі</button>`+
+    TM.map(t=>`<button class="tf-pill ${tfil===t?"":"tf-pill-off"}" style="${tfil===t?`background:${TC[t]};color:#fff`:""}" onclick="stf('${t}')">${t}</button>`).join("");
+
+  // Build gantt
+  const groupByTeam=tfil==="all";
+  let ghtml='<div class="gantt-wrap"><div class="gantt-tl">';
+
+  // Month headers
+  ghtml+='<div class="gantt-header">';
+  M.forEach((m,i)=>{ghtml+=`<div class="gantt-mh${i===CUR_MONTH?' current':''}">${m}</div>`});
+  ghtml+='</div>';
+
+  // Today line position: percentage through the year
+  const todayPct=((CUR_MONTH*DAYS_IN_MONTH[CUR_MONTH]+CUR_DAY)/365)*100;
+
+  if(groupByTeam){
+    // Group by team member
+    TM.forEach(t=>{
+      const memberItems=fd.filter(it=>it.team.includes(t));
+      if(!memberItems.length)return;
+      ghtml+=`<div class="gantt-group"><div class="gantt-group-title"><span class="dot" style="width:8px;height:8px;background:${TC[t]}"></span> ${t} <span style="font-weight:400;color:#64748b;text-transform:none;letter-spacing:0">(${memberItems.length})</span></div>`;
+      memberItems.forEach(it=>{ghtml+=ganttRow(it)});
+      ghtml+='</div>';
+    });
+  } else {
+    fd.forEach(it=>{ghtml+=ganttRow(it)});
+  }
+
+  // Today line
+  ghtml+=`<div class="gantt-today" style="left:calc(180px + ${todayPct}% * (100% - 180px) / 100)"></div>`;
+  ghtml+='</div></div>';
+  document.getElementById("ganttView").innerHTML=ghtml;
+
+  // Position today line correctly after render
+  requestAnimationFrame(()=>{
+    const tl=document.querySelector(".gantt-tl");
+    if(!tl)return;
+    const line=tl.querySelector(".gantt-today");
+    if(!line)return;
+    const headerEl=tl.querySelector(".gantt-header");
+    if(!headerEl)return;
+    const headerRect=headerEl.getBoundingClientRect();
+    const tlRect=tl.getBoundingClientRect();
+    const headerLeft=headerRect.left-tlRect.left;
+    const headerWidth=headerRect.width;
+    const monthWidth=headerWidth/12;
+    const dayInMonth=CUR_DAY/DAYS_IN_MONTH[CUR_MONTH];
+    const xPos=headerLeft+(CUR_MONTH+dayInMonth)*monthWidth;
+    line.style.left=xPos+"px";
+  });
+
+  // Attach tooltip events
+  document.querySelectorAll(".gantt-bar").forEach(bar=>{
+    const id=parseInt(bar.dataset.id);
+    const it=items.find(x=>x.id===id);
+    if(!it)return;
+    bar.addEventListener("mouseenter",e=>showTip(e,it));
+    bar.addEventListener("mouseleave",hideTip);
+    bar.addEventListener("click",()=>{hideTip();startEdit(id)});
+  });
+
+  // Gantt legend
+  document.getElementById("ganttLeg").innerHTML=CS.map(c=>{
+    const count=fd.filter(it=>it.cat===c).length;
+    if(!count)return"";
+    return `<div class="cli" onclick="sf('${c}')"><div class="clb" style="background:${CBar[c]}"></div>${c} (${count})</div>`;
+  }).join("");
+
+  // Stats (team cards)
   document.getElementById("stats").innerHTML=TM.map(t=>{
-    const tot=hmap[t].reduce((a,b)=>a+b,0);const pk=Math.max(...hmap[t]);const pkm=M[hmap[t].indexOf(pk)];
+    const tot=hmap[t].reduce((a,b)=>a+b,0);
+    const pk=Math.max(...hmap[t]);
+    const pkm=M[hmap[t].indexOf(pk)];
     const mi=items.filter(it=>it.team.includes(t)).length;
-    const bars=hmap[t].map((v,i)=>`<div class="mbi" style="height:${Math.max(4,v/mx*40)}px;background:${ib(v,mx)}" title="${M[i]}: ${v}"></div>`).join("");
+    const maxPossible=mx*12;
+    const pct=Math.round(tot/maxPossible*100);
+    const circ=2*Math.PI*23;
+    const offset=circ-(pct/100)*circ;
+
+    const bars=hmap[t].map((v,i)=>`<div class="mbi" style="height:${Math.max(4,v/mx*48)}px;background:${ib(v,mx)}${i===CUR_MONTH?';outline:2px solid #f59e0b;outline-offset:-1px':''}" title="${M[i]}: ${v}"></div>`).join("");
     const myItems=items.filter(it=>it.team.includes(t));
-    const itemList=myItems.map(it=>`<div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid #0f172a"><span class="dot" style="background:${CC[it.cat]};width:6px;height:6px"></span><span style="font-size:11px;flex:1">${it.name}</span><span style="font-size:10px;color:#64748b">${it.effort}/5</span></div>`).join("");
-    return `<div class="sc" style="border-top:3px solid ${TC[t]}"><div class="sn">${t}</div><div class="si">Проєктів: ${mi} · Навантаження: ${tot} · Пік: ${pkm} (${pk})<div class="mb" style="align-items:flex-end;height:40px">${bars}</div></div><div style="margin-top:10px;max-height:200px;overflow-y:auto">${itemList}</div></div>`;
+    const itemList=myItems.map(it=>`<div style="display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:1px solid #0f172a"><span class="dot" style="background:${CBar[it.cat]};width:6px;height:6px"></span><span style="font-size:11px;flex:1">${it.name}</span><span style="font-size:10px;color:#64748b">${"●".repeat(it.effort)}${"○".repeat(5-it.effort)}</span></div>`).join("");
+
+    return `<div class="sc" style="border-top:3px solid ${TC[t]}">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div class="sn">${t}</div>
+        <div class="ring-wrap">
+          <svg viewBox="0 0 52 52" width="52" height="52">
+            <circle class="ring-bg" cx="26" cy="26" r="23"/>
+            <circle class="ring-fg" cx="26" cy="26" r="23" stroke="${TC[t]}" stroke-dasharray="${circ}" stroke-dashoffset="${offset}" transform="rotate(-90 26 26)"/>
+            <text x="26" y="28" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="700">${pct}%</text>
+          </svg>
+        </div>
+      </div>
+      <div class="si">
+        Проєктів: <strong style="color:#e2e8f0">${mi}</strong> &middot;
+        Навантаження: <strong style="color:#e2e8f0">${tot}</strong> &middot;
+        Пік: <strong style="color:#e2e8f0">${pkm}</strong> (${pk})
+        <div class="mb" style="align-items:flex-end;height:48px">${bars}</div>
+      </div>
+      <div style="margin-top:10px;max-height:220px;overflow-y:auto">${itemList}</div>
+    </div>`;
   }).join("");
 }
 
-function sh(t,mi,v){document.getElementById("hinfo").innerHTML=`${t} · ${MF[mi]} · <strong style="color:${ib(v,15)}">${v}</strong>`}
+function ganttRow(it){
+  const ms=it.months;
+  // Find contiguous segments
+  const segs=[];
+  let start=ms[0],prev=ms[0];
+  for(let i=1;i<ms.length;i++){
+    if(ms[i]===prev+1){prev=ms[i]}
+    else{segs.push([start,prev]);start=ms[i];prev=ms[i]}
+  }
+  segs.push([start,prev]);
+
+  let row=`<div class="gantt-row"><div class="gantt-label"><span class="dot" style="background:${CBar[it.cat]};width:7px;height:7px;flex-shrink:0"></span><span>${it.name}</span></div><div class="gantt-bars">`;
+
+  segs.forEach(([s,e])=>{
+    const left=(s/12*100).toFixed(2);
+    const width=((e-s+1)/12*100).toFixed(2);
+    const opacity=0.5+it.effort*0.1;
+    row+=`<div class="gantt-bar" data-id="${it.id}" style="left:${left}%;width:${width}%;background:${CBar[it.cat]};opacity:${opacity}">`;
+    if(e-s>=2)row+=`<span class="bar-text">${it.name}</span>`;
+    row+=`</div>`;
+  });
+
+  row+=`</div></div>`;
+  return row;
+}
+
+function sh(t,mi,v){document.getElementById("hinfo").innerHTML=`${t} &middot; ${MF[mi]} &middot; <strong style="color:${ib(v,15)}">${v}</strong> — `+items.filter(it=>it.team.includes(t)&&it.months.includes(mi)).map(it=>`<span style="color:${CBar[it.cat]}">${it.name}</span>`).join(", ")}
 function hh(){document.getElementById("hinfo").innerHTML=""}
 function sf(f){fil=f;render()}
+function stf(t){tfil=t;render()}
 
 function toggleForm(){
   const fc=document.getElementById("formCard"),b=document.getElementById("addBtn");
@@ -244,7 +449,7 @@ function renderF(){
   document.getElementById("formTitle").textContent=eid?"Редагувати":"Додати клієнта / задачу";
   document.getElementById("saveB").textContent=eid?"Зберегти":"Додати";
   document.getElementById("delB").classList.toggle("hidden",!eid);
-  document.getElementById("catC").innerHTML=CS.map(c=>`<button class="chip ${fCat===c?"":"chip-off"}" style="${fCat===c?`background:${CC[c]};color:#fff`:""}" onclick="sc('${c}')">${c}</button>`).join("");
+  document.getElementById("catC").innerHTML=CS.map(c=>`<button class="chip ${fCat===c?"":"chip-off"}" style="${fCat===c?`background:${CBar[c]};color:#fff`:""}" onclick="sc('${c}')">${c}</button>`).join("");
   document.getElementById("teamC").innerHTML=TM.map(t=>`<button class="chip ${fTeam.includes(t)?"":"chip-off"}" style="${fTeam.includes(t)?`background:${TC[t]};color:#fff`:""}" onclick="st('${t}')">${t}</button>`).join("");
   document.getElementById("monC").innerHTML=M.map((m,i)=>`<button class="chip mc ${fMon.includes(i)?"":"chip-off"}" style="${fMon.includes(i)?"background:#475569;color:#fff":""}" onclick="sm(${i})">${m}</button>`).join("");
   document.getElementById("efL").textContent=`Інтенсивність: ${fEf}/5`;
