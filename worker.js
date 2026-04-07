@@ -84,10 +84,12 @@ export default {
         // Status
         const st = ((pr['Status'] || {}).status || {}).name || '';
 
-        // Due date
+        // Due date (start) and End Date
         const dateObj = (pr['Due date'] || {}).date || null;
         const start = dateObj ? dateObj.start : null;
-        const end = dateObj ? dateObj.end : null;
+        // End Date: separate property OR range end from Due date
+        const endDateObj = (pr['End Date'] || {}).date || null;
+        const end = endDateObj ? endDateObj.start : (dateObj ? dateObj.end : null);
 
         // Client
         const clients = ((pr['Client'] || {}).multi_select || []).map(c => c.name);

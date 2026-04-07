@@ -188,33 +188,31 @@ function buildProjects() {
   activeTasks().forEach(t => {
     const cList = t.clients && t.clients.length ? t.clients : ['Інше'];
     cList.forEach(c => {
-      if (!map[c]) map[c] = { name: c, tasks: [], team: new Set(), dates: [], statuses: new Set() };
+      if (!map[c]) map[c] = { name: c, tasks: [], team: new Set(), startDates: [], endDates: [], statuses: new Set() };
       map[c].tasks.push(t);
       t.team.forEach(m => map[c].team.add(m));
-      if (t.start) map[c].dates.push(new Date(t.start));
-      if (t.end) map[c].dates.push(new Date(t.end));
+      if (t.start) map[c].startDates.push(new Date(t.start));
+      if (t.end) map[c].endDates.push(new Date(t.end));
+      else if (t.start) map[c].endDates.push(new Date(t.start)); // fallback
       map[c].statuses.add(t.status);
     });
   });
-  // Compute start/end for each project
   return Object.values(map).map(p => {
     p.team = [...p.team];
-    if (p.dates.length) {
-      p.dates.sort((a,b) => a-b);
-      p.startDate = p.dates[0];
-      p.endDate = p.dates[p.dates.length - 1];
-      // Extend end by at least 1 month for visibility
-      const ext = new Date(p.endDate);
-      ext.setMonth(ext.getMonth() + 1);
-      p.endDate = ext;
+    const allDates = [...p.startDates, ...p.endDates];
+    if (allDates.length) {
+      allDates.sort((a,b) => a-b);
+      p.startDate = p.startDates.length ? new Date(Math.min(...p.startDates)) : allDates[0];
+      p.endDate = p.endDates.length ? new Date(Math.max(...p.endDates)) : allDates[allDates.length-1];
+      // If start === end, extend by 2 weeks for visibility
+      if (p.endDate - p.startDate < 7*24*3600*1000) {
+        p.endDate = new Date(p.endDate.getTime() + 14*24*3600*1000);
+      }
     } else {
-      // No dates — put in current month
       p.startDate = new Date(CUR_YEAR, CUR_MONTH, 1);
-      p.endDate = new Date(CUR_YEAR, CUR_MONTH + 2, 1);
+      p.endDate = new Date(CUR_YEAR, CUR_MONTH + 1, 15);
     }
-    // Active?
     p.active = p.tasks.some(t => ['in process', 'Перевірка', 'Backlog'].includes(t.status));
-    // Primary member
     const counts = {};
     p.tasks.forEach(t => t.team.forEach(m => { counts[m] = (counts[m]||0) + 1; }));
     p.primaryMember = Object.entries(counts).sort((a,b) => b[1]-a[1])[0]?.[0] || '';
