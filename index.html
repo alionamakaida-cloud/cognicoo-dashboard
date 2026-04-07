@@ -21,6 +21,7 @@ h2{font-size:14px;font-weight:600;margin-bottom:8px;display:flex;align-items:cen
 .ind:hover{transform:translateY(-2px);box-shadow:0 4px 12px #0001}
 .ind-l{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px}
 .ind-v{font-size:20px;font-weight:700;margin-top:4px;color:#0f172a}
+.ind-s{font-size:11px;color:#64748b;margin-top:2px}
 .btn{border:none;border-radius:10px;padding:10px 18px;cursor:pointer;font-size:13px;font-weight:600;color:#fff;transition:all .15s;touch-action:manipulation}
 .btn:active{transform:scale(.97)}
 .btn-p{background:#6366f1}.btn-p:hover{background:#818cf8}
@@ -32,168 +33,146 @@ h2{font-size:14px;font-weight:600;margin-bottom:8px;display:flex;align-items:cen
 .chip-off{background:#f1f5f9;color:#94a3b8}
 .chip-off:hover{background:#e2e8f0;color:#64748b}
 table{border-collapse:separate;border-spacing:4px;width:100%}
-th{font-size:11px;color:#94a3b8;padding:4px 4px;text-align:center;min-width:44px}
-th:first-child{text-align:left;min-width:80px}
-td{text-align:center;padding:10px 4px;font-size:13px;font-weight:700;border-radius:8px;min-width:44px;cursor:default;transition:transform .12s}
+th{font-size:11px;color:#94a3b8;padding:4px 4px;text-align:center;min-width:44px;cursor:pointer;transition:color .15s}
+th:first-child{text-align:left;min-width:80px;cursor:default}
+th:hover:not(:first-child){color:#6366f1}
+td{text-align:center;padding:10px 4px;font-size:13px;font-weight:700;border-radius:8px;min-width:44px;cursor:pointer;transition:transform .12s}
 td:hover:not(:first-child){transform:scale(1.08)}
-td:first-child{text-align:left;font-size:13px;padding:6px 6px;font-weight:600;color:#334155}
+td:first-child{text-align:left;font-size:13px;padding:6px 6px;font-weight:600;color:#334155;cursor:default}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
 .eb{background:none;border:none;color:#94a3b8;cursor:pointer;font-size:13px;padding:4px;flex-shrink:0;border-radius:6px;transition:all .15s;touch-action:manipulation}
 .eb:hover{background:#f1f5f9;color:#475569}
 .leg{display:flex;gap:12px;margin-top:12px;font-size:11px;color:#94a3b8;flex-wrap:wrap}
 .li{display:flex;align-items:center;gap:5px}
 .lb{width:16px;height:16px;border-radius:5px}
-.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
 .sc{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:18px;transition:transform .15s,box-shadow .15s}
 .sc:hover{transform:translateY(-2px);box-shadow:0 4px 16px #0001}
 .sn{font-size:16px;font-weight:700;margin-bottom:8px;color:#0f172a}
 .si{font-size:12px;color:#64748b;line-height:1.9}
-.mb{display:flex;gap:2px;margin-top:8px}
-.mbi{flex:1;border-radius:3px;transition:height .3s}
-.fb{display:flex;gap:5px;flex-wrap:wrap}
-.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.fl{font-size:11px;color:#94a3b8;display:block;margin-bottom:5px}
-.fi{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;color:#1e293b;font-size:14px;width:100%;outline:none;transition:border-color .15s}
-.fi:focus{border-color:#6366f1}
-.mc{min-width:40px;text-align:center;padding:8px 10px}
-.efb{width:36px;text-align:center;padding:8px 0}
-.hidden{display:none}
-.hi{margin-top:8px;font-size:13px;color:#64748b;min-height:22px}
-.top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:8px}
-.gt{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px}
-.tabs{display:flex;gap:2px;background:#f1f5f9;border-radius:12px;padding:3px;margin-bottom:16px}
-.tab{flex:1;text-align:center;padding:10px 8px;border:none;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;background:transparent;color:#94a3b8;transition:all .15s;touch-action:manipulation}
-.tab.active{background:#fff;color:#1e293b;box-shadow:0 2px 8px #0001}
-.tab:hover:not(.active){color:#64748b}
-
-/* === GANTT TIMELINE === */
-.gantt-wrap{position:relative;overflow-x:auto;padding-bottom:8px}
-.gantt-tl{position:relative;min-width:900px}
-.gantt-header{display:flex;border-bottom:1px solid #e2e8f0;margin-left:180px}
-.gantt-mh{flex:1;text-align:center;font-size:11px;color:#94a3b8;padding:8px 0;position:relative}
-.gantt-mh.current{color:#dc2626;font-weight:700}
-.gantt-mh.past{color:#cbd5e1}
-.gantt-group{margin-top:4px}
-.gantt-group-title{font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.8px;padding:12px 0 4px 0;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;gap:8px}
-.gantt-group-avail{font-weight:500;text-transform:none;letter-spacing:0;font-size:10px;padding:2px 8px;border-radius:8px;margin-left:auto}
-.gantt-row{display:flex;align-items:center;min-height:38px;position:relative}
-.gantt-row:hover{background:#f8fafc;border-radius:8px}
-.gantt-label{width:180px;flex-shrink:0;font-size:12px;font-weight:600;padding:6px 8px;display:flex;align-items:center;gap:6px;overflow:hidden;color:#475569}
-.gantt-label span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.gantt-bars{flex:1;position:relative;height:30px}
-.gantt-bar{position:absolute;height:22px;top:4px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;cursor:pointer;transition:transform .12s,box-shadow .12s;overflow:hidden;white-space:nowrap;padding:0 6px}
-.gantt-bar:hover{transform:scaleY(1.2);box-shadow:0 2px 12px #0002;z-index:10}
-.gantt-bar.past-bar{opacity:.4}
-.gantt-bar .bar-text{opacity:.9;font-size:9px;letter-spacing:.3px}
-.gantt-today{position:absolute;top:0;bottom:0;width:2px;background:#dc2626;z-index:5;pointer-events:none}
-.gantt-today::before{content:"Сьогодні";position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:#dc2626;font-weight:700;white-space:nowrap}
-.gantt-cat-leg{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap;font-size:11px;color:#64748b}
-.gantt-cat-leg .cli{display:flex;align-items:center;gap:5px;cursor:pointer;transition:opacity .15s}
-.gantt-cat-leg .cli:hover{opacity:.7}
-.gantt-cat-leg .clb{width:14px;height:14px;border-radius:4px}
-
-/* Tooltip */
-.tooltip{position:fixed;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px 14px;font-size:12px;color:#1e293b;pointer-events:none;z-index:100;box-shadow:0 8px 24px #0001;max-width:260px;opacity:0;transition:opacity .15s}
-.tooltip.show{opacity:1}
-.tooltip .tt-name{font-weight:700;font-size:13px;margin-bottom:4px;color:#0f172a}
-.tooltip .tt-cat{font-size:10px;padding:2px 6px;border-radius:8px;color:#fff;display:inline-block;margin-bottom:6px}
-.tooltip .tt-row{display:flex;align-items:center;gap:4px;margin-top:2px;color:#64748b}
-
-/* Team member filter pills */
-.team-filters{display:flex;gap:6px;flex-wrap:wrap}
-.tf-pill{border:none;border-radius:20px;padding:6px 12px;cursor:pointer;font-size:11px;font-weight:600;transition:all .15s;touch-action:manipulation}
-.tf-pill:active{transform:scale(.95)}
-.tf-pill-off{background:#f1f5f9;color:#94a3b8}
-.tf-pill-off:hover{background:#e2e8f0;color:#64748b}
-
-/* Progress ring */
-.ring-wrap{width:56px;height:56px;flex-shrink:0}
-.ring-bg{fill:none;stroke:#f1f5f9;stroke-width:6}
-.ring-fg{fill:none;stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .6s ease}
-
-/* Availability badge */
-.avail-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 8px;border-radius:8px;margin-top:6px}
-.avail-busy{background:#fef2f2;color:#dc2626}
-.avail-soon{background:#fffbeb;color:#d97706}
-.avail-free{background:#f0fdf4;color:#16a34a}
-
-@media(max-width:700px){
-  .fg{grid-template-columns:1fr}
-  .sg{grid-template-columns:1fr}
-  .gantt-header{margin-left:120px}
-  .gantt-label{width:120px}
-}
+.tabs{display:flex;gap:4px;background:#f1f5f9;border-radius:12px;padding:4px;margin-bottom:20px}
+.tab{flex:1;text-align:center;padding:10px 16px;border-radius:10px;border:none;cursor:pointer;font-size:13px;font-weight:600;background:transparent;color:#64748b;transition:all .2s}
+.tab:hover{color:#334155}
+.tab.act{background:#fff;color:#1e293b;box-shadow:0 1px 4px #0001}
+.tooltip{position:fixed;background:#0f172a;color:#fff;padding:12px 16px;border-radius:12px;font-size:12px;line-height:1.6;pointer-events:none;opacity:0;transition:opacity .15s;z-index:999;max-width:320px;box-shadow:0 8px 24px #0003}
+.panel{display:none}.panel.vis{display:block}
+.form-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:20px;margin-bottom:16px;display:none}
+.form-card.vis{display:block}
+.form-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.form-row label{font-size:12px;font-weight:600;color:#64748b;min-width:100px}
+.form-row input[type=text],.form-row input[type=number]{border:1px solid #e2e8f0;border-radius:10px;padding:9px 14px;font-size:13px;outline:none;background:#fff;transition:border .2s;font-family:inherit;color:#1e293b}
+.form-row input:focus{border-color:#6366f1}
+.gantt-wrap{overflow-x:auto;padding-bottom:8px}
+.gantt-row{display:flex;align-items:center;gap:8px;margin-bottom:3px;min-height:28px}
+.gantt-label{width:140px;flex-shrink:0;font-size:12px;font-weight:600;color:#334155;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gantt-track{flex:1;height:22px;position:relative;border-radius:6px}
+.gantt-bar{position:absolute;height:100%;border-radius:6px;cursor:pointer;transition:opacity .15s,filter .15s;min-width:4px}
+.gantt-bar:hover{filter:brightness(1.1)}
+.gantt-group{margin-bottom:14px}
+.gantt-group-hdr{font-size:13px;font-weight:700;color:#0f172a;padding:8px 0 4px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e2e8f0;margin-bottom:6px}
+.today-line{position:absolute;top:0;bottom:0;width:2px;background:#ef4444;z-index:2;pointer-events:none}
+.today-label{position:absolute;top:-16px;font-size:9px;color:#ef4444;font-weight:700;white-space:nowrap;transform:translateX(-50%)}
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.fchip{border:none;border-radius:16px;padding:6px 12px;cursor:pointer;font-size:11px;font-weight:600;transition:all .15s}
+.fchip.off{background:#f1f5f9;color:#94a3b8}.fchip.off:hover{background:#e2e8f0;color:#64748b}
+.month-detail{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:20px;margin-top:12px;display:none;animation:slideDown .25s ease}
+.month-detail.vis{display:block}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.md-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.md-title{font-size:16px;font-weight:700;color:#0f172a}
+.md-close{background:none;border:none;font-size:20px;cursor:pointer;color:#94a3b8;padding:4px 8px;border-radius:8px;transition:all .15s}
+.md-close:hover{background:#f1f5f9;color:#475569}
+.md-person{margin-bottom:18px}
+.md-person-hdr{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.md-person-name{font-size:14px;font-weight:700}
+.md-person-stat{font-size:12px;color:#64748b}
+.md-bar-wrap{height:8px;background:#e2e8f0;border-radius:4px;flex:1;max-width:200px;overflow:hidden}
+.md-bar-fill{height:100%;border-radius:4px;transition:width .3s}
+.md-proj{font-size:12px;color:#475569;padding:3px 0 3px 20px;display:flex;justify-content:space-between;align-items:center}
+.md-proj-name{flex:1}
+.md-proj-days{font-weight:600;color:#334155;min-width:60px;text-align:right}
+.md-weekly{margin-top:16px;padding-top:14px;border-top:1px solid #e2e8f0}
+.md-weekly-title{font-size:12px;font-weight:700;color:#64748b;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+.md-week-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;font-size:12px;color:#475569}
+.md-week-label{min-width:110px;font-weight:600;color:#334155}
+.md-week-bars{display:flex;gap:6px;flex:1;align-items:center}
+.md-week-person{display:flex;align-items:center;gap:4px}
+.md-week-mini{height:6px;border-radius:3px;min-width:4px}
+.avail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.avail-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:16px}
+.avail-hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.avail-name{font-size:15px;font-weight:700;color:#0f172a}
+.avail-badge{font-size:10px;padding:3px 10px;border-radius:10px;font-weight:600}
+.avail-stat{font-size:12px;color:#475569;line-height:1.8}
+.avail-ending{margin-top:8px;padding-top:8px;border-top:1px solid #f1f5f9}
+.avail-ending-title{font-size:11px;font-weight:600;color:#94a3b8;margin-bottom:4px}
+.avail-ending-item{font-size:12px;color:#64748b;padding:2px 0}
+.ring-wrap{position:relative;width:80px;height:80px;flex-shrink:0}
+.ring-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:14px;font-weight:700;color:#0f172a}
+.team-mini-chart{display:flex;align-items:flex-end;gap:3px;height:50px;margin:10px 0}
+.team-mini-bar{flex:1;border-radius:3px 3px 0 0;min-width:6px;transition:height .3s}
+.days-slider-wrap{display:flex;align-items:center;gap:12px;flex:1}
+.days-slider{-webkit-appearance:none;appearance:none;flex:1;height:6px;background:#e2e8f0;border-radius:3px;outline:none}
+.days-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:#6366f1;border-radius:50%;cursor:pointer}
+.days-val{font-size:16px;font-weight:700;color:#6366f1;min-width:32px;text-align:center}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
 </style>
 </head>
 <body>
+<div style="max-width:1400px;margin:0 auto">
 
-<div class="top">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
   <div>
-    <h1>COGNICOO — Навантаження 2026</h1>
-    <p class="sub">Дашборд планування команди</p>
+    <h1>COGNICOO <span style="color:#94a3b8;font-weight:400;font-size:14px">Навантаження 2026</span></h1>
+    <div class="sub">Планування ресурсів команди -- днів на місяць (макс 22 робочих дні)</div>
   </div>
-  <button class="btn btn-p" id="addBtn" onclick="toggleForm()">+ Додати</button>
+  <button class="btn btn-p" onclick="toggleForm()">+ Додати</button>
 </div>
 
 <div class="tabs">
-  <button class="tab active" id="tab0" onclick="switchTab(0)">Огляд</button>
-  <button class="tab" id="tab1" onclick="switchTab(1)">Таймлайн</button>
-  <button class="tab" id="tab2" onclick="switchTab(2)">Команда</button>
+  <button class="tab act" onclick="switchTab(0)">Огляд</button>
+  <button class="tab" onclick="switchTab(1)">Таймлайн</button>
+  <button class="tab" onclick="switchTab(2)">Команда</button>
 </div>
 
-<!-- Form -->
-<div class="card hidden" id="formCard" style="border-left:4px solid #6366f1">
-  <h2 id="formTitle">Додати клієнта / задачу</h2>
-  <div class="fg">
-    <div><label class="fl">Назва</label><input class="fi" id="iName" placeholder="Назва проєкту / клієнта"></div>
-    <div><label class="fl">Категорія</label><div id="catC" class="fb"></div></div>
+<div class="form-card" id="formCard">
+  <h2 id="formTitle">Новий запис</h2>
+  <div class="form-row">
+    <label>Назва</label>
+    <input type="text" id="fName" placeholder="Назва проєкту" style="flex:1;max-width:300px">
   </div>
-  <div style="margin-bottom:12px"><label class="fl">Команда</label><div id="teamC" class="fb"></div></div>
-  <div style="margin-bottom:12px"><label class="fl">Місяці</label><div id="monC" class="fb"></div></div>
-  <div style="margin-bottom:14px"><label class="fl" id="efL">Інтенсивність: 2/5</label><div id="efC" class="fb"></div></div>
-  <div style="display:flex;gap:8px">
-    <button class="btn btn-save" id="saveB" onclick="saveItem()">Додати</button>
-    <button class="btn btn-s" onclick="toggleForm()">Скасувати</button>
-    <button class="btn btn-del hidden" id="delB" onclick="delFromForm()">Видалити</button>
+  <div class="form-row">
+    <label>Категорія</label>
+    <div id="fCats" style="display:flex;gap:6px;flex-wrap:wrap"></div>
   </div>
-</div>
-
-<!-- Tab 0: Overview -->
-<div id="panel0">
-  <div class="row" id="inds"></div>
-  <div class="card">
-    <h2>Навантаження команди <span class="badge">по місяцях</span></h2>
-    <div style="overflow-x:auto"><table id="htab"></table></div>
-    <div class="hi" id="hinfo"></div>
-    <div class="leg" id="hleg"></div>
+  <div class="form-row">
+    <label>Команда</label>
+    <div id="fTeam" style="display:flex;gap:6px;flex-wrap:wrap"></div>
   </div>
-  <!-- Availability summary -->
-  <div class="card" id="availCard">
-    <h2>Доступність команди <span class="badge">зараз</span></h2>
-    <div id="availSummary"></div>
+  <div class="form-row">
+    <label>Місяці</label>
+    <div id="fMonths" style="display:flex;gap:4px;flex-wrap:wrap"></div>
   </div>
-</div>
-
-<!-- Tab 1: Timeline -->
-<div id="panel1" class="hidden">
-  <div class="card">
-    <div class="gt">
-      <h2 style="margin:0">Таймлайн <span class="badge" id="countBadge"></span></h2>
-      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-        <div class="fb" id="fbar"></div>
-        <div class="team-filters" id="tfbar"></div>
-      </div>
+  <div class="form-row">
+    <label>Днів/міс</label>
+    <div class="days-slider-wrap">
+      <input type="range" class="days-slider" id="fDaysSlider" min="1" max="22" value="4" oninput="syncDays(this.value)">
+      <span class="days-val" id="fDaysVal">4</span>
+      <input type="number" id="fDays" min="1" max="22" value="4" style="width:60px;border:1px solid #e2e8f0;border-radius:8px;padding:6px 10px;font-size:13px;text-align:center;font-family:inherit" oninput="syncDaysNum(this.value)">
     </div>
-    <div id="ganttView"></div>
-    <div class="gantt-cat-leg" id="ganttLeg"></div>
+  </div>
+  <div style="display:flex;gap:8px;margin-top:8px">
+    <button class="btn btn-save" onclick="saveItem()">Зберегти</button>
+    <button class="btn btn-s" onclick="toggleForm()">Скасувати</button>
+    <button class="btn btn-del" id="btnDel" style="display:none;margin-left:auto" onclick="delItem()">Видалити</button>
   </div>
 </div>
 
-<!-- Tab 2: Team -->
-<div id="panel2" class="hidden">
-  <div class="sg" id="stats"></div>
-</div>
+<div class="panel vis" id="panel0"></div>
+<div class="panel" id="panel1"></div>
+<div class="panel" id="panel2"></div>
 
+</div>
 <div class="tooltip" id="tip"></div>
 
 <script>
@@ -201,364 +180,522 @@ const M=["Січ","Лют","Бер","Кві","Тра","Чер","Лип","Сер"
 const MF=["Січень","Лютий","Березень","Квітень","Травень","Червень","Липень","Серпень","Вересень","Жовтень","Листопад","Грудень"];
 const TM=["Андрій","Таня","Альона"];
 const TC={"Андрій":"#6366f1","Таня":"#f59e0b","Альона":"#10b981"};
-// Pastel bar colors per team member
 const TBar={"Андрій":"#93a3f8","Таня":"#6ee7b7","Альона":"#f9a8d4"};
-const TBarDark={"Андрій":"#6366f1","Таня":"#059669","Альона":"#ec4899"};
 const CS=["Проєкт","Ретрит","Подкаст","Вебінар","Клієнт","Задача"];
-const CC={"Проєкт":"#818cf8","Ретрит":"#f472b6","Подкаст":"#34d399","Вебінар":"#fbbf24","Клієнт":"#fb923c","Задача":"#94a3b8"};
-const CB={"Проєкт":"#312e81","Ретрит":"#831843","Подкаст":"#064e3b","Вебінар":"#78350f","Клієнт":"#7c2d12","Задача":"#1e293b"};
 const CBar={"Проєкт":"#6366f1","Ретрит":"#ec4899","Подкаст":"#10b981","Вебінар":"#f59e0b","Клієнт":"#f97316","Задача":"#64748b"};
-
-let items=[
-  {id:1,name:"Soft Sich",cat:"Проєкт",team:["Андрій","Таня","Альона"],months:[0,1,2,3,4,5,6,7,8,9,10,11],effort:5},
-  {id:2,name:"Bloom Print",cat:"Проєкт",team:["Альона","Андрій"],months:[0,1,2,3,4,5,6,7,8,9,10,11],effort:5},
-  {id:3,name:"VBET",cat:"Проєкт",team:["Андрій","Таня"],months:[2,3,4,5,6,7,8,9,10,11],effort:2},
-  {id:4,name:"GDC",cat:"Клієнт",team:["Альона"],months:[0,1,2,3],effort:2},
-  {id:5,name:"Lantec",cat:"Проєкт",team:["Андрій","Альона"],months:[0,1,2,3,4,5],effort:2},
-  {id:6,name:"Blagoda (Коробка)",cat:"Проєкт",team:["Таня","Альона"],months:[1,2,3,4,5,6],effort:2},
-  {id:7,name:"KIDDISVIT (Овчинніков)",cat:"Проєкт",team:["Андрій"],months:[2,3,4,5,6,7],effort:3},
-  {id:8,name:"Сергій Салата",cat:"Клієнт",team:["Андрій","Альона"],months:[0,1,2,3],effort:2},
-  {id:9,name:"Едуард Чудайкін",cat:"Клієнт",team:["Таня"],months:[1,2,3,4],effort:2},
-  {id:10,name:"Cognicoo Ops",cat:"Задача",team:["Андрій","Таня","Альона"],months:[0,1,2,3,4,5,6,7,8,9,10,11],effort:5},
-  {id:11,name:"Записи подкастів",cat:"Подкаст",team:["Андрій","Таня"],months:[0,1,2,3,4,5,6,7,8,9,10,11],effort:4},
-  {id:12,name:"Вебінар (березень)",cat:"Вебінар",team:["Андрій","Таня","Альона"],months:[2],effort:3},
-  {id:13,name:"Ретрит (травень)",cat:"Ретрит",team:["Андрій","Таня","Альона"],months:[3,4],effort:5},
-  {id:14,name:"Ретрит (осінь)",cat:"Ретрит",team:["Андрій","Таня"],months:[8,9],effort:1},
-  {id:15,name:"Gypsy",cat:"Клієнт",team:["Андрій","Таня"],months:[0,1,2,3,4,5,6,7,8,9,10,11],effort:1},
-  {id:16,name:"Miratech",cat:"Клієнт",team:["Андрій","Таня"],months:[0,1,2,3,4,5,6,7,8,9,10,11],effort:1},
-  {id:17,name:"Odyssey",cat:"Клієнт",team:["Андрій","Таня"],months:[0,1,2,3,4,5,6,7,8,9,10,11],effort:1},
-  {id:18,name:"Empat",cat:"Клієнт",team:["Андрій","Таня"],months:[0,1,2,3,4,5,6,7,8,9,10,11],effort:1},
-];
-let nid=19,fil="all",tfil="all",eid=null,tab=0;
-let fCat="Проєкт",fTeam=[],fMon=[],fEf=2;
-
-// Heatmap colors (light theme)
-const ic=(v,mx)=>{if(!mx||!v)return"#f8fafc";const r=v/mx;return r<=.3?"#dcfce7":r<=.5?"#bbf7d0":r<=.7?"#fef9c3":r<=.85?"#fed7aa":"#fecaca"};
-const ib=(v,mx)=>{if(!mx||!v)return"#e2e8f0";const r=v/mx;return r<=.3?"#22c55e":r<=.5?"#4ade80":r<=.7?"#eab308":r<=.85?"#f97316":"#ef4444"};
-
+const MAX_DAYS=22;
 const NOW=new Date();
 const CUR_MONTH=NOW.getFullYear()===2026?NOW.getMonth():3;
-const CUR_DAY=NOW.getDate();
-const DAYS_IN_MONTH=[31,28,31,30,31,30,31,31,30,31,30,31];
 
-function hm(){const m={};TM.forEach(t=>{m[t]=Array(12).fill(0)});items.forEach(it=>{it.months.forEach(mi=>{it.team.forEach(t=>{if(m[t])m[t][mi]+=it.effort})})});return m}
+let items=[
+  {id:1,name:"Soft Sich",cat:"Проєкт",team:["Андрій","Таня","Альона"],months:[0,1,2,3,4,5,6,7,8,9,10,11],days:10},
+  {id:2,name:"Bloom Print",cat:"Проєкт",team:["Альона","Андрій"],months:[0,1,2,3,4,5,6,7,8,9,10,11],days:10},
+  {id:3,name:"VBET",cat:"Проєкт",team:["Андрій","Таня"],months:[2,3,4,5,6,7,8,9,10,11],days:4},
+  {id:4,name:"GDC",cat:"Клієнт",team:["Альона"],months:[0,1,2,3],days:4},
+  {id:5,name:"Lantec",cat:"Проєкт",team:["Андрій","Альона"],months:[0,1,2,3,4,5],days:4},
+  {id:6,name:"Blagoda (Коробка)",cat:"Проєкт",team:["Таня","Альона"],months:[1,2,3,4,5,6],days:4},
+  {id:7,name:"KIDDISVIT (Овчинніков)",cat:"Проєкт",team:["Андрій"],months:[2,3,4,5,6,7],days:6},
+  {id:8,name:"Сергій Салата",cat:"Клієнт",team:["Андрій","Альона"],months:[0,1,2,3],days:4},
+  {id:9,name:"Едуард Чудайкін",cat:"Клієнт",team:["Таня"],months:[1,2,3,4],days:4},
+  {id:10,name:"Cognicoo Ops",cat:"Задача",team:["Андрій","Таня","Альона"],months:[0,1,2,3,4,5,6,7,8,9,10,11],days:10},
+  {id:11,name:"Записи подкастів",cat:"Подкаст",team:["Андрій","Таня"],months:[0,1,2,3,4,5,6,7,8,9,10,11],days:8},
+  {id:12,name:"Вебінар (березень)",cat:"Вебінар",team:["Андрій","Таня","Альона"],months:[2],days:6},
+  {id:13,name:"Ретрит (травень)",cat:"Ретрит",team:["Андрій","Таня","Альона"],months:[3,4],days:10},
+  {id:14,name:"Ретрит (осінь)",cat:"Ретрит",team:["Андрій","Таня"],months:[8,9],days:2},
+  {id:15,name:"Gypsy",cat:"Клієнт",team:["Андрій","Таня"],months:[0,1,2,3,4,5,6,7,8,9,10,11],days:2},
+  {id:16,name:"Miratech",cat:"Клієнт",team:["Андрій","Таня"],months:[0,1,2,3,4,5,6,7,8,9,10,11],days:2},
+  {id:17,name:"Odyssey",cat:"Клієнт",team:["Андрій","Таня"],months:[0,1,2,3,4,5,6,7,8,9,10,11],days:2},
+  {id:18,name:"Empat",cat:"Клієнт",team:["Андрій","Таня"],months:[0,1,2,3,4,5,6,7,8,9,10,11],days:2},
+];
 
-function switchTab(n){tab=n;for(let i=0;i<3;i++){document.getElementById("panel"+i).classList.toggle("hidden",i!==n);document.getElementById("tab"+i).classList.toggle("active",i===n)}render()}
+let nextId=19,editId=null,curTab=0,detailMonth=-1;
+let ganttFilterCat=null,ganttFilterTeam=null;
 
-// Get availability info for a team member
-function getAvail(t,hmap){
-  const curLoad=hmap[t][CUR_MONTH];
-  const mx=Math.max(...Object.values(hmap).flat());
-  const curRatio=mx?curLoad/mx:0;
-  // Find next month with lower load
-  let freeMonth=-1;
-  for(let i=CUR_MONTH+1;i<12;i++){
-    if(hmap[t][i]<curLoad){freeMonth=i;break}
-  }
-  // Items ending soon (within next 2 months)
-  const endingSoon=items.filter(it=>it.team.includes(t)&&it.months.length>0).filter(it=>{
-    const lastMonth=Math.max(...it.months);
-    return lastMonth>=CUR_MONTH&&lastMonth<=CUR_MONTH+2&&lastMonth<11;
+// Heatmap: days per person per month
+function hm(){
+  let map={};
+  TM.forEach(t=>{map[t]=new Array(12).fill(0)});
+  items.forEach(it=>{
+    it.team.forEach(t=>{
+      it.months.forEach(mi=>{map[t][mi]+=it.days});
+    });
   });
-  return {curLoad,curRatio,freeMonth,endingSoon};
+  return map;
+}
+
+function heatColor(v){
+  let r=v/MAX_DAYS;
+  if(r<=.3)return"#dcfce7";
+  if(r<=.5)return"#bbf7d0";
+  if(r<=.7)return"#fef9c3";
+  if(r<=.85)return"#fed7aa";
+  return"#fecaca";
+}
+
+function statusInfo(v){
+  let r=v/MAX_DAYS;
+  if(r>.85)return{label:"Завантажений",bg:"#fecaca",color:"#dc2626",emoji:"🔴"};
+  if(r>.5)return{label:"Помірно",bg:"#fef9c3",color:"#a16207",emoji:"🟠"};
+  return{label:"Є ресурс",bg:"#dcfce7",color:"#16a34a",emoji:"🟢"};
+}
+
+function getProjectsForPersonMonth(t,mi){
+  return items.filter(it=>it.team.includes(t)&&it.months.includes(mi));
+}
+
+function daysWord(n){
+  if(n===1)return"день";
+  if(n>=2&&n<=4)return"дні";
+  return"днів";
+}
+
+// Indicators
+function calcIndicators(map){
+  let allVals=[];
+  let peakVal=0,peakMonth=0,peakPerson="";
+  TM.forEach(t=>{
+    for(let mi=0;mi<12;mi++){
+      let v=map[t][mi];
+      allVals.push(v);
+      if(v>peakVal){peakVal=v;peakMonth=mi;peakPerson=t}
+    }
+  });
+  let avg=allVals.length?Math.round(allVals.reduce((a,b)=>a+b,0)/allVals.length):0;
+  // Most loaded month (sum across team)
+  let monthSums=new Array(12).fill(0);
+  TM.forEach(t=>{for(let mi=0;mi<12;mi++)monthSums[mi]+=map[t][mi]});
+  let peakMi=monthSums.indexOf(Math.max(...monthSums));
+  return{avg,peakMonthIdx:peakMi,peakMonthSum:monthSums[peakMi],peakPerson,peakPersonVal:peakVal,peakPersonMonth:peakMonth};
+}
+
+// Availability
+function getAvail(t,map){
+  let curDays=map[t][CUR_MONTH];
+  let free=Math.max(0,MAX_DAYS-curDays);
+  let pct=Math.round(curDays/MAX_DAYS*100);
+  let st=statusInfo(curDays);
+  let ending=[];
+  items.forEach(it=>{
+    if(!it.team.includes(t))return;
+    let maxM=Math.max(...it.months);
+    if(maxM>=CUR_MONTH&&maxM<=CUR_MONTH+2&&maxM<12){
+      ending.push({name:it.name,endMonth:MF[maxM]});
+    }
+  });
+  return{curDays,free,pct,st,ending,projects:getProjectsForPersonMonth(t,CUR_MONTH)};
 }
 
 // Tooltip
-const tip=document.getElementById("tip");
-function showTip(e,it){
-  const months=it.months;
-  const from=MF[months[0]],to=MF[months[months.length-1]];
-  const lastMonth=Math.max(...months);
-  const isPast=lastMonth<CUR_MONTH;
-  const endsThisMonth=lastMonth===CUR_MONTH;
-  let statusHtml='';
-  if(isPast)statusHtml='<div style="color:#94a3b8;font-size:10px;margin-top:4px">Завершено</div>';
-  else if(endsThisMonth)statusHtml='<div style="color:#f59e0b;font-size:10px;margin-top:4px">Завершується цього місяця</div>';
-  tip.innerHTML=`
-    <div class="tt-name">${it.name}</div>
-    <div class="tt-cat" style="background:${CBar[it.cat]}">${it.cat}</div>
-    <div class="tt-row"><span style="color:#1e293b">${from} — ${to}</span></div>
-    <div class="tt-row">Команда: ${it.team.map(t=>`<span class="dot" style="width:8px;height:8px;background:${TC[t]};margin:0 1px"></span>`).join("")} ${it.team.join(", ")}</div>
-    <div class="tt-row">Інтенсивність: ${"●".repeat(it.effort)}${"○".repeat(5-it.effort)} ${it.effort}/5</div>
-    ${statusHtml}
-  `;
-  tip.classList.add("show");
-  positionTip(e);
+function showTip(e,html){
+  let tip=document.getElementById('tip');
+  tip.innerHTML=html;
+  tip.style.opacity='1';
+  let x=e.clientX+12,y=e.clientY+12;
+  if(x+300>window.innerWidth)x=e.clientX-310;
+  if(y+200>window.innerHeight)y=e.clientY-210;
+  tip.style.left=x+'px';tip.style.top=y+'px';
 }
-function hideTip(){tip.classList.remove("show")}
-function positionTip(e){
-  const r=tip.getBoundingClientRect();
-  let x=e.clientX+12,y=e.clientY-10;
-  if(x+r.width>window.innerWidth)x=e.clientX-r.width-12;
-  if(y+r.height>window.innerHeight)y=e.clientY-r.height-10;
-  tip.style.left=x+"px";tip.style.top=y+"px";
-}
-document.addEventListener("mousemove",e=>{if(tip.classList.contains("show"))positionTip(e)});
+function hideTip(){document.getElementById('tip').style.opacity='0'}
 
-function render(){
-  const hmap=hm();let mx=1;Object.values(hmap).forEach(a=>a.forEach(v=>{if(v>mx)mx=v}));
-  const tbm=Array(12).fill(0);items.forEach(it=>it.months.forEach(mi=>{tbm[mi]+=it.effort*it.team.length}));
-  const yt=Object.values(hmap).reduce((s,a)=>s+a.reduce((x,y)=>x+y,0),0);
-  const ya=Math.round(yt/36);
-  let pm=0,pv=0;tbm.forEach((v,i)=>{if(v>pv){pv=v;pm=i}});
-  let bp="",bv=0;TM.forEach(t=>{const s=hmap[t].reduce((a,b)=>a+b,0);if(s>bv){bv=s;bp=t}});
+// Month detail
+function showMonthDetail(mi){
+  detailMonth=mi;
+  render();
+}
+function hideMonthDetail(){
+  detailMonth=-1;
+  render();
+}
+
+function renderMonthDetail(map){
+  if(detailMonth<0)return'';
+  let mi=detailMonth;
+  let h=`<div class="month-detail vis">`;
+  h+=`<div class="md-hdr"><div class="md-title">📅 ${MF[mi]} 2026</div><button class="md-close" onclick="hideMonthDetail()">&times;</button></div>`;
+
+  TM.forEach(t=>{
+    let total=map[t][mi];
+    let pct=Math.round(total/MAX_DAYS*100);
+    let st=statusInfo(total);
+    let barPct=Math.min(pct,200);
+    let projs=getProjectsForPersonMonth(t,mi);
+    h+=`<div class="md-person">`;
+    h+=`<div class="md-person-hdr">`;
+    h+=`<span class="dot" style="background:${TC[t]}"></span>`;
+    h+=`<span class="md-person-name" style="color:${TC[t]}">${t}</span>`;
+    h+=`<span class="md-person-stat">${total}/${MAX_DAYS} ${daysWord(total)} (${pct}%)</span>`;
+    h+=`<div class="md-bar-wrap"><div class="md-bar-fill" style="width:${Math.min(barPct,100)}%;background:${total>MAX_DAYS?'#ef4444':TC[t]}"></div></div>`;
+    h+=`<span>${st.emoji}</span>`;
+    h+=`</div>`;
+    projs.forEach(p=>{
+      h+=`<div class="md-proj"><span class="md-proj-name">${p.name}</span><span class="md-proj-days">${p.days} ${daysWord(p.days)}</span></div>`;
+    });
+    h+=`</div>`;
+  });
+
+  // Weekly breakdown
+  h+=`<div class="md-weekly">`;
+  h+=`<div class="md-weekly-title">Тижневий розклад (приблизний)</div>`;
+  let daysInMonth=[31,28,31,30,31,30,31,31,30,31,30,31];
+  let dim=daysInMonth[mi];
+  let weeks=[];
+  let d=1;
+  for(let w=0;w<4;w++){
+    let end=w<3?Math.min(d+6,dim):dim;
+    weeks.push({start:d,end:end,frac:(end-d+1)/dim});
+    d=end+1;
+  }
+  weeks.forEach((wk,wi)=>{
+    h+=`<div class="md-week-row">`;
+    h+=`<span class="md-week-label">Тиж ${wi+1} (${wk.start}-${wk.end})</span>`;
+    h+=`<div class="md-week-bars">`;
+    TM.forEach(t=>{
+      let total=map[t][mi];
+      let wDays=Math.round(total*wk.frac*10)/10;
+      let barW=Math.min(Math.round(wDays/5.5*60),120);
+      h+=`<div class="md-week-person">`;
+      h+=`<div class="md-week-mini" style="width:${Math.max(barW,4)}px;background:${TC[t]}"></div>`;
+      h+=`<span style="font-size:11px;color:${TC[t]};font-weight:600">${t.charAt(0)}:${wDays.toFixed(1)}д</span>`;
+      h+=`</div>`;
+    });
+    h+=`</div></div>`;
+  });
+  h+=`</div></div>`;
+  return h;
+}
+
+// TAB 0: Overview
+function renderOverview(){
+  let map=hm();
+  let ind=calcIndicators(map);
+  let h='';
 
   // Indicators
-  document.getElementById("inds").innerHTML=[
-    {l:"Середнє",v:ya,c:"#eab308"},{l:"Пік",v:`${MF[pm]}`,c:"#ef4444"},{l:"Макс навантаження",v:bp,c:"#f97316"}
-  ].map(i=>`<div class="ind" style="border-left:4px solid ${i.c}"><div class="ind-l">${i.l}</div><div class="ind-v">${i.v}</div></div>`).join("");
+  h+=`<div class="row">`;
+  h+=`<div class="ind"><div class="ind-l">Середнє днів/міс</div><div class="ind-v">${ind.avg}</div><div class="ind-s">на людину</div></div>`;
+  h+=`<div class="ind"><div class="ind-l">Пік місяць</div><div class="ind-v">${MF[ind.peakMonthIdx]}</div><div class="ind-s">${ind.peakMonthSum} ${daysWord(ind.peakMonthSum)} сумарно</div></div>`;
+  h+=`<div class="ind"><div class="ind-l">Макс навантаження</div><div class="ind-v">${ind.peakPerson}</div><div class="ind-s">${ind.peakPersonVal} ${daysWord(ind.peakPersonVal)} у ${M[ind.peakPersonMonth]}</div></div>`;
+  h+=`</div>`;
 
   // Heatmap
-  let ht=`<thead><tr><th></th>${M.map((m,i)=>`<th style="${i===CUR_MONTH?'color:#dc2626;font-weight:700':''}${i<CUR_MONTH?'color:#cbd5e1':''}">${m}</th>`).join("")}</tr></thead><tbody>`;
+  h+=`<div class="card"><h2>Теплокарта навантаження <span class="badge">днів / місяць</span></h2>`;
+  h+=`<div style="overflow-x:auto"><table><tr><th></th>`;
+  for(let mi=0;mi<12;mi++){
+    let cls=mi===CUR_MONTH?' style="color:#6366f1;font-weight:700"':'';
+    h+=`<th${cls} onclick="showMonthDetail(${mi})">${M[mi]}</th>`;
+  }
+  h+=`</tr>`;
+
   TM.forEach(t=>{
-    ht+=`<tr><td><span class="dot" style="background:${TC[t]}"></span>${t}</td>`;
-    hmap[t].forEach((v,mi)=>{
-      const isPast=mi<CUR_MONTH;
-      const isCur=mi===CUR_MONTH;
-      ht+=`<td style="background:${ic(v,mx)};border:2px solid ${ib(v,mx)};${isPast?'opacity:.5;':''}${isCur?'box-shadow:inset 0 0 0 2px #dc262644;':''}" onmouseenter="sh('${t}',${mi},${v})" onmouseleave="hh()">${v||"—"}</td>`;
-    });
-    ht+=`</tr>`;
+    h+=`<tr><td><span class="dot" style="background:${TC[t]}"></span>${t}</td>`;
+    for(let mi=0;mi<12;mi++){
+      let v=map[t][mi];
+      let bg=v?heatColor(v):'#f8fafc';
+      let fade=mi<CUR_MONTH?'opacity:.5;':'';
+      let cur=mi===CUR_MONTH?'box-shadow:inset 0 0 0 2px #ef4444;':'';
+      let projs=getProjectsForPersonMonth(t,mi).map(p=>p.name).join(', ');
+      h+=`<td style="background:${bg};${fade}${cur}" onclick="showMonthDetail(${mi})" onmouseenter="showTip(event,'<b>${t} -- ${MF[mi]}</b><br>${v} з ${MAX_DAYS} ${daysWord(v)} (${Math.round(v/MAX_DAYS*100)}%)<br><span style=color:#94a3b8>${projs||'--'}</span>')" onmouseleave="hideTip()">${v||''}</td>`;
+    }
+    h+=`</tr>`;
   });
-  ht+=`<tr><td style="font-size:11px;color:#94a3b8;font-weight:700">&Sigma;</td>`;
-  tbm.forEach(v=>{ht+=`<td style="font-size:11px;color:#94a3b8;font-weight:700">${v}</td>`});
-  ht+=`</tr></tbody>`;
-  document.getElementById("htab").innerHTML=ht;
-  document.getElementById("hleg").innerHTML=[
-    {l:"Вільно",c:"#dcfce7",b:"#22c55e"},{l:"Помірно",c:"#bbf7d0",b:"#4ade80"},{l:"Норма",c:"#fef9c3",b:"#eab308"},{l:"Багато",c:"#fed7aa",b:"#f97316"},{l:"Макс",c:"#fecaca",b:"#ef4444"}
-  ].map(x=>`<div class="li"><div class="lb" style="background:${x.c};border:2px solid ${x.b}"></div>${x.l}</div>`).join("");
 
-  // Availability summary
-  document.getElementById("availSummary").innerHTML=TM.map(t=>{
-    const av=getAvail(t,hmap);
-    let statusClass,statusText;
-    if(av.curRatio>.7){statusClass="avail-busy";statusText="Завантажений";}
-    else if(av.curRatio>.4){statusClass="avail-soon";statusText="Помірно";}
-    else{statusClass="avail-free";statusText="Є ресурс";}
+  // Sum row
+  h+=`<tr style="border-top:2px solid #e2e8f0"><td style="color:#94a3b8;font-weight:600">Σ</td>`;
+  for(let mi=0;mi<12;mi++){
+    let sum=TM.reduce((a,t)=>a+map[t][mi],0);
+    let fade=mi<CUR_MONTH?'opacity:.5;':'';
+    h+=`<td style="color:#94a3b8;font-size:11px;${fade}">${sum}</td>`;
+  }
+  h+=`</tr></table></div>`;
 
-    const endingHtml=av.endingSoon.length?
-      `<div style="margin-top:6px;font-size:11px;color:#64748b">Завершуються скоро: ${av.endingSoon.map(it=>`<span style="color:${CBar[it.cat]};font-weight:600">${it.name}</span> (до ${M[Math.max(...it.months)]})`).join(", ")}</div>`:'';
-    const freeHtml=av.freeMonth>=0?
-      `<div style="font-size:11px;color:#64748b;margin-top:2px">Менше навантаження з <strong style="color:#16a34a">${MF[av.freeMonth]}</strong></div>`:'';
+  // Legend
+  h+=`<div class="leg">`;
+  h+=`<div class="li"><div class="lb" style="background:#dcfce7"></div>≤30%</div>`;
+  h+=`<div class="li"><div class="lb" style="background:#bbf7d0"></div>≤50%</div>`;
+  h+=`<div class="li"><div class="lb" style="background:#fef9c3"></div>≤70%</div>`;
+  h+=`<div class="li"><div class="lb" style="background:#fed7aa"></div>≤85%</div>`;
+  h+=`<div class="li"><div class="lb" style="background:#fecaca"></div>&gt;85%</div>`;
+  h+=`</div></div>`;
 
-    return `<div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;${t!==TM[TM.length-1]?'border-bottom:1px solid #f1f5f9':''}">
-      <span class="dot" style="background:${TC[t]};margin-top:4px;flex-shrink:0"></span>
-      <div style="flex:1">
-        <div style="display:flex;align-items:center;gap:8px"><strong style="color:#0f172a">${t}</strong><span class="avail-tag ${statusClass}">${statusText}</span></div>
-        <div style="font-size:11px;color:#94a3b8;margin-top:2px">${MF[CUR_MONTH]}: навантаження <strong style="color:#1e293b">${av.curLoad}</strong> з ${mx}</div>
-        ${freeHtml}${endingHtml}
-      </div>
-    </div>`;
-  }).join("");
+  // Month detail
+  h+=renderMonthDetail(map);
 
-  // === GANTT TIMELINE ===
-  let fd=fil==="all"?[...items]:items.filter(it=>it.cat===fil);
-  if(tfil!=="all")fd=fd.filter(it=>it.team.includes(tfil));
-  document.getElementById("countBadge").textContent=fd.length+" елементів";
+  // Availability
+  h+=`<div class="card"><h2>Доступність команди <span class="badge">${MF[CUR_MONTH]}</span></h2>`;
+  h+=`<div class="avail-grid">`;
+  TM.forEach(t=>{
+    let a=getAvail(t,map);
+    h+=`<div class="avail-card">`;
+    h+=`<div class="avail-hdr"><span class="dot" style="background:${TC[t]}"></span><span class="avail-name">${t}</span>`;
+    h+=`<span class="avail-badge" style="background:${a.st.bg};color:${a.st.color}">${a.st.label}</span></div>`;
+    h+=`<div class="avail-stat">${MF[CUR_MONTH]}: зайнято <b>${a.curDays}</b> з ${MAX_DAYS} днів (<b>${a.pct}%</b>)<br>`;
+    h+=`Вільних: <b>${a.free}</b> ${daysWord(a.free)}</div>`;
+    if(a.ending.length){
+      h+=`<div class="avail-ending"><div class="avail-ending-title">Завершуються скоро:</div>`;
+      a.ending.forEach(e=>{h+=`<div class="avail-ending-item">• ${e.name} (до ${e.endMonth})</div>`});
+      h+=`</div>`;
+    }
+    h+=`</div>`;
+  });
+  h+=`</div></div>`;
 
-  document.getElementById("fbar").innerHTML=
-    `<button class="chip ${fil==="all"?"":"chip-off"}" style="${fil==="all"?"background:#475569;color:#fff":""}" onclick="sf('all')">Всі</button>`+
-    CS.map(c=>`<button class="chip ${fil===c?"":"chip-off"}" style="${fil===c?`background:${CBar[c]};color:#fff`:""}" onclick="sf('${c}')">${c}</button>`).join("");
+  return h;
+}
 
-  document.getElementById("tfbar").innerHTML=
-    `<button class="tf-pill ${tfil==="all"?"":"tf-pill-off"}" style="${tfil==="all"?"background:#475569;color:#fff":""}" onclick="stf('all')">Всі</button>`+
-    TM.map(t=>`<button class="tf-pill ${tfil===t?"":"tf-pill-off"}" style="${tfil===t?`background:${TC[t]};color:#fff`:""}" onclick="stf('${t}')">${t}</button>`).join("");
+// TAB 1: Timeline/Gantt
+function renderTimeline(){
+  let h='';
+  h+=`<div class="card"><h2>Таймлайн 2026 <span class="badge">Ґант-діаграма</span></h2>`;
 
-  // Build gantt
-  const groupByTeam=tfil==="all";
-  let ghtml='<div class="gantt-wrap"><div class="gantt-tl">';
+  // Filters
+  h+=`<div class="filter-bar">`;
+  h+=`<button class="fchip ${ganttFilterCat===null?'':'off'}" style="${ganttFilterCat===null?'background:#e2e8f0;color:#334155':''}" onclick="ganttFilterCat=null;render()">Всі</button>`;
+  CS.forEach(c=>{
+    let on=ganttFilterCat===c;
+    h+=`<button class="fchip ${on?'':'off'}" style="${on?'background:'+CBar[c]+';color:#fff':''}" onclick="ganttFilterCat=${on?'null':'\\''+c+'\\''};render()">${c}</button>`;
+  });
+  h+=`<span style="width:1px;background:#e2e8f0;margin:0 4px"></span>`;
+  TM.forEach(t=>{
+    let on=ganttFilterTeam===t;
+    h+=`<button class="fchip ${on?'':'off'}" style="${on?'background:'+TC[t]+';color:#fff':''}" onclick="ganttFilterTeam=${on?'null':'\\''+t+'\\''};render()">${t}</button>`;
+  });
+  h+=`</div>`;
 
-  ghtml+='<div class="gantt-header">';
+  // Month headers
+  h+=`<div class="gantt-wrap">`;
+  h+=`<div style="display:flex;margin-bottom:4px"><div style="width:148px"></div><div style="flex:1;display:flex">`;
+  for(let mi=0;mi<12;mi++){
+    let w=mi===CUR_MONTH?'font-weight:700;color:#6366f1':'color:#94a3b8';
+    h+=`<div style="flex:1;text-align:center;font-size:11px;${w}">${M[mi]}</div>`;
+  }
+  h+=`</div></div>`;
+
+  let filtered=items.filter(it=>{
+    if(ganttFilterCat&&it.cat!==ganttFilterCat)return false;
+    if(ganttFilterTeam&&!it.team.includes(ganttFilterTeam))return false;
+    return true;
+  });
+
+  // Group by team member
+  TM.forEach(t=>{
+    let memberItems=filtered.filter(it=>it.team.includes(t));
+    if(!memberItems.length)return;
+    let map=hm();
+    let curDays=map[t][CUR_MONTH];
+    let st=statusInfo(curDays);
+    h+=`<div class="gantt-group">`;
+    h+=`<div class="gantt-group-hdr"><span class="dot" style="background:${TC[t]}"></span>${t}`;
+    h+=`<span class="avail-badge" style="background:${st.bg};color:${st.color};font-size:10px">${st.label}</span></div>`;
+
+    memberItems.forEach(it=>{
+      let minM=Math.min(...it.months),maxM=Math.max(...it.months);
+      let left=(minM/12*100).toFixed(2);
+      let width=((maxM-minM+1)/12*100).toFixed(2);
+      let isPast=maxM<CUR_MONTH;
+      let opacity=isPast?'0.35':'1';
+      h+=`<div class="gantt-row">`;
+      h+=`<div class="gantt-label">${it.name}</div>`;
+      h+=`<div class="gantt-track" style="background:#f1f5f9;position:relative">`;
+      // Today line
+      let todayPct=((CUR_MONTH+NOW.getDate()/30)/12*100).toFixed(2);
+      h+=`<div class="today-line" style="left:${todayPct}%"><div class="today-label">Сьогодні</div></div>`;
+      h+=`<div class="gantt-bar" style="left:${left}%;width:${width}%;background:${TBar[t]};opacity:${opacity}" onclick="startEdit(${it.id})" onmouseenter="showTip(event,'<b>${it.name}</b><br>${it.cat}<br>${MF[minM]} -- ${MF[maxM]}<br>Команда: ${it.team.join(', ')}<br>${it.days} ${daysWord(it.days)}/міс')" onmouseleave="hideTip()"></div>`;
+      h+=`</div></div>`;
+    });
+    h+=`</div>`;
+  });
+  h+=`</div></div>`;
+  return h;
+}
+
+// TAB 2: Team
+function renderTeam(){
+  let map=hm();
+  let h=`<div class="sg">`;
+  TM.forEach(t=>{
+    let months=map[t];
+    let totalLoad=months.reduce((a,b)=>a+b,0);
+    let annualMax=MAX_DAYS*12;
+    let annualPct=Math.round(totalLoad/annualMax*100);
+    let peakVal=Math.max(...months);
+    let peakMi=months.indexOf(peakVal);
+    let projCount=items.filter(it=>it.team.includes(t)).length;
+    let curDays=months[CUR_MONTH];
+    let st=statusInfo(curDays);
+
+    h+=`<div class="sc">`;
+    h+=`<div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">`;
+
+    // SVG ring
+    let ringR=32,circ=2*Math.PI*ringR;
+    let ringPct=Math.min(annualPct,100);
+    let ringColor=annualPct>85?'#ef4444':annualPct>60?'#f59e0b':TC[t];
+    h+=`<div class="ring-wrap"><svg width="80" height="80" viewBox="0 0 80 80">`;
+    h+=`<circle cx="40" cy="40" r="${ringR}" fill="none" stroke="#e2e8f0" stroke-width="6"/>`;
+    h+=`<circle cx="40" cy="40" r="${ringR}" fill="none" stroke="${ringColor}" stroke-width="6" stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${circ*(1-ringPct/100)}" transform="rotate(-90 40 40)"/>`;
+    h+=`</svg><div class="ring-text">${annualPct}%</div></div>`;
+
+    h+=`<div><div class="sn" style="display:flex;align-items:center;gap:8px"><span class="dot" style="background:${TC[t]}"></span>${t}`;
+    h+=`<span class="avail-badge" style="background:${st.bg};color:${st.color}">${st.label}</span></div>`;
+    h+=`<div class="si">Проєктів: <b>${projCount}</b> | Загальне: <b>${totalLoad}</b> дн./рік<br>Пік: <b>${MF[peakMi]}</b> (${peakVal} ${daysWord(peakVal)})</div>`;
+    h+=`</div></div>`;
+
+    // Mini bar chart
+    h+=`<div class="team-mini-chart">`;
+    for(let mi=0;mi<12;mi++){
+      let v=months[mi];
+      let ht=Math.max(Math.round(v/Math.max(peakVal,1)*48),2);
+      let bg=mi===CUR_MONTH?'#ef4444':TC[t];
+      let op=mi<CUR_MONTH?'0.4':'1';
+      h+=`<div class="team-mini-bar" style="height:${ht}px;background:${bg};opacity:${op}" title="${MF[mi]}: ${v} ${daysWord(v)}"></div>`;
+    }
+    h+=`</div>`;
+
+    // Project list
+    let projs=items.filter(it=>it.team.includes(t));
+    h+=`<div style="margin-top:8px">`;
+    projs.forEach(p=>{
+      let maxM=Math.max(...p.months);
+      let endingSoon=maxM>=CUR_MONTH&&maxM<=CUR_MONTH+2&&maxM<12;
+      h+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:12px;border-bottom:1px solid #f1f5f9">`;
+      h+=`<span style="color:#475569">${p.name}${endingSoon?' <span style="color:#f59e0b;font-size:10px">завершується</span>':''}</span>`;
+      h+=`<span style="font-weight:600;color:#334155">${p.days} дн/міс</span>`;
+      h+=`</div>`;
+    });
+    h+=`</div></div>`;
+  });
+  h+=`</div>`;
+  return h;
+}
+
+// Tab switching
+function switchTab(n){
+  curTab=n;
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('act',i===n));
+  document.querySelectorAll('.panel').forEach((p,i)=>p.classList.toggle('vis',i===n));
+  render();
+}
+
+// Form
+function toggleForm(show){
+  let fc=document.getElementById('formCard');
+  if(show===undefined)show=!fc.classList.contains('vis');
+  fc.classList.toggle('vis',show);
+  if(show&&!editId)resetForm();
+}
+
+function resetForm(){
+  editId=null;
+  document.getElementById('formTitle').textContent='Новий запис';
+  document.getElementById('fName').value='';
+  document.getElementById('btnDel').style.display='none';
+  syncDays(4);
+  buildFormChips();
+}
+
+function syncDays(v){
+  v=Math.max(1,Math.min(22,parseInt(v)||1));
+  document.getElementById('fDaysSlider').value=v;
+  document.getElementById('fDaysVal').textContent=v;
+  document.getElementById('fDays').value=v;
+}
+function syncDaysNum(v){syncDays(v)}
+
+let formCat='',formTeam=new Set(),formMonths=new Set();
+
+function buildFormChips(){
+  let cc=document.getElementById('fCats');
+  cc.innerHTML='';
+  CS.forEach(c=>{
+    let on=formCat===c;
+    let btn=document.createElement('button');
+    btn.className='chip '+(on?'':'chip-off');
+    btn.style.cssText=on?'background:'+CBar[c]+';color:#fff':'';
+    btn.textContent=c;
+    btn.onclick=()=>{formCat=c;buildFormChips()};
+    cc.appendChild(btn);
+  });
+
+  let tc=document.getElementById('fTeam');
+  tc.innerHTML='';
+  TM.forEach(t=>{
+    let on=formTeam.has(t);
+    let btn=document.createElement('button');
+    btn.className='chip '+(on?'':'chip-off');
+    btn.style.cssText=on?'background:'+TC[t]+';color:#fff':'';
+    btn.textContent=t;
+    btn.onclick=()=>{on?formTeam.delete(t):formTeam.add(t);buildFormChips()};
+    tc.appendChild(btn);
+  });
+
+  let mc=document.getElementById('fMonths');
+  mc.innerHTML='';
   M.forEach((m,i)=>{
-    const cls=i===CUR_MONTH?' current':i<CUR_MONTH?' past':'';
-    ghtml+=`<div class="gantt-mh${cls}">${m}</div>`;
+    let on=formMonths.has(i);
+    let btn=document.createElement('button');
+    btn.className='chip '+(on?'':'chip-off');
+    btn.style.cssText=on?'background:#6366f1;color:#fff':'';
+    btn.textContent=m;
+    btn.style.padding='6px 10px';btn.style.fontSize='11px';
+    btn.onclick=()=>{on?formMonths.delete(i):formMonths.add(i);buildFormChips()};
+    mc.appendChild(btn);
   });
-  ghtml+='</div>';
-
-  if(groupByTeam){
-    TM.forEach(t=>{
-      const memberItems=fd.filter(it=>it.team.includes(t));
-      if(!memberItems.length)return;
-      const av=getAvail(t,hmap);
-      let availHtml='';
-      if(av.curRatio>.7)availHtml=`<span class="gantt-group-avail" style="background:#fef2f2;color:#dc2626">Завантажений</span>`;
-      else if(av.curRatio>.4)availHtml=`<span class="gantt-group-avail" style="background:#fffbeb;color:#d97706">Помірно</span>`;
-      else availHtml=`<span class="gantt-group-avail" style="background:#f0fdf4;color:#16a34a">Є ресурс</span>`;
-      ghtml+=`<div class="gantt-group"><div class="gantt-group-title"><span class="dot" style="width:8px;height:8px;background:${TC[t]}"></span> ${t} <span style="font-weight:400;color:#94a3b8;text-transform:none;letter-spacing:0">(${memberItems.length})</span>${availHtml}</div>`;
-      memberItems.forEach(it=>{ghtml+=ganttRow(it,t)});
-      ghtml+='</div>';
-    });
-  } else {
-    fd.forEach(it=>{ghtml+=ganttRow(it,null)});
-  }
-
-  ghtml+=`<div class="gantt-today"></div>`;
-  ghtml+='</div></div>';
-  document.getElementById("ganttView").innerHTML=ghtml;
-
-  // Position today line
-  requestAnimationFrame(()=>{
-    const tl=document.querySelector(".gantt-tl");
-    if(!tl)return;
-    const line=tl.querySelector(".gantt-today");
-    const headerEl=tl.querySelector(".gantt-header");
-    if(!line||!headerEl)return;
-    const headerRect=headerEl.getBoundingClientRect();
-    const tlRect=tl.getBoundingClientRect();
-    const headerLeft=headerRect.left-tlRect.left;
-    const headerWidth=headerRect.width;
-    const monthWidth=headerWidth/12;
-    const dayInMonth=CUR_DAY/DAYS_IN_MONTH[CUR_MONTH];
-    line.style.left=(headerLeft+(CUR_MONTH+dayInMonth)*monthWidth)+"px";
-  });
-
-  // Attach tooltip events
-  document.querySelectorAll(".gantt-bar").forEach(bar=>{
-    const id=parseInt(bar.dataset.id);
-    const it=items.find(x=>x.id===id);
-    if(!it)return;
-    bar.addEventListener("mouseenter",e=>showTip(e,it));
-    bar.addEventListener("mouseleave",hideTip);
-    bar.addEventListener("click",()=>{hideTip();startEdit(id)});
-  });
-
-  // Gantt legend
-  document.getElementById("ganttLeg").innerHTML=CS.map(c=>{
-    const count=fd.filter(it=>it.cat===c).length;
-    if(!count)return"";
-    return `<div class="cli" onclick="sf('${c}')"><div class="clb" style="background:${CBar[c]}"></div>${c} (${count})</div>`;
-  }).join("");
-
-  // Stats (team cards)
-  document.getElementById("stats").innerHTML=TM.map(t=>{
-    const tot=hmap[t].reduce((a,b)=>a+b,0);
-    const pk=Math.max(...hmap[t]);
-    const pkm=M[hmap[t].indexOf(pk)];
-    const mi=items.filter(it=>it.team.includes(t)).length;
-    const maxPossible=mx*12;
-    const pct=Math.round(tot/maxPossible*100);
-    const circ=2*Math.PI*23;
-    const offset=circ-(pct/100)*circ;
-    const av=getAvail(t,hmap);
-
-    let statusClass,statusText;
-    if(av.curRatio>.7){statusClass="avail-busy";statusText="Завантажений";}
-    else if(av.curRatio>.4){statusClass="avail-soon";statusText="Помірно";}
-    else{statusClass="avail-free";statusText="Є ресурс";}
-
-    const bars=hmap[t].map((v,i)=>`<div class="mbi" style="height:${Math.max(4,v/mx*48)}px;background:${ib(v,mx)};${i<CUR_MONTH?'opacity:.4;':''}${i===CUR_MONTH?'outline:2px solid #dc2626;outline-offset:-1px;border-radius:3px;':''}" title="${M[i]}: ${v}"></div>`).join("");
-    const myItems=items.filter(it=>it.team.includes(t));
-    const itemList=myItems.map(it=>{
-      const lastMonth=Math.max(...it.months);
-      const isPast=lastMonth<CUR_MONTH;
-      const endsSoon=lastMonth>=CUR_MONTH&&lastMonth<=CUR_MONTH+2&&lastMonth<11;
-      return `<div style="display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:1px solid #f1f5f9;${isPast?'opacity:.4':''}"><span class="dot" style="background:${CBar[it.cat]};width:6px;height:6px"></span><span style="font-size:11px;flex:1;color:#475569">${it.name}</span>${endsSoon?`<span style="font-size:9px;color:#d97706;font-weight:600">до ${M[lastMonth]}</span>`:`<span style="font-size:10px;color:#cbd5e1">${"●".repeat(it.effort)}${"○".repeat(5-it.effort)}</span>`}</div>`;
-    }).join("");
-
-    return `<div class="sc" style="border-top:3px solid ${TC[t]}">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <div>
-          <div class="sn">${t}</div>
-          <span class="avail-tag ${statusClass}">${statusText} у ${MF[CUR_MONTH]}</span>
-        </div>
-        <div class="ring-wrap">
-          <svg viewBox="0 0 52 52" width="52" height="52">
-            <circle class="ring-bg" cx="26" cy="26" r="23"/>
-            <circle class="ring-fg" cx="26" cy="26" r="23" stroke="${TC[t]}" stroke-dasharray="${circ}" stroke-dashoffset="${offset}" transform="rotate(-90 26 26)"/>
-            <text x="26" y="28" text-anchor="middle" fill="#1e293b" font-size="11" font-weight="700">${pct}%</text>
-          </svg>
-        </div>
-      </div>
-      <div class="si">
-        Проєктів: <strong style="color:#1e293b">${mi}</strong> &middot;
-        Навантаження: <strong style="color:#1e293b">${tot}</strong> &middot;
-        Пік: <strong style="color:#1e293b">${pkm}</strong> (${pk})
-        <div class="mb" style="align-items:flex-end;height:48px">${bars}</div>
-      </div>
-      <div style="margin-top:10px;max-height:220px;overflow-y:auto">${itemList}</div>
-    </div>`;
-  }).join("");
-}
-
-function ganttRow(it,forMember){
-  const ms=it.months;
-  const segs=[];
-  let start=ms[0],prev=ms[0];
-  for(let i=1;i<ms.length;i++){
-    if(ms[i]===prev+1){prev=ms[i]}
-    else{segs.push([start,prev]);start=ms[i];prev=ms[i]}
-  }
-  segs.push([start,prev]);
-
-  const barColor=forMember?TBar[forMember]:CBar[it.cat];
-  const dotColor=forMember?TBar[forMember]:CBar[it.cat];
-  const lastMonth=Math.max(...ms);
-  const isPastProject=lastMonth<CUR_MONTH;
-
-  let row=`<div class="gantt-row"><div class="gantt-label" style="${isPastProject?'opacity:.4':''}"><span class="dot" style="background:${dotColor};width:7px;height:7px;flex-shrink:0"></span><span>${it.name}</span></div><div class="gantt-bars">`;
-
-  segs.forEach(([s,e])=>{
-    const left=(s/12*100).toFixed(2);
-    const width=((e-s+1)/12*100).toFixed(2);
-    const opacity=0.55+it.effort*0.09;
-    const isPast=e<CUR_MONTH;
-    row+=`<div class="gantt-bar${isPast?' past-bar':''}" data-id="${it.id}" style="left:${left}%;width:${width}%;background:${barColor};opacity:${isPast?0.3:opacity}">`;
-    if(e-s>=2)row+=`<span class="bar-text">${it.name}</span>`;
-    row+=`</div>`;
-  });
-
-  row+=`</div></div>`;
-  return row;
-}
-
-function sh(t,mi,v){document.getElementById("hinfo").innerHTML=`${t} &middot; ${MF[mi]} &middot; <strong style="color:${ib(v,15)}">${v}</strong> — `+items.filter(it=>it.team.includes(t)&&it.months.includes(mi)).map(it=>`<span style="color:${CBar[it.cat]}">${it.name}</span>`).join(", ")}
-function hh(){document.getElementById("hinfo").innerHTML=""}
-function sf(f){fil=f;render()}
-function stf(t){tfil=t;render()}
-
-function toggleForm(){
-  const fc=document.getElementById("formCard"),b=document.getElementById("addBtn");
-  if(fc.classList.contains("hidden")){fc.classList.remove("hidden");b.textContent="✕ Закрити";eid=null;resetF();renderF()}
-  else{fc.classList.add("hidden");b.textContent="+ Додати";eid=null}
-}
-function resetF(){fCat="Проєкт";fTeam=[];fMon=[];fEf=2;document.getElementById("iName").value=""}
-function renderF(){
-  document.getElementById("formTitle").textContent=eid?"Редагувати":"Додати клієнта / задачу";
-  document.getElementById("saveB").textContent=eid?"Зберегти":"Додати";
-  document.getElementById("delB").classList.toggle("hidden",!eid);
-  document.getElementById("catC").innerHTML=CS.map(c=>`<button class="chip ${fCat===c?"":"chip-off"}" style="${fCat===c?`background:${CBar[c]};color:#fff`:""}" onclick="sc('${c}')">${c}</button>`).join("");
-  document.getElementById("teamC").innerHTML=TM.map(t=>`<button class="chip ${fTeam.includes(t)?"":"chip-off"}" style="${fTeam.includes(t)?`background:${TC[t]};color:#fff`:""}" onclick="st('${t}')">${t}</button>`).join("");
-  document.getElementById("monC").innerHTML=M.map((m,i)=>`<button class="chip mc ${fMon.includes(i)?"":"chip-off"}" style="${fMon.includes(i)?"background:#475569;color:#fff":""}" onclick="sm(${i})">${m}</button>`).join("");
-  document.getElementById("efL").textContent=`Інтенсивність: ${fEf}/5`;
-  document.getElementById("efC").innerHTML=[1,2,3,4,5].map(v=>`<button class="chip efb ${fEf>=v?"":"chip-off"}" style="${fEf>=v?"background:#6366f1;color:#fff":""}" onclick="se(${v})">${v}</button>`).join("");
-}
-function sc(c){fCat=c;renderF()}
-function st(t){fTeam.includes(t)?fTeam=fTeam.filter(x=>x!==t):fTeam.push(t);renderF()}
-function sm(m){fMon.includes(m)?fMon=fMon.filter(x=>x!==m):fMon.push(m);renderF()}
-function se(v){fEf=v;renderF()}
-
-function saveItem(){
-  const n=document.getElementById("iName").value.trim();
-  if(!n||!fTeam.length||!fMon.length)return;
-  if(eid!==null){items=items.map(it=>it.id===eid?{id:eid,name:n,cat:fCat,team:[...fTeam],months:[...fMon].sort((a,b)=>a-b),effort:fEf}:it);eid=null}
-  else{items.push({id:nid++,name:n,cat:fCat,team:[...fTeam],months:[...fMon].sort((a,b)=>a-b),effort:fEf})}
-  document.getElementById("formCard").classList.add("hidden");
-  document.getElementById("addBtn").textContent="+ Додати";
-  resetF();render();
 }
 
 function startEdit(id){
-  const it=items.find(x=>x.id===id);if(!it)return;
-  eid=id;document.getElementById("iName").value=it.name;
-  fCat=it.cat;fTeam=[...it.team];fMon=[...it.months];fEf=it.effort;
-  document.getElementById("formCard").classList.remove("hidden");
-  document.getElementById("addBtn").textContent="✕ Закрити";
-  renderF();document.getElementById("formCard").scrollIntoView({behavior:"smooth"});
+  let it=items.find(i=>i.id===id);
+  if(!it)return;
+  editId=id;
+  document.getElementById('formTitle').textContent='Редагувати: '+it.name;
+  document.getElementById('fName').value=it.name;
+  document.getElementById('btnDel').style.display='inline-block';
+  formCat=it.cat;
+  formTeam=new Set(it.team);
+  formMonths=new Set(it.months);
+  syncDays(it.days);
+  buildFormChips();
+  toggleForm(true);
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function delItem(id){if(!confirm("Видалити?"))return;items=items.filter(it=>it.id!==id);if(eid===id){eid=null;document.getElementById("formCard").classList.add("hidden");document.getElementById("addBtn").textContent="+ Додати"}render()}
-function delFromForm(){if(eid&&confirm("Видалити?")){items=items.filter(it=>it.id!==eid);eid=null;document.getElementById("formCard").classList.add("hidden");document.getElementById("addBtn").textContent="+ Додати";render()}}
+function saveItem(){
+  let name=document.getElementById('fName').value.trim();
+  if(!name){alert('Вкажіть назву');return}
+  if(!formCat){alert('Оберіть категорію');return}
+  if(!formTeam.size){alert('Оберіть команду');return}
+  if(!formMonths.size){alert('Оберіть місяці');return}
+  let days=parseInt(document.getElementById('fDays').value)||4;
+  days=Math.max(1,Math.min(22,days));
+
+  if(editId){
+    let it=items.find(i=>i.id===editId);
+    if(it){it.name=name;it.cat=formCat;it.team=[...formTeam];it.months=[...formMonths].sort((a,b)=>a-b);it.days=days}
+  }else{
+    items.push({id:nextId++,name,cat:formCat,team:[...formTeam],months:[...formMonths].sort((a,b)=>a-b),days});
+  }
+  toggleForm(false);
+  resetForm();
+  render();
+}
+
+function delItem(){
+  if(!editId)return;
+  if(!confirm('Видалити цей запис?'))return;
+  items=items.filter(i=>i.id!==editId);
+  toggleForm(false);
+  resetForm();
+  render();
+}
+
+// Main render
+function render(){
+  document.getElementById('panel0').innerHTML=renderOverview();
+  document.getElementById('panel1').innerHTML=renderTimeline();
+  document.getElementById('panel2').innerHTML=renderTeam();
+}
 
 render();
+buildFormChips();
 </script>
 </body>
 </html>
