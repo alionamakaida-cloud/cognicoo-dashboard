@@ -7,119 +7,118 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 ::-webkit-scrollbar{height:6px;width:6px}
-::-webkit-scrollbar-track{background:#1e293b;border-radius:4px}
-::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#0f172a;color:#e2e8f0;padding:24px;user-select:none}
-h1{font-size:22px;font-weight:700;letter-spacing:-.4px}
-h2{font-size:14px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.badge{font-size:10px;background:#334155;color:#94a3b8;padding:2px 8px;border-radius:10px;font-weight:500}
-.sub{color:#64748b;font-size:12px;margin-bottom:16px}
-.card{background:#1e293b;border-radius:16px;padding:18px;margin-bottom:16px;transition:box-shadow .2s}
-.card:hover{box-shadow:0 0 0 1px #334155}
+::-webkit-scrollbar-track{background:#f1f5f9;border-radius:4px}
+::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#fff;color:#1e293b;padding:24px;user-select:none}
+h1{font-size:22px;font-weight:700;letter-spacing:-.4px;color:#0f172a}
+h2{font-size:14px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px;color:#334155}
+.badge{font-size:10px;background:#f1f5f9;color:#64748b;padding:2px 8px;border-radius:10px;font-weight:500}
+.sub{color:#94a3b8;font-size:12px;margin-bottom:16px}
+.card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:18px;margin-bottom:16px;transition:box-shadow .2s}
+.card:hover{box-shadow:0 2px 8px #0001}
 .row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
-.ind{background:#1e293b;border-radius:14px;padding:16px 18px;flex:1 1 160px;cursor:default;transition:transform .15s,box-shadow .15s}
-.ind:hover{transform:translateY(-2px);box-shadow:0 4px 12px #0004}
+.ind{background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:16px 18px;flex:1 1 160px;cursor:default;transition:transform .15s,box-shadow .15s}
+.ind:hover{transform:translateY(-2px);box-shadow:0 4px 12px #0001}
 .ind-l{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px}
-.ind-v{font-size:20px;font-weight:700;margin-top:4px}
+.ind-v{font-size:20px;font-weight:700;margin-top:4px;color:#0f172a}
 .btn{border:none;border-radius:10px;padding:10px 18px;cursor:pointer;font-size:13px;font-weight:600;color:#fff;transition:all .15s;touch-action:manipulation}
 .btn:active{transform:scale(.97)}
 .btn-p{background:#6366f1}.btn-p:hover{background:#818cf8}
-.btn-s{background:#334155;color:#e2e8f0}.btn-s:hover{background:#475569}
-.btn-save{background:#22c55e}.btn-save:hover{background:#4ade80}
-.btn-del{background:#dc2626}.btn-del:hover{background:#ef4444}
+.btn-s{background:#e2e8f0;color:#475569}.btn-s:hover{background:#cbd5e1}
+.btn-save{background:#22c55e}.btn-save:hover{background:#16a34a}
+.btn-del{background:#ef4444}.btn-del:hover{background:#dc2626}
 .chip{border:none;border-radius:20px;padding:8px 14px;cursor:pointer;font-size:12px;font-weight:600;transition:all .15s;touch-action:manipulation}
 .chip:active{transform:scale(.95)}
-.chip-off{background:#334155;color:#94a3b8}
-.chip-off:hover{background:#3f4f6b}
+.chip-off{background:#f1f5f9;color:#94a3b8}
+.chip-off:hover{background:#e2e8f0;color:#64748b}
 table{border-collapse:separate;border-spacing:4px;width:100%}
-th{font-size:11px;color:#64748b;padding:4px 4px;text-align:center;min-width:44px}
+th{font-size:11px;color:#94a3b8;padding:4px 4px;text-align:center;min-width:44px}
 th:first-child{text-align:left;min-width:80px}
 td{text-align:center;padding:10px 4px;font-size:13px;font-weight:700;border-radius:8px;min-width:44px;cursor:default;transition:transform .12s}
 td:hover:not(:first-child){transform:scale(1.08)}
-td:first-child{text-align:left;font-size:13px;padding:6px 6px;font-weight:600}
+td:first-child{text-align:left;font-size:13px;padding:6px 6px;font-weight:600;color:#334155}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
-/* Old grid gantt */
-.gg{display:grid;grid-template-columns:200px repeat(12,1fr);gap:3px;align-items:center}
-.gh{font-size:11px;color:#64748b;text-align:center;padding:6px 0}
-.gn{display:flex;align-items:center;gap:6px;font-size:12px;padding:8px 6px;overflow:hidden;border-radius:8px;transition:background .15s}
-.gn:hover{background:#0f172a}
-.gn span{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
-.gc{border-radius:6px;height:34px;display:flex;align-items:center;justify-content:center;transition:transform .12s}
-.gc:hover{transform:scale(1.05)}
-.gd{width:8px;height:8px;border-radius:50%;display:inline-block;margin:0 2px}
-.eb{background:none;border:none;color:#64748b;cursor:pointer;font-size:13px;padding:4px;flex-shrink:0;border-radius:6px;transition:all .15s;touch-action:manipulation}
-.eb:hover{background:#334155;color:#e2e8f0}
-.leg{display:flex;gap:12px;margin-top:12px;font-size:11px;color:#64748b;flex-wrap:wrap}
+.eb{background:none;border:none;color:#94a3b8;cursor:pointer;font-size:13px;padding:4px;flex-shrink:0;border-radius:6px;transition:all .15s;touch-action:manipulation}
+.eb:hover{background:#f1f5f9;color:#475569}
+.leg{display:flex;gap:12px;margin-top:12px;font-size:11px;color:#94a3b8;flex-wrap:wrap}
 .li{display:flex;align-items:center;gap:5px}
 .lb{width:16px;height:16px;border-radius:5px}
 .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
-.sc{background:#1e293b;border-radius:16px;padding:18px;transition:transform .15s,box-shadow .15s}
-.sc:hover{transform:translateY(-2px);box-shadow:0 4px 16px #0004}
-.sn{font-size:16px;font-weight:700;margin-bottom:8px}
-.si{font-size:12px;color:#94a3b8;line-height:1.9}
+.sc{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:18px;transition:transform .15s,box-shadow .15s}
+.sc:hover{transform:translateY(-2px);box-shadow:0 4px 16px #0001}
+.sn{font-size:16px;font-weight:700;margin-bottom:8px;color:#0f172a}
+.si{font-size:12px;color:#64748b;line-height:1.9}
 .mb{display:flex;gap:2px;margin-top:8px}
 .mbi{flex:1;border-radius:3px;transition:height .3s}
 .fb{display:flex;gap:5px;flex-wrap:wrap}
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .fl{font-size:11px;color:#94a3b8;display:block;margin-bottom:5px}
-.fi{background:#0f172a;border:1px solid #334155;border-radius:10px;padding:10px 12px;color:#e2e8f0;font-size:14px;width:100%;outline:none;transition:border-color .15s}
+.fi{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;color:#1e293b;font-size:14px;width:100%;outline:none;transition:border-color .15s}
 .fi:focus{border-color:#6366f1}
 .mc{min-width:40px;text-align:center;padding:8px 10px}
 .efb{width:36px;text-align:center;padding:8px 0}
 .hidden{display:none}
-.hi{margin-top:8px;font-size:13px;color:#94a3b8;min-height:22px}
+.hi{margin-top:8px;font-size:13px;color:#64748b;min-height:22px}
 .top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:8px}
 .gt{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px}
-.tabs{display:flex;gap:2px;background:#0f172a;border-radius:12px;padding:3px;margin-bottom:16px}
-.tab{flex:1;text-align:center;padding:10px 8px;border:none;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;background:transparent;color:#64748b;transition:all .15s;touch-action:manipulation}
-.tab.active{background:#1e293b;color:#e2e8f0;box-shadow:0 2px 8px #0003}
-.tab:hover:not(.active){color:#94a3b8}
+.tabs{display:flex;gap:2px;background:#f1f5f9;border-radius:12px;padding:3px;margin-bottom:16px}
+.tab{flex:1;text-align:center;padding:10px 8px;border:none;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;background:transparent;color:#94a3b8;transition:all .15s;touch-action:manipulation}
+.tab.active{background:#fff;color:#1e293b;box-shadow:0 2px 8px #0001}
+.tab:hover:not(.active){color:#64748b}
 
 /* === GANTT TIMELINE === */
 .gantt-wrap{position:relative;overflow-x:auto;padding-bottom:8px}
 .gantt-tl{position:relative;min-width:900px}
-.gantt-header{display:flex;border-bottom:1px solid #334155;margin-left:180px}
-.gantt-mh{flex:1;text-align:center;font-size:11px;color:#64748b;padding:8px 0;position:relative}
-.gantt-mh.current{color:#f59e0b;font-weight:700}
+.gantt-header{display:flex;border-bottom:1px solid #e2e8f0;margin-left:180px}
+.gantt-mh{flex:1;text-align:center;font-size:11px;color:#94a3b8;padding:8px 0;position:relative}
+.gantt-mh.current{color:#dc2626;font-weight:700}
+.gantt-mh.past{color:#cbd5e1}
 .gantt-group{margin-top:4px}
-.gantt-group-title{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;padding:12px 0 4px 0;border-bottom:1px solid #1e293b}
+.gantt-group-title{font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.8px;padding:12px 0 4px 0;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;gap:8px}
+.gantt-group-avail{font-weight:500;text-transform:none;letter-spacing:0;font-size:10px;padding:2px 8px;border-radius:8px;margin-left:auto}
 .gantt-row{display:flex;align-items:center;min-height:38px;position:relative}
-.gantt-row:hover{background:#1e293b80;border-radius:8px}
-.gantt-label{width:180px;flex-shrink:0;font-size:12px;font-weight:600;padding:6px 8px;display:flex;align-items:center;gap:6px;overflow:hidden}
+.gantt-row:hover{background:#f8fafc;border-radius:8px}
+.gantt-label{width:180px;flex-shrink:0;font-size:12px;font-weight:600;padding:6px 8px;display:flex;align-items:center;gap:6px;overflow:hidden;color:#475569}
 .gantt-label span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gantt-bars{flex:1;position:relative;height:30px}
 .gantt-bar{position:absolute;height:22px;top:4px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;cursor:pointer;transition:transform .12s,box-shadow .12s;overflow:hidden;white-space:nowrap;padding:0 6px}
-.gantt-bar:hover{transform:scaleY(1.15);box-shadow:0 2px 8px #0004;z-index:10}
-.gantt-bar .bar-text{opacity:.85;font-size:9px;letter-spacing:.3px}
-.gantt-today{position:absolute;top:0;bottom:0;width:2px;background:#f59e0b;z-index:5;pointer-events:none}
-.gantt-today::before{content:"Сьогодні";position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:#f59e0b;font-weight:700;white-space:nowrap}
-.gantt-cat-leg{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap;font-size:11px;color:#94a3b8}
+.gantt-bar:hover{transform:scaleY(1.2);box-shadow:0 2px 12px #0002;z-index:10}
+.gantt-bar.past-bar{opacity:.4}
+.gantt-bar .bar-text{opacity:.9;font-size:9px;letter-spacing:.3px}
+.gantt-today{position:absolute;top:0;bottom:0;width:2px;background:#dc2626;z-index:5;pointer-events:none}
+.gantt-today::before{content:"Сьогодні";position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:#dc2626;font-weight:700;white-space:nowrap}
+.gantt-cat-leg{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap;font-size:11px;color:#64748b}
 .gantt-cat-leg .cli{display:flex;align-items:center;gap:5px;cursor:pointer;transition:opacity .15s}
-.gantt-cat-leg .cli:hover{opacity:.8}
+.gantt-cat-leg .cli:hover{opacity:.7}
 .gantt-cat-leg .clb{width:14px;height:14px;border-radius:4px}
 
 /* Tooltip */
-.tooltip{position:fixed;background:#1e293b;border:1px solid #475569;border-radius:10px;padding:12px 14px;font-size:12px;color:#e2e8f0;pointer-events:none;z-index:100;box-shadow:0 8px 24px #0006;max-width:260px;opacity:0;transition:opacity .15s}
+.tooltip{position:fixed;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px 14px;font-size:12px;color:#1e293b;pointer-events:none;z-index:100;box-shadow:0 8px 24px #0001;max-width:260px;opacity:0;transition:opacity .15s}
 .tooltip.show{opacity:1}
-.tooltip .tt-name{font-weight:700;font-size:13px;margin-bottom:4px}
+.tooltip .tt-name{font-weight:700;font-size:13px;margin-bottom:4px;color:#0f172a}
 .tooltip .tt-cat{font-size:10px;padding:2px 6px;border-radius:8px;color:#fff;display:inline-block;margin-bottom:6px}
-.tooltip .tt-row{display:flex;align-items:center;gap:4px;margin-top:2px;color:#94a3b8}
+.tooltip .tt-row{display:flex;align-items:center;gap:4px;margin-top:2px;color:#64748b}
 
-/* Team member filter pills on timeline */
+/* Team member filter pills */
 .team-filters{display:flex;gap:6px;flex-wrap:wrap}
 .tf-pill{border:none;border-radius:20px;padding:6px 12px;cursor:pointer;font-size:11px;font-weight:600;transition:all .15s;touch-action:manipulation}
 .tf-pill:active{transform:scale(.95)}
-.tf-pill-off{background:#334155;color:#64748b}
-.tf-pill-off:hover{background:#3f4f6b;color:#94a3b8}
+.tf-pill-off{background:#f1f5f9;color:#94a3b8}
+.tf-pill-off:hover{background:#e2e8f0;color:#64748b}
 
-/* Progress ring for team cards */
+/* Progress ring */
 .ring-wrap{width:56px;height:56px;flex-shrink:0}
-.ring-bg{fill:none;stroke:#0f172a;stroke-width:6}
+.ring-bg{fill:none;stroke:#f1f5f9;stroke-width:6}
 .ring-fg{fill:none;stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .6s ease}
+
+/* Availability badge */
+.avail-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 8px;border-radius:8px;margin-top:6px}
+.avail-busy{background:#fef2f2;color:#dc2626}
+.avail-soon{background:#fffbeb;color:#d97706}
+.avail-free{background:#f0fdf4;color:#16a34a}
 
 @media(max-width:700px){
   .fg{grid-template-columns:1fr}
-  .gg{grid-template-columns:140px repeat(12,1fr)}
   .sg{grid-template-columns:1fr}
   .gantt-header{margin-left:120px}
   .gantt-label{width:120px}
@@ -136,7 +135,6 @@ td:first-child{text-align:left;font-size:13px;padding:6px 6px;font-weight:600}
   <button class="btn btn-p" id="addBtn" onclick="toggleForm()">+ Додати</button>
 </div>
 
-<!-- Tabs -->
 <div class="tabs">
   <button class="tab active" id="tab0" onclick="switchTab(0)">Огляд</button>
   <button class="tab" id="tab1" onclick="switchTab(1)">Таймлайн</button>
@@ -169,6 +167,11 @@ td:first-child{text-align:left;font-size:13px;padding:6px 6px;font-weight:600}
     <div class="hi" id="hinfo"></div>
     <div class="leg" id="hleg"></div>
   </div>
+  <!-- Availability summary -->
+  <div class="card" id="availCard">
+    <h2>Доступність команди <span class="badge">зараз</span></h2>
+    <div id="availSummary"></div>
+  </div>
 </div>
 
 <!-- Tab 1: Timeline -->
@@ -191,7 +194,6 @@ td:first-child{text-align:left;font-size:13px;padding:6px 6px;font-weight:600}
   <div class="sg" id="stats"></div>
 </div>
 
-<!-- Tooltip -->
 <div class="tooltip" id="tip"></div>
 
 <script>
@@ -199,13 +201,12 @@ const M=["Січ","Лют","Бер","Кві","Тра","Чер","Лип","Сер"
 const MF=["Січень","Лютий","Березень","Квітень","Травень","Червень","Липень","Серпень","Вересень","Жовтень","Листопад","Грудень"];
 const TM=["Андрій","Таня","Альона"];
 const TC={"Андрій":"#6366f1","Таня":"#f59e0b","Альона":"#10b981"};
-// Pastel bar colors per team member (like the original screenshot)
-const TBar={"Андрій":"#7c8cf8","Таня":"#6ee7b7","Альона":"#f9a8d4"};
-const TBarBg={"Андрій":"#4f46e5","Таня":"#059669","Альона":"#db2777"};
+// Pastel bar colors per team member
+const TBar={"Андрій":"#93a3f8","Таня":"#6ee7b7","Альона":"#f9a8d4"};
+const TBarDark={"Андрій":"#6366f1","Таня":"#059669","Альона":"#ec4899"};
 const CS=["Проєкт","Ретрит","Подкаст","Вебінар","Клієнт","Задача"];
 const CC={"Проєкт":"#818cf8","Ретрит":"#f472b6","Подкаст":"#34d399","Вебінар":"#fbbf24","Клієнт":"#fb923c","Задача":"#94a3b8"};
 const CB={"Проєкт":"#312e81","Ретрит":"#831843","Подкаст":"#064e3b","Вебінар":"#78350f","Клієнт":"#7c2d12","Задача":"#1e293b"};
-// Brighter bar colors for the gantt
 const CBar={"Проєкт":"#6366f1","Ретрит":"#ec4899","Подкаст":"#10b981","Вебінар":"#f59e0b","Клієнт":"#f97316","Задача":"#64748b"};
 
 let items=[
@@ -231,10 +232,10 @@ let items=[
 let nid=19,fil="all",tfil="all",eid=null,tab=0;
 let fCat="Проєкт",fTeam=[],fMon=[],fEf=2;
 
-const ic=(v,mx)=>{if(!mx)return"#1e293b";const r=v/mx;return r<=.3?"#064e3b":r<=.5?"#166534":r<=.7?"#854d0e":r<=.85?"#9a3412":"#991b1b"};
-const ib=(v,mx)=>{if(!mx)return"#334155";const r=v/mx;return r<=.3?"#22c55e":r<=.5?"#4ade80":r<=.7?"#eab308":r<=.85?"#f97316":"#ef4444"};
+// Heatmap colors (light theme)
+const ic=(v,mx)=>{if(!mx||!v)return"#f8fafc";const r=v/mx;return r<=.3?"#dcfce7":r<=.5?"#bbf7d0":r<=.7?"#fef9c3":r<=.85?"#fed7aa":"#fecaca"};
+const ib=(v,mx)=>{if(!mx||!v)return"#e2e8f0";const r=v/mx;return r<=.3?"#22c55e":r<=.5?"#4ade80":r<=.7?"#eab308":r<=.85?"#f97316":"#ef4444"};
 
-// Current month (0-indexed, April 2026 = 3)
 const NOW=new Date();
 const CUR_MONTH=NOW.getFullYear()===2026?NOW.getMonth():3;
 const CUR_DAY=NOW.getDate();
@@ -244,27 +245,55 @@ function hm(){const m={};TM.forEach(t=>{m[t]=Array(12).fill(0)});items.forEach(i
 
 function switchTab(n){tab=n;for(let i=0;i<3;i++){document.getElementById("panel"+i).classList.toggle("hidden",i!==n);document.getElementById("tab"+i).classList.toggle("active",i===n)}render()}
 
+// Get availability info for a team member
+function getAvail(t,hmap){
+  const curLoad=hmap[t][CUR_MONTH];
+  const mx=Math.max(...Object.values(hmap).flat());
+  const curRatio=mx?curLoad/mx:0;
+  // Find next month with lower load
+  let freeMonth=-1;
+  for(let i=CUR_MONTH+1;i<12;i++){
+    if(hmap[t][i]<curLoad){freeMonth=i;break}
+  }
+  // Items ending soon (within next 2 months)
+  const endingSoon=items.filter(it=>it.team.includes(t)&&it.months.length>0).filter(it=>{
+    const lastMonth=Math.max(...it.months);
+    return lastMonth>=CUR_MONTH&&lastMonth<=CUR_MONTH+2&&lastMonth<11;
+  });
+  return {curLoad,curRatio,freeMonth,endingSoon};
+}
+
 // Tooltip
 const tip=document.getElementById("tip");
 function showTip(e,it){
   const months=it.months;
   const from=MF[months[0]],to=MF[months[months.length-1]];
+  const lastMonth=Math.max(...months);
+  const isPast=lastMonth<CUR_MONTH;
+  const endsThisMonth=lastMonth===CUR_MONTH;
+  let statusHtml='';
+  if(isPast)statusHtml='<div style="color:#94a3b8;font-size:10px;margin-top:4px">Завершено</div>';
+  else if(endsThisMonth)statusHtml='<div style="color:#f59e0b;font-size:10px;margin-top:4px">Завершується цього місяця</div>';
   tip.innerHTML=`
     <div class="tt-name">${it.name}</div>
     <div class="tt-cat" style="background:${CBar[it.cat]}">${it.cat}</div>
-    <div class="tt-row"><span style="color:#e2e8f0">${from} — ${to}</span></div>
+    <div class="tt-row"><span style="color:#1e293b">${from} — ${to}</span></div>
     <div class="tt-row">Команда: ${it.team.map(t=>`<span class="dot" style="width:8px;height:8px;background:${TC[t]};margin:0 1px"></span>`).join("")} ${it.team.join(", ")}</div>
     <div class="tt-row">Інтенсивність: ${"●".repeat(it.effort)}${"○".repeat(5-it.effort)} ${it.effort}/5</div>
+    ${statusHtml}
   `;
   tip.classList.add("show");
-  const rect=tip.getBoundingClientRect();
-  let x=e.clientX+12,y=e.clientY-10;
-  if(x+rect.width>window.innerWidth)x=e.clientX-rect.width-12;
-  if(y+rect.height>window.innerHeight)y=e.clientY-rect.height-10;
-  tip.style.left=x+"px";tip.style.top=y+"px";
+  positionTip(e);
 }
 function hideTip(){tip.classList.remove("show")}
-document.addEventListener("mousemove",e=>{if(tip.classList.contains("show")){let x=e.clientX+12,y=e.clientY-10;const r=tip.getBoundingClientRect();if(x+r.width>window.innerWidth)x=e.clientX-r.width-12;if(y+r.height>window.innerHeight)y=e.clientY-r.height-10;tip.style.left=x+"px";tip.style.top=y+"px"}});
+function positionTip(e){
+  const r=tip.getBoundingClientRect();
+  let x=e.clientX+12,y=e.clientY-10;
+  if(x+r.width>window.innerWidth)x=e.clientX-r.width-12;
+  if(y+r.height>window.innerHeight)y=e.clientY-r.height-10;
+  tip.style.left=x+"px";tip.style.top=y+"px";
+}
+document.addEventListener("mousemove",e=>{if(tip.classList.contains("show"))positionTip(e)});
 
 function render(){
   const hmap=hm();let mx=1;Object.values(hmap).forEach(a=>a.forEach(v=>{if(v>mx)mx=v}));
@@ -280,31 +309,56 @@ function render(){
   ].map(i=>`<div class="ind" style="border-left:4px solid ${i.c}"><div class="ind-l">${i.l}</div><div class="ind-v">${i.v}</div></div>`).join("");
 
   // Heatmap
-  let ht=`<thead><tr><th></th>${M.map((m,i)=>`<th${i===CUR_MONTH?' style="color:#f59e0b;font-weight:700"':''}>${m}</th>`).join("")}</tr></thead><tbody>`;
+  let ht=`<thead><tr><th></th>${M.map((m,i)=>`<th style="${i===CUR_MONTH?'color:#dc2626;font-weight:700':''}${i<CUR_MONTH?'color:#cbd5e1':''}">${m}</th>`).join("")}</tr></thead><tbody>`;
   TM.forEach(t=>{
     ht+=`<tr><td><span class="dot" style="background:${TC[t]}"></span>${t}</td>`;
-    hmap[t].forEach((v,mi)=>{ht+=`<td style="background:${ic(v,mx)};border:2px solid ${ib(v,mx)}${mi===CUR_MONTH?';box-shadow:inset 0 0 0 1px #f59e0b44':''}" onmouseenter="sh('${t}',${mi},${v})" onmouseleave="hh()">${v||"—"}</td>`});
+    hmap[t].forEach((v,mi)=>{
+      const isPast=mi<CUR_MONTH;
+      const isCur=mi===CUR_MONTH;
+      ht+=`<td style="background:${ic(v,mx)};border:2px solid ${ib(v,mx)};${isPast?'opacity:.5;':''}${isCur?'box-shadow:inset 0 0 0 2px #dc262644;':''}" onmouseenter="sh('${t}',${mi},${v})" onmouseleave="hh()">${v||"—"}</td>`;
+    });
     ht+=`</tr>`;
   });
-  ht+=`<tr><td style="font-size:11px;color:#64748b;font-weight:700">&Sigma;</td>`;
+  ht+=`<tr><td style="font-size:11px;color:#94a3b8;font-weight:700">&Sigma;</td>`;
   tbm.forEach(v=>{ht+=`<td style="font-size:11px;color:#94a3b8;font-weight:700">${v}</td>`});
   ht+=`</tr></tbody>`;
   document.getElementById("htab").innerHTML=ht;
   document.getElementById("hleg").innerHTML=[
-    {l:"Вільно",c:"#064e3b",b:"#22c55e"},{l:"Помірно",c:"#166534",b:"#4ade80"},{l:"Норма",c:"#854d0e",b:"#eab308"},{l:"Багато",c:"#9a3412",b:"#f97316"},{l:"Макс",c:"#991b1b",b:"#ef4444"}
+    {l:"Вільно",c:"#dcfce7",b:"#22c55e"},{l:"Помірно",c:"#bbf7d0",b:"#4ade80"},{l:"Норма",c:"#fef9c3",b:"#eab308"},{l:"Багато",c:"#fed7aa",b:"#f97316"},{l:"Макс",c:"#fecaca",b:"#ef4444"}
   ].map(x=>`<div class="li"><div class="lb" style="background:${x.c};border:2px solid ${x.b}"></div>${x.l}</div>`).join("");
+
+  // Availability summary
+  document.getElementById("availSummary").innerHTML=TM.map(t=>{
+    const av=getAvail(t,hmap);
+    let statusClass,statusText;
+    if(av.curRatio>.7){statusClass="avail-busy";statusText="Завантажений";}
+    else if(av.curRatio>.4){statusClass="avail-soon";statusText="Помірно";}
+    else{statusClass="avail-free";statusText="Є ресурс";}
+
+    const endingHtml=av.endingSoon.length?
+      `<div style="margin-top:6px;font-size:11px;color:#64748b">Завершуються скоро: ${av.endingSoon.map(it=>`<span style="color:${CBar[it.cat]};font-weight:600">${it.name}</span> (до ${M[Math.max(...it.months)]})`).join(", ")}</div>`:'';
+    const freeHtml=av.freeMonth>=0?
+      `<div style="font-size:11px;color:#64748b;margin-top:2px">Менше навантаження з <strong style="color:#16a34a">${MF[av.freeMonth]}</strong></div>`:'';
+
+    return `<div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;${t!==TM[TM.length-1]?'border-bottom:1px solid #f1f5f9':''}">
+      <span class="dot" style="background:${TC[t]};margin-top:4px;flex-shrink:0"></span>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:8px"><strong style="color:#0f172a">${t}</strong><span class="avail-tag ${statusClass}">${statusText}</span></div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:2px">${MF[CUR_MONTH]}: навантаження <strong style="color:#1e293b">${av.curLoad}</strong> з ${mx}</div>
+        ${freeHtml}${endingHtml}
+      </div>
+    </div>`;
+  }).join("");
 
   // === GANTT TIMELINE ===
   let fd=fil==="all"?[...items]:items.filter(it=>it.cat===fil);
   if(tfil!=="all")fd=fd.filter(it=>it.team.includes(tfil));
   document.getElementById("countBadge").textContent=fd.length+" елементів";
 
-  // Category filters
   document.getElementById("fbar").innerHTML=
     `<button class="chip ${fil==="all"?"":"chip-off"}" style="${fil==="all"?"background:#475569;color:#fff":""}" onclick="sf('all')">Всі</button>`+
     CS.map(c=>`<button class="chip ${fil===c?"":"chip-off"}" style="${fil===c?`background:${CBar[c]};color:#fff`:""}" onclick="sf('${c}')">${c}</button>`).join("");
 
-  // Team filters
   document.getElementById("tfbar").innerHTML=
     `<button class="tf-pill ${tfil==="all"?"":"tf-pill-off"}" style="${tfil==="all"?"background:#475569;color:#fff":""}" onclick="stf('all')">Всі</button>`+
     TM.map(t=>`<button class="tf-pill ${tfil===t?"":"tf-pill-off"}" style="${tfil===t?`background:${TC[t]};color:#fff`:""}" onclick="stf('${t}')">${t}</button>`).join("");
@@ -313,20 +367,23 @@ function render(){
   const groupByTeam=tfil==="all";
   let ghtml='<div class="gantt-wrap"><div class="gantt-tl">';
 
-  // Month headers
   ghtml+='<div class="gantt-header">';
-  M.forEach((m,i)=>{ghtml+=`<div class="gantt-mh${i===CUR_MONTH?' current':''}">${m}</div>`});
+  M.forEach((m,i)=>{
+    const cls=i===CUR_MONTH?' current':i<CUR_MONTH?' past':'';
+    ghtml+=`<div class="gantt-mh${cls}">${m}</div>`;
+  });
   ghtml+='</div>';
 
-  // Today line position: percentage through the year
-  const todayPct=((CUR_MONTH*DAYS_IN_MONTH[CUR_MONTH]+CUR_DAY)/365)*100;
-
   if(groupByTeam){
-    // Group by team member
     TM.forEach(t=>{
       const memberItems=fd.filter(it=>it.team.includes(t));
       if(!memberItems.length)return;
-      ghtml+=`<div class="gantt-group"><div class="gantt-group-title"><span class="dot" style="width:8px;height:8px;background:${TC[t]}"></span> ${t} <span style="font-weight:400;color:#64748b;text-transform:none;letter-spacing:0">(${memberItems.length})</span></div>`;
+      const av=getAvail(t,hmap);
+      let availHtml='';
+      if(av.curRatio>.7)availHtml=`<span class="gantt-group-avail" style="background:#fef2f2;color:#dc2626">Завантажений</span>`;
+      else if(av.curRatio>.4)availHtml=`<span class="gantt-group-avail" style="background:#fffbeb;color:#d97706">Помірно</span>`;
+      else availHtml=`<span class="gantt-group-avail" style="background:#f0fdf4;color:#16a34a">Є ресурс</span>`;
+      ghtml+=`<div class="gantt-group"><div class="gantt-group-title"><span class="dot" style="width:8px;height:8px;background:${TC[t]}"></span> ${t} <span style="font-weight:400;color:#94a3b8;text-transform:none;letter-spacing:0">(${memberItems.length})</span>${availHtml}</div>`;
       memberItems.forEach(it=>{ghtml+=ganttRow(it,t)});
       ghtml+='</div>';
     });
@@ -334,27 +391,24 @@ function render(){
     fd.forEach(it=>{ghtml+=ganttRow(it,null)});
   }
 
-  // Today line
-  ghtml+=`<div class="gantt-today" style="left:calc(180px + ${todayPct}% * (100% - 180px) / 100)"></div>`;
+  ghtml+=`<div class="gantt-today"></div>`;
   ghtml+='</div></div>';
   document.getElementById("ganttView").innerHTML=ghtml;
 
-  // Position today line correctly after render
+  // Position today line
   requestAnimationFrame(()=>{
     const tl=document.querySelector(".gantt-tl");
     if(!tl)return;
     const line=tl.querySelector(".gantt-today");
-    if(!line)return;
     const headerEl=tl.querySelector(".gantt-header");
-    if(!headerEl)return;
+    if(!line||!headerEl)return;
     const headerRect=headerEl.getBoundingClientRect();
     const tlRect=tl.getBoundingClientRect();
     const headerLeft=headerRect.left-tlRect.left;
     const headerWidth=headerRect.width;
     const monthWidth=headerWidth/12;
     const dayInMonth=CUR_DAY/DAYS_IN_MONTH[CUR_MONTH];
-    const xPos=headerLeft+(CUR_MONTH+dayInMonth)*monthWidth;
-    line.style.left=xPos+"px";
+    line.style.left=(headerLeft+(CUR_MONTH+dayInMonth)*monthWidth)+"px";
   });
 
   // Attach tooltip events
@@ -384,26 +438,40 @@ function render(){
     const pct=Math.round(tot/maxPossible*100);
     const circ=2*Math.PI*23;
     const offset=circ-(pct/100)*circ;
+    const av=getAvail(t,hmap);
 
-    const bars=hmap[t].map((v,i)=>`<div class="mbi" style="height:${Math.max(4,v/mx*48)}px;background:${ib(v,mx)}${i===CUR_MONTH?';outline:2px solid #f59e0b;outline-offset:-1px':''}" title="${M[i]}: ${v}"></div>`).join("");
+    let statusClass,statusText;
+    if(av.curRatio>.7){statusClass="avail-busy";statusText="Завантажений";}
+    else if(av.curRatio>.4){statusClass="avail-soon";statusText="Помірно";}
+    else{statusClass="avail-free";statusText="Є ресурс";}
+
+    const bars=hmap[t].map((v,i)=>`<div class="mbi" style="height:${Math.max(4,v/mx*48)}px;background:${ib(v,mx)};${i<CUR_MONTH?'opacity:.4;':''}${i===CUR_MONTH?'outline:2px solid #dc2626;outline-offset:-1px;border-radius:3px;':''}" title="${M[i]}: ${v}"></div>`).join("");
     const myItems=items.filter(it=>it.team.includes(t));
-    const itemList=myItems.map(it=>`<div style="display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:1px solid #0f172a"><span class="dot" style="background:${CBar[it.cat]};width:6px;height:6px"></span><span style="font-size:11px;flex:1">${it.name}</span><span style="font-size:10px;color:#64748b">${"●".repeat(it.effort)}${"○".repeat(5-it.effort)}</span></div>`).join("");
+    const itemList=myItems.map(it=>{
+      const lastMonth=Math.max(...it.months);
+      const isPast=lastMonth<CUR_MONTH;
+      const endsSoon=lastMonth>=CUR_MONTH&&lastMonth<=CUR_MONTH+2&&lastMonth<11;
+      return `<div style="display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:1px solid #f1f5f9;${isPast?'opacity:.4':''}"><span class="dot" style="background:${CBar[it.cat]};width:6px;height:6px"></span><span style="font-size:11px;flex:1;color:#475569">${it.name}</span>${endsSoon?`<span style="font-size:9px;color:#d97706;font-weight:600">до ${M[lastMonth]}</span>`:`<span style="font-size:10px;color:#cbd5e1">${"●".repeat(it.effort)}${"○".repeat(5-it.effort)}</span>`}</div>`;
+    }).join("");
 
     return `<div class="sc" style="border-top:3px solid ${TC[t]}">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <div class="sn">${t}</div>
+        <div>
+          <div class="sn">${t}</div>
+          <span class="avail-tag ${statusClass}">${statusText} у ${MF[CUR_MONTH]}</span>
+        </div>
         <div class="ring-wrap">
           <svg viewBox="0 0 52 52" width="52" height="52">
             <circle class="ring-bg" cx="26" cy="26" r="23"/>
             <circle class="ring-fg" cx="26" cy="26" r="23" stroke="${TC[t]}" stroke-dasharray="${circ}" stroke-dashoffset="${offset}" transform="rotate(-90 26 26)"/>
-            <text x="26" y="28" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="700">${pct}%</text>
+            <text x="26" y="28" text-anchor="middle" fill="#1e293b" font-size="11" font-weight="700">${pct}%</text>
           </svg>
         </div>
       </div>
       <div class="si">
-        Проєктів: <strong style="color:#e2e8f0">${mi}</strong> &middot;
-        Навантаження: <strong style="color:#e2e8f0">${tot}</strong> &middot;
-        Пік: <strong style="color:#e2e8f0">${pkm}</strong> (${pk})
+        Проєктів: <strong style="color:#1e293b">${mi}</strong> &middot;
+        Навантаження: <strong style="color:#1e293b">${tot}</strong> &middot;
+        Пік: <strong style="color:#1e293b">${pkm}</strong> (${pk})
         <div class="mb" style="align-items:flex-end;height:48px">${bars}</div>
       </div>
       <div style="margin-top:10px;max-height:220px;overflow-y:auto">${itemList}</div>
@@ -413,7 +481,6 @@ function render(){
 
 function ganttRow(it,forMember){
   const ms=it.months;
-  // Find contiguous segments
   const segs=[];
   let start=ms[0],prev=ms[0];
   for(let i=1;i<ms.length;i++){
@@ -422,17 +489,19 @@ function ganttRow(it,forMember){
   }
   segs.push([start,prev]);
 
-  // Use team member color when grouped, category color otherwise
   const barColor=forMember?TBar[forMember]:CBar[it.cat];
   const dotColor=forMember?TBar[forMember]:CBar[it.cat];
+  const lastMonth=Math.max(...ms);
+  const isPastProject=lastMonth<CUR_MONTH;
 
-  let row=`<div class="gantt-row"><div class="gantt-label"><span class="dot" style="background:${dotColor};width:7px;height:7px;flex-shrink:0"></span><span>${it.name}</span></div><div class="gantt-bars">`;
+  let row=`<div class="gantt-row"><div class="gantt-label" style="${isPastProject?'opacity:.4':''}"><span class="dot" style="background:${dotColor};width:7px;height:7px;flex-shrink:0"></span><span>${it.name}</span></div><div class="gantt-bars">`;
 
   segs.forEach(([s,e])=>{
     const left=(s/12*100).toFixed(2);
     const width=((e-s+1)/12*100).toFixed(2);
     const opacity=0.55+it.effort*0.09;
-    row+=`<div class="gantt-bar" data-id="${it.id}" style="left:${left}%;width:${width}%;background:${barColor};opacity:${opacity}">`;
+    const isPast=e<CUR_MONTH;
+    row+=`<div class="gantt-bar${isPast?' past-bar':''}" data-id="${it.id}" style="left:${left}%;width:${width}%;background:${barColor};opacity:${isPast?0.3:opacity}">`;
     if(e-s>=2)row+=`<span class="bar-text">${it.name}</span>`;
     row+=`</div>`;
   });
