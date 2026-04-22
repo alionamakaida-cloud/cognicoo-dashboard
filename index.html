@@ -70,6 +70,27 @@ h1{font-size:20px;font-weight:700;letter-spacing:-.3px;color:#0f172a}
 .tl-bar{position:absolute;height:22px;top:6px;border-radius:6px;display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;z-index:2;transition:opacity .15s,transform .1s;min-width:16px}
 .tl-bar:hover{opacity:.85;transform:scaleY(1.1)}
 
+/* Category variants */
+.tl-bar.cat-ops{height:8px;top:13px;background:repeating-linear-gradient(45deg,#fed7aa,#fed7aa 6px,#fef3c7 6px,#fef3c7 12px) !important;opacity:.75}
+.tl-bar.cat-education{height:10px;top:12px;background:repeating-linear-gradient(135deg,#a5f3fc,#a5f3fc 6px,#cffafe 6px,#cffafe 12px) !important;opacity:.8}
+.tl-bar.cat-event{background:linear-gradient(135deg,#c084fc,#a855f7) !important;box-shadow:0 2px 6px rgba(168,85,247,.3);border:1px solid #9333ea}
+.tl-bar.cat-event::before{content:'📅 ';font-size:9px}
+.tl-bar.cat-strategy{background:linear-gradient(135deg,#c4b5fd,#a78bfa) !important}
+
+/* Category filter chip */
+.cfchip{border:1px solid #e2e8f0;border-radius:18px;padding:5px 12px;cursor:pointer;font-size:11px;font-weight:600;transition:all .12s;background:#fff;color:#64748b;display:inline-flex;align-items:center;gap:5px}
+.cfchip:hover{border-color:#cbd5e1}
+.cfchip.on{color:#fff;border-color:transparent}
+
+/* Ops panel */
+.ops-panel{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:14px 18px;margin-bottom:18px}
+.ops-panel-title{font-size:13px;font-weight:700;color:#78350f;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.ops-panel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.ops-item{background:#fff;border:1px solid #fde68a;border-radius:10px;padding:10px 12px}
+.ops-item-lbl{font-size:10px;color:#92400e;text-transform:uppercase;letter-spacing:.4px;font-weight:600}
+.ops-item-val{font-size:18px;font-weight:700;color:#78350f;margin-top:2px}
+.ops-item-sub{font-size:10px;color:#a16207;margin-top:2px}
+
 /* Today marker */
 .tl-today{position:absolute;top:0;bottom:0;width:2px;background:#ef4444;z-index:4;pointer-events:none}
 .tl-today::before{content:'Сьогодні';position:absolute;top:-20px;left:-24px;font-size:10px;color:#ef4444;font-weight:600;white-space:nowrap}
@@ -125,7 +146,9 @@ h1{font-size:20px;font-weight:700;letter-spacing:-.3px;color:#0f172a}
 <div class="inds" id="indicators"></div>
 <div id="pipeline"></div>
 <div class="filters" id="filters"></div>
+<div class="filters" id="catFilters" style="margin-top:-6px"></div>
 <div class="timeline-wrap" id="timelineWrap"><div class="loading"><span class="spin"></span>Завантаження...</div></div>
+<div id="opsPanel"></div>
 <div class="detail" id="detail"></div>
 <div class="leg" id="legend"></div>
 <div class="tip" id="tip"></div>
@@ -142,9 +165,30 @@ const STATUS_CLR = {'Backlog':'#94a3b8','in process':'#6366f1','Перевірк
 const MONTHS_UA = ['Січ','Лют','Бер','Кві','Тра','Чер','Лип','Сер','Вер','Жов','Лис','Гру'];
 const MONTHS_FULL = ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'];
 
+// ─── CATEGORIES (from Notion tags) ───
+const CATEGORIES = {
+  client:    {label:'Клієнт',     icon:'🎯', color:'#6366f1'},
+  strategy:  {label:'Стратегія',  icon:'🚀', color:'#8b5cf6'},
+  ops:       {label:'Операційка', icon:'⚙️', color:'#f59e0b'},
+  education: {label:'Освіта',     icon:'🎓', color:'#06b6d4'},
+  event:     {label:'Подія',      icon:'📅', color:'#a855f7'},
+  other:     {label:'Інше',       icon:'•',  color:'#94a3b8'}
+};
+// Tag → category mapping
+function categoryOf(tags) {
+  const t = (tags || []).map(x => x.toLowerCase());
+  if (t.some(x => x.includes('ivent') || x.includes('event'))) return 'event';
+  if (t.some(x => x.includes('client'))) return 'client';
+  if (t.some(x => x === 'operations' || x.includes('legal') || x.includes('finance'))) return 'ops';
+  if (t.some(x => x === 'education')) return 'education';
+  if (t.some(x => x === 'promo' || x === 'cognicoo')) return 'strategy';
+  return 'other';
+}
+
 let allTasks = [];
 let view = 'year';
 let filterTeam = new Set(TEAM);
+let filterCat = new Set(['client','strategy','event']); // default: main workload
 const NOW = new Date();
 const CUR_YEAR = NOW.getFullYear();
 const CUR_MONTH = NOW.getMonth();
@@ -180,7 +224,21 @@ function loadDemo() {
 // ─── HELPERS ───
 function parseDate(s) { return s ? new Date(s) : null; }
 function monthKey(y, m) { return y * 12 + m; }
-function activeTasks() { return allTasks.filter(t => filterTeam.size === 0 || t.team.some(m => filterTeam.has(m))); }
+function activeTasks() {
+  return allTasks.filter(t => {
+    if (filterTeam.size > 0 && !t.team.some(m => filterTeam.has(m))) return false;
+    if (filterCat.size > 0 && !filterCat.has(categoryOf(t.tags))) return false;
+    return true;
+  });
+}
+// Tasks in categories that don't belong on main timeline (for side panel)
+function opsTasks() {
+  return allTasks.filter(t => {
+    if (filterTeam.size > 0 && !t.team.some(m => filterTeam.has(m))) return false;
+    const c = categoryOf(t.tags);
+    return c === 'ops' || c === 'education';
+  });
+}
 
 // Build projects: group tasks by client + member (each member gets their own bar)
 function buildProjects() {
@@ -188,10 +246,11 @@ function buildProjects() {
   activeTasks().forEach(t => {
     const cList = t.clients && t.clients.length ? t.clients : ['Інше'];
     const members = t.team.length ? t.team : ['—'];
+    const cat = categoryOf(t.tags);
     cList.forEach(c => {
       members.forEach(m => {
-        const key = c + '||' + m;
-        if (!map[key]) map[key] = { name: c, member: m, tasks: [], startDates: [], endDates: [], statuses: new Set() };
+        const key = c + '||' + m + '||' + cat;
+        if (!map[key]) map[key] = { name: c, member: m, category: cat, tasks: [], startDates: [], endDates: [], statuses: new Set() };
         map[key].tasks.push(t);
         if (t.start) map[key].startDates.push(new Date(t.start));
         if (t.end) map[key].endDates.push(new Date(t.end));
@@ -254,7 +313,45 @@ function render() {
   renderPipeline();
   renderFilters();
   renderTimeline();
+  renderOpsPanel();
   renderLegend();
+}
+
+// ─── OPS PANEL (фонове навантаження: Операційка + Освіта) ───
+function renderOpsPanel() {
+  const el = document.getElementById('opsPanel');
+  const ops = opsTasks();
+  if (!ops.length) { el.innerHTML = ''; return; }
+
+  // Group by member + category
+  const byMember = {};
+  TEAM.forEach(m => { if (filterTeam.has(m)) byMember[m] = { ops: [], education: [] }; });
+  ops.forEach(t => {
+    const cat = categoryOf(t.tags);
+    t.team.forEach(m => {
+      if (byMember[m]) byMember[m][cat].push(t);
+    });
+  });
+
+  let h = '<div class="ops-panel">';
+  h += `<div class="ops-panel-title">⚙️ Фонове навантаження <span style="color:#a16207;font-weight:400;font-size:11px">(Операційка + Освіта — регулярні процеси поза основним таймлайном)</span></div>`;
+  h += '<div class="ops-panel-grid">';
+
+  TEAM.forEach(m => {
+    if (!byMember[m]) return;
+    const opsCount = byMember[m].ops.length;
+    const eduCount = byMember[m].education.length;
+    const active = [...byMember[m].ops, ...byMember[m].education].filter(t => ['in process','Перевірка','Backlog'].includes(t.status)).length;
+    if (opsCount + eduCount === 0) return;
+    h += `<div class="ops-item">
+      <div class="ops-item-lbl"><span style="color:${TCOLOR[m]}">●</span> ${m}</div>
+      <div class="ops-item-val">${opsCount + eduCount}</div>
+      <div class="ops-item-sub">⚙️ ${opsCount} операц. · 🎓 ${eduCount} освіта · ${active} активних</div>
+    </div>`;
+  });
+
+  h += '</div></div>';
+  el.innerHTML = h;
 }
 
 function setView(v) {
@@ -320,6 +417,16 @@ function renderFilters() {
   });
   h += `<button class="fchip ${filterTeam.size===TEAM.length?'on':'off'}" style="${filterTeam.size===TEAM.length?'background:#64748b':''}" onclick="toggleAll()">Всі</button>`;
   document.getElementById('filters').innerHTML = h;
+
+  // Category filters
+  let c = '<span style="font-size:10px;color:#94a3b8;align-self:center;margin-right:4px;text-transform:uppercase;letter-spacing:.4px">Тип:</span>';
+  Object.entries(CATEGORIES).forEach(([k, v]) => {
+    if (k === 'other') return;
+    const on = filterCat.has(k);
+    const style = on ? `background:${v.color};color:#fff` : '';
+    c += `<button class="cfchip ${on?'on':''}" style="${style}" onclick="toggleCat('${k}')">${v.icon} ${v.label}</button>`;
+  });
+  document.getElementById('catFilters').innerHTML = c;
 }
 
 function toggleFilter(m) {
@@ -330,6 +437,11 @@ function toggleFilter(m) {
 function toggleAll() {
   if (filterTeam.size === TEAM.length) { filterTeam.clear(); filterTeam.add(TEAM[0]); }
   else TEAM.forEach(t => filterTeam.add(t));
+  render();
+}
+function toggleCat(k) {
+  if (filterCat.has(k)) filterCat.delete(k); else filterCat.add(k);
+  if (filterCat.size === 0) filterCat.add('client');
   render();
 }
 
@@ -371,6 +483,10 @@ function renderTimeline() {
     h += `<div class="tl-section">`;
     h += `<div class="tl-section-hdr"><span class="tl-section-dot" style="background:${TCOLOR[member]}"></span>${member} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${memberProjects.length} проєктів)</span></div>`;
 
+    // Sort: client/strategy first, then event, then ops/education
+    const catOrder = {client:0, strategy:1, event:2, education:3, ops:4, other:5};
+    memberProjects.sort((a,b) => (catOrder[a.category]||9) - (catOrder[b.category]||9));
+
     memberProjects.forEach(p => {
       const pStartMK = monthKey(p.startDate.getFullYear(), p.startDate.getMonth()) + (p.startDate.getDate()-1)/30;
       const pEndMK = monthKey(p.endDate.getFullYear(), p.endDate.getMonth()) + (p.endDate.getDate()-1)/30;
@@ -380,19 +496,18 @@ function renderTimeline() {
       const widthPct = Math.max(rightPct - leftPct, 2);
 
       const barColor = p.active ? TBAR[member] : TBAR[member] + '88';
-      const taskInfo = JSON.stringify({name:p.name,team:[p.member],tasks:p.tasks.length,active:p.tasks.filter(t=>['in process','Перевірка'].includes(t.status)).length,status:[...p.statuses]}).replace(/"/g,'&quot;');
+      const catInfo = CATEGORIES[p.category] || CATEGORIES.other;
+      const taskInfo = JSON.stringify({name:p.name,team:[p.member],tasks:p.tasks.length,active:p.tasks.filter(t=>['in process','Перевірка'].includes(t.status)).length,status:[...p.statuses],category:catInfo.label}).replace(/"/g,'&quot;');
 
       h += `<div class="tl-row">
-        <div class="tl-row-label" title="${p.name}">${p.name}</div>
+        <div class="tl-row-label" title="${p.name}">${catInfo.icon} ${p.name}</div>
         <div class="tl-row-track">`;
 
-      // Grid lines
       for (let i = 0; i < mCount; i++) {
         h += `<div class="tl-row-cell"></div>`;
       }
 
-      // Bar
-      h += `<div class="tl-bar" style="left:${leftPct}%;width:${widthPct}%;background:${barColor}"
+      h += `<div class="tl-bar cat-${p.category}" style="left:${leftPct}%;width:${widthPct}%;background:${barColor}"
                  onmouseenter="showProjectTip(event, this)" onmouseleave="hideTip()"
                  data-info="${taskInfo}">${p.name}</div>`;
 
