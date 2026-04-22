@@ -82,6 +82,32 @@ h1{font-size:20px;font-weight:700;letter-spacing:-.3px;color:#0f172a}
 .cfchip:hover{border-color:#cbd5e1}
 .cfchip.on{color:#fff;border-color:transparent}
 
+/* Client dropdown */
+.cli-select{border:1px solid #e2e8f0;border-radius:18px;padding:6px 14px;font-size:11px;font-weight:600;background:#fff;color:#475569;cursor:pointer;outline:none;font-family:inherit}
+.cli-select:hover{border-color:#cbd5e1}
+.cli-select:focus{border-color:#6366f1}
+
+/* Client detail panel */
+.cli-detail{background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:18px;margin-bottom:18px}
+.cli-detail-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.cli-detail-title{font-size:16px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px}
+.cli-stats{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.cli-stat{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px 14px;flex:1;min-width:130px}
+.cli-stat-l{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.4px;font-weight:600}
+.cli-stat-v{font-size:20px;font-weight:700;color:#0f172a;margin-top:2px}
+.cli-stat-s{font-size:11px;color:#64748b;margin-top:1px}
+
+.cli-section{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.cli-section-hdr{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cli-section-dot{width:10px;height:10px;border-radius:50%}
+
+.cli-task{display:grid;grid-template-columns:1fr 110px 100px 100px;gap:10px;padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:12px;align-items:center}
+.cli-task:last-child{border-bottom:none}
+.cli-task-name{color:#1e293b;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cli-task-status{font-size:10px;padding:3px 8px;border-radius:6px;font-weight:600;text-align:center}
+.cli-task-dates{font-size:11px;color:#64748b;text-align:right}
+.cli-task-cat{font-size:10px;color:#94a3b8;text-align:right}
+
 /* Ops panel */
 .ops-panel{background:#fffbeb;border:1px solid #fde68a;border-radius:14px;padding:14px 18px;margin-bottom:18px}
 .ops-panel-title{font-size:13px;font-weight:700;color:#78350f;margin-bottom:10px;display:flex;align-items:center;gap:8px}
@@ -147,6 +173,8 @@ h1{font-size:20px;font-weight:700;letter-spacing:-.3px;color:#0f172a}
 <div id="pipeline"></div>
 <div class="filters" id="filters"></div>
 <div class="filters" id="catFilters" style="margin-top:-6px"></div>
+<div class="filters" id="clientFilter" style="margin-top:-6px"></div>
+<div id="clientDetail"></div>
 <div class="timeline-wrap" id="timelineWrap"><div class="loading"><span class="spin"></span>Завантаження...</div></div>
 <div id="opsPanel"></div>
 <div class="detail" id="detail"></div>
@@ -189,6 +217,7 @@ let allTasks = [];
 let view = 'year';
 let filterTeam = new Set(TEAM);
 let filterCat = new Set(['client','strategy','event']); // default: main workload
+let filterClient = null; // null = all clients, otherwise client name
 const NOW = new Date();
 const CUR_YEAR = NOW.getFullYear();
 const CUR_MONTH = NOW.getMonth();
@@ -228,6 +257,7 @@ function activeTasks() {
   return allTasks.filter(t => {
     if (filterTeam.size > 0 && !t.team.some(m => filterTeam.has(m))) return false;
     if (filterCat.size > 0 && !filterCat.has(categoryOf(t.tags))) return false;
+    if (filterClient && !(t.clients || []).includes(filterClient)) return false;
     return true;
   });
 }
@@ -235,9 +265,15 @@ function activeTasks() {
 function opsTasks() {
   return allTasks.filter(t => {
     if (filterTeam.size > 0 && !t.team.some(m => filterTeam.has(m))) return false;
+    if (filterClient && !(t.clients || []).includes(filterClient)) return false;
     const c = categoryOf(t.tags);
     return c === 'ops' || c === 'education';
   });
+}
+function allClients() {
+  const set = new Set();
+  allTasks.forEach(t => (t.clients || []).forEach(c => set.add(c)));
+  return [...set].sort();
 }
 
 // Build projects: group tasks by client + member (each member gets their own bar)
@@ -312,9 +348,107 @@ function render() {
   renderIndicators();
   renderPipeline();
   renderFilters();
+  renderClientFilter();
+  renderClientDetail();
   renderTimeline();
   renderOpsPanel();
   renderLegend();
+}
+
+// ─── CLIENT FILTER ───
+function renderClientFilter() {
+  const clients = allClients();
+  let h = '<span style="font-size:10px;color:#94a3b8;align-self:center;margin-right:4px;text-transform:uppercase;letter-spacing:.4px">Клієнт:</span>';
+  h += `<select class="cli-select" onchange="setClient(this.value)">`;
+  h += `<option value="">— Всі клієнти —</option>`;
+  clients.forEach(c => {
+    const sel = filterClient === c ? 'selected' : '';
+    const count = allTasks.filter(t => (t.clients||[]).includes(c)).length;
+    h += `<option value="${c}" ${sel}>${c} (${count})</option>`;
+  });
+  h += `</select>`;
+  if (filterClient) {
+    h += `<button class="cfchip on" style="background:#ef4444;margin-left:6px" onclick="setClient('')">✕ Скинути</button>`;
+  }
+  document.getElementById('clientFilter').innerHTML = h;
+}
+
+function setClient(c) {
+  filterClient = c || null;
+  render();
+}
+
+// ─── CLIENT DETAIL (drill-down when client selected) ───
+function renderClientDetail() {
+  const el = document.getElementById('clientDetail');
+  if (!filterClient) { el.innerHTML = ''; return; }
+
+  const tasks = allTasks.filter(t => (t.clients||[]).includes(filterClient));
+  // Group by member
+  const byMember = {};
+  TEAM.forEach(m => { byMember[m] = []; });
+  const unknownMembers = [];
+  tasks.forEach(t => {
+    if (!t.team.length) unknownMembers.push(t);
+    t.team.forEach(m => { if (byMember[m]) byMember[m].push(t); });
+  });
+
+  const total = tasks.length;
+  const active = tasks.filter(t => ['in process','Перевірка'].includes(t.status)).length;
+  const done = tasks.filter(t => ['Done all','Підтверджено'].includes(t.status)).length;
+  const backlog = tasks.filter(t => t.status === 'Backlog').length;
+
+  // Date range
+  const dates = tasks.map(t => t.start).filter(Boolean).sort();
+  const endDates = tasks.map(t => t.end || t.start).filter(Boolean).sort();
+  const dateRange = dates.length ? `${dates[0]} → ${endDates[endDates.length-1]}` : '—';
+
+  let h = `<div class="cli-detail">
+    <div class="cli-detail-hdr">
+      <div class="cli-detail-title">🏢 ${filterClient}</div>
+      <button class="cfchip" style="background:#e2e8f0;color:#475569" onclick="setClient('')">← Повернутись до огляду</button>
+    </div>
+    <div class="cli-stats">
+      <div class="cli-stat"><div class="cli-stat-l">Всього задач</div><div class="cli-stat-v">${total}</div></div>
+      <div class="cli-stat"><div class="cli-stat-l">Активних</div><div class="cli-stat-v" style="color:#6366f1">${active}</div></div>
+      <div class="cli-stat"><div class="cli-stat-l">Виконано</div><div class="cli-stat-v" style="color:#22c55e">${done}</div></div>
+      <div class="cli-stat"><div class="cli-stat-l">У беклозі</div><div class="cli-stat-v" style="color:#94a3b8">${backlog}</div></div>
+      <div class="cli-stat"><div class="cli-stat-l">Період</div><div class="cli-stat-s" style="font-size:11px;margin-top:6px">${dateRange}</div></div>
+    </div>`;
+
+  TEAM.forEach(m => {
+    const mTasks = byMember[m];
+    if (!mTasks || !mTasks.length) return;
+
+    // Sort by status (active first) then by date
+    const statusOrder = {'in process':0,'Перевірка':1,'Backlog':2,'Підтверджено':3,'Done all':4};
+    mTasks.sort((a,b) => {
+      const d = (statusOrder[a.status] ?? 9) - (statusOrder[b.status] ?? 9);
+      if (d !== 0) return d;
+      return (a.start || '9999') < (b.start || '9999') ? -1 : 1;
+    });
+
+    h += `<div class="cli-section">
+      <div class="cli-section-hdr"><span class="cli-section-dot" style="background:${TCOLOR[m]}"></span>${m} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${mTasks.length} задач)</span></div>`;
+
+    mTasks.forEach(t => {
+      const cat = categoryOf(t.tags);
+      const catInfo = CATEGORIES[cat] || CATEGORIES.other;
+      const statusClr = STATUS_CLR[t.status] || '#94a3b8';
+      const datesStr = t.start ? (t.end && t.end !== t.start ? `${t.start} → ${t.end}` : t.start) : '—';
+      h += `<div class="cli-task">
+        <div class="cli-task-name" title="${t.name}">${catInfo.icon} ${t.name}</div>
+        <div class="cli-task-status" style="background:${statusClr}22;color:${statusClr}">${STATUS_UA[t.status] || t.status}</div>
+        <div class="cli-task-dates">${datesStr}</div>
+        <div class="cli-task-cat">${catInfo.label}</div>
+      </div>`;
+    });
+
+    h += '</div>';
+  });
+
+  h += '</div>';
+  el.innerHTML = h;
 }
 
 // ─── OPS PANEL (фонове навантаження: Операційка + Освіта) ───
@@ -568,14 +702,15 @@ function showMonthDetail(mi, yr) {
     weeks.push({ label: `${d1}-${d2} ${MONTHS_UA[mi]}`, d1, d2 });
   }
 
-  // Get tasks for this month per member
+  // Get tasks for this month per member (respects category + client filters)
   function tasksInMonth(member) {
     return allTasks.filter(t => {
       if (!t.team.includes(member)) return false;
+      if (filterCat.size > 0 && !filterCat.has(categoryOf(t.tags))) return false;
+      if (filterClient && !(t.clients || []).includes(filterClient)) return false;
       const s = t.start ? new Date(t.start) : null;
       const e = t.end ? new Date(t.end) : s;
       if (!s) return mi === CUR_MONTH && yr === CUR_YEAR;
-      // Task overlaps with this month?
       const ms = new Date(yr, mi, 1);
       const me = new Date(yr, mi + 1, 0);
       return s <= me && (e || s) >= ms;
@@ -624,21 +759,23 @@ function showMonthDetail(mi, yr) {
         const leftPct = ((taskDay1 - 1) / daysInMonth) * 100;
         const widthPct = Math.max(((taskDay2 - taskDay1 + 1) / daysInMonth) * 100, 3);
 
+        const cat = categoryOf(t.tags);
+        const catInfo = CATEGORIES[cat] || CATEGORIES.other;
         const barColor = TBAR[member];
         const statusClr = STATUS_CLR[t.status] || '#94a3b8';
         const label = t.name.length > 35 ? t.name.slice(0, 33) + '…' : t.name;
-        const tipData = JSON.stringify({name:t.name,team:[member],tasks:1,active:['in process','Перевірка'].includes(t.status)?1:0,status:[t.status]}).replace(/"/g,'&quot;');
+        const tipData = JSON.stringify({name:t.name,team:[member],tasks:1,active:['in process','Перевірка'].includes(t.status)?1:0,status:[t.status],category:catInfo.label}).replace(/"/g,'&quot;');
 
         h += `<div class="tl-row">
           <div class="tl-row-label" title="${t.name}">
             <span class="det-badge" style="background:${statusClr}22;color:${statusClr};margin-right:6px;font-size:9px">${STATUS_UA[t.status] || t.status}</span>
-            ${t.clients && t.clients[0] ? t.clients[0] : ''}
+            ${catInfo.icon} ${t.clients && t.clients[0] ? t.clients[0] : '—'}
           </div>
           <div class="tl-row-track">`;
 
         for (let i = 0; i < 4; i++) h += '<div class="tl-row-cell"></div>';
 
-        h += `<div class="tl-bar" style="left:${leftPct}%;width:${widthPct}%;background:${barColor}"
+        h += `<div class="tl-bar cat-${cat}" style="left:${leftPct}%;width:${widthPct}%;background:${barColor}"
                    onmouseenter="showProjectTip(event,this)" onmouseleave="hideTip()"
                    data-info="${tipData}">${label}</div>`;
         h += '</div></div>';
