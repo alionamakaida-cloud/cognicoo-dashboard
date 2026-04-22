@@ -43,8 +43,8 @@ h1{font-size:20px;font-weight:700;letter-spacing:-.3px;color:#0f172a}
 .fchip.on{color:#fff}
 
 /* ─── TIMELINE GANTT ─── */
-.timeline-wrap{margin-bottom:18px;border:1px solid #e2e8f0;border-radius:14px;background:#fafbfc;overflow:visible}
-.timeline{position:relative;min-width:900px;overflow-x:auto}
+.timeline-wrap{margin-bottom:18px;border:1px solid #e2e8f0;border-radius:14px;background:#fafbfc;overflow:auto;max-height:75vh}
+.timeline{position:relative;min-width:900px}
 
 .tl-header{display:flex;border-bottom:1px solid #e2e8f0;position:sticky;top:0;background:#f8fafc;z-index:10;box-shadow:0 2px 4px rgba(0,0,0,0.04)}
 .tl-label-col{width:180px;min-width:180px;padding:10px 14px;font-size:11px;font-weight:600;color:#94a3b8;border-right:1px solid #e2e8f0;flex-shrink:0}
@@ -73,7 +73,7 @@ h1{font-size:20px;font-weight:700;letter-spacing:-.3px;color:#0f172a}
 /* Category variants — зберігаємо колір команди, додаємо тільки візуальну особливість */
 .tl-bar.cat-ops{height:8px;top:13px;background:repeating-linear-gradient(45deg,#fed7aa,#fed7aa 6px,#fef3c7 6px,#fef3c7 12px) !important;opacity:.75}
 .tl-bar.cat-education{height:10px;top:12px;background:repeating-linear-gradient(135deg,#a5f3fc,#a5f3fc 6px,#cffafe 6px,#cffafe 12px) !important;opacity:.8}
-.tl-bar.cat-event{border:2px dashed #a855f7;box-shadow:0 2px 6px rgba(168,85,247,.25)}
+.tl-bar.cat-event{border:2px solid #f43f5e;box-shadow:0 0 0 2px rgba(244,63,94,.15),0 2px 6px rgba(244,63,94,.25)}
 .tl-bar.cat-strategy{border-left:4px solid #a78bfa;padding-left:4px}
 
 /* Category filter chip */
@@ -198,7 +198,7 @@ const CATEGORIES = {
   strategy:  {label:'Стратегія',  icon:'🚀', color:'#8b5cf6'},
   ops:       {label:'Операційка', icon:'⚙️', color:'#f59e0b'},
   education: {label:'Освіта',     icon:'🎓', color:'#06b6d4'},
-  event:     {label:'Подія',      icon:'📅', color:'#a855f7'},
+  event:     {label:'Подія',      icon:'📅', color:'#f43f5e'},
   other:     {label:'Інше',       icon:'•',  color:'#94a3b8'}
 };
 // Tag → category mapping
@@ -275,7 +275,7 @@ function allClients() {
   return [...set].sort();
 }
 
-// Build projects: group tasks by client + member (each member gets their own bar)
+// Build projects: group tasks by client + member (one row per client per member, bars by category segments)
 function buildProjects() {
   const map = {};
   activeTasks().forEach(t => {
@@ -284,12 +284,23 @@ function buildProjects() {
     const cat = categoryOf(t.tags);
     cList.forEach(c => {
       members.forEach(m => {
-        const key = c + '||' + m + '||' + cat;
-        if (!map[key]) map[key] = { name: c, member: m, category: cat, tasks: [], startDates: [], endDates: [], statuses: new Set() };
+        const key = c + '||' + m;
+        if (!map[key]) map[key] = { name: c, member: m, categories: {}, tasks: [], startDates: [], endDates: [], statuses: new Set() };
         map[key].tasks.push(t);
-        if (t.start) map[key].startDates.push(new Date(t.start));
-        if (t.end) map[key].endDates.push(new Date(t.end));
-        else if (t.start) map[key].endDates.push(new Date(t.start));
+        // Track per-category date spans
+        if (!map[key].categories[cat]) map[key].categories[cat] = { starts: [], ends: [], count: 0 };
+        map[key].categories[cat].count++;
+        if (t.start) {
+          map[key].categories[cat].starts.push(new Date(t.start));
+          map[key].startDates.push(new Date(t.start));
+        }
+        if (t.end) {
+          map[key].categories[cat].ends.push(new Date(t.end));
+          map[key].endDates.push(new Date(t.end));
+        } else if (t.start) {
+          map[key].categories[cat].ends.push(new Date(t.start));
+          map[key].endDates.push(new Date(t.start));
+        }
         map[key].statuses.add(t.status);
       });
     });
@@ -307,6 +318,29 @@ function buildProjects() {
       p.endDate = new Date(CUR_YEAR, CUR_MONTH + 1, 15);
     }
     p.active = p.tasks.some(t => ['in process', 'Перевірка', 'Backlog'].includes(t.status));
+
+    // Build segments per category with their date ranges
+    p.segments = [];
+    Object.entries(p.categories).forEach(([cat, info]) => {
+      const starts = info.starts, ends = info.ends;
+      let segStart, segEnd;
+      if (starts.length) {
+        segStart = new Date(Math.min(...starts));
+        segEnd = ends.length ? new Date(Math.max(...ends)) : segStart;
+        if (segEnd - segStart < 7*24*3600*1000) {
+          segEnd = new Date(segEnd.getTime() + 14*24*3600*1000);
+        }
+      } else {
+        segStart = p.startDate;
+        segEnd = p.endDate;
+      }
+      p.segments.push({ cat, count: info.count, startDate: segStart, endDate: segEnd });
+    });
+    // Sort segments by start date
+    p.segments.sort((a,b) => a.startDate - b.startDate);
+    // Primary category = most tasks (for row label icon)
+    p.primaryCategory = Object.entries(p.categories).sort((a,b) => b[1].count - a[1].count)[0]?.[0] || 'other';
+
     return p;
   }).sort((a,b) => a.startDate - b.startDate);
 }
@@ -693,33 +727,39 @@ function renderTimeline() {
     h += `<div class="tl-section">`;
     h += `<div class="tl-section-hdr"><span class="tl-section-dot" style="background:${TCOLOR[member]}"></span>${member} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${memberProjects.length} проєктів)</span></div>`;
 
-    // Sort: client/strategy first, then event, then ops/education
+    // Sort: projects with primary client/strategy first
     const catOrder = {client:0, strategy:1, event:2, education:3, ops:4, other:5};
-    memberProjects.sort((a,b) => (catOrder[a.category]||9) - (catOrder[b.category]||9));
+    memberProjects.sort((a,b) => (catOrder[a.primaryCategory]||9) - (catOrder[b.primaryCategory]||9));
 
     memberProjects.forEach(p => {
-      const pStartMK = monthKey(p.startDate.getFullYear(), p.startDate.getMonth()) + (p.startDate.getDate()-1)/30;
-      const pEndMK = monthKey(p.endDate.getFullYear(), p.endDate.getMonth()) + (p.endDate.getDate()-1)/30;
-
-      const leftPct = Math.max(0, ((pStartMK - startMK) / mCount) * 100);
-      const rightPct = Math.min(100, ((pEndMK - startMK) / mCount) * 100);
-      const widthPct = Math.max(rightPct - leftPct, 2);
-
-      const barColor = p.active ? TBAR[member] : TBAR[member] + '88';
-      const catInfo = CATEGORIES[p.category] || CATEGORIES.other;
-      const taskInfo = JSON.stringify({name:p.name,team:[p.member],tasks:p.tasks.length,active:p.tasks.filter(t=>['in process','Перевірка'].includes(t.status)).length,status:[...p.statuses],category:catInfo.label}).replace(/"/g,'&quot;');
+      const primaryCatInfo = CATEGORIES[p.primaryCategory] || CATEGORIES.other;
+      // Icons for all categories this client has
+      const allIcons = Object.keys(p.categories).map(c => (CATEGORIES[c] || CATEGORIES.other).icon).join('');
+      const barColorBase = p.active ? TBAR[member] : TBAR[member] + '88';
 
       h += `<div class="tl-row">
-        <div class="tl-row-label" title="${p.name}">${catInfo.icon} ${p.name}</div>
+        <div class="tl-row-label" title="${p.name}">${allIcons} ${p.name}</div>
         <div class="tl-row-track">`;
 
       for (let i = 0; i < mCount; i++) {
         h += `<div class="tl-row-cell"></div>`;
       }
 
-      h += `<div class="tl-bar cat-${p.category}" style="left:${leftPct}%;width:${widthPct}%;background:${barColor}"
-                 onmouseenter="showProjectTip(event, this)" onmouseleave="hideTip()"
-                 data-info="${taskInfo}">${p.name}</div>`;
+      // Render one bar per category segment
+      p.segments.forEach(seg => {
+        const sMK = monthKey(seg.startDate.getFullYear(), seg.startDate.getMonth()) + (seg.startDate.getDate()-1)/30;
+        const eMK = monthKey(seg.endDate.getFullYear(), seg.endDate.getMonth()) + (seg.endDate.getDate()-1)/30;
+        const leftPct = Math.max(0, ((sMK - startMK) / mCount) * 100);
+        const rightPct = Math.min(100, ((eMK - startMK) / mCount) * 100);
+        const widthPct = Math.max(rightPct - leftPct, 2);
+        if (widthPct <= 0) return;
+        const segCatInfo = CATEGORIES[seg.cat] || CATEGORIES.other;
+        const segInfo = JSON.stringify({name:p.name + ' · ' + segCatInfo.label, team:[p.member], tasks:seg.count, active:p.tasks.filter(t=>['in process','Перевірка'].includes(t.status) && categoryOf(t.tags)===seg.cat).length, status:[...p.statuses], category:segCatInfo.label}).replace(/"/g,'&quot;');
+        const barLabel = seg.cat === p.primaryCategory ? p.name : segCatInfo.icon;
+        h += `<div class="tl-bar cat-${seg.cat}" style="left:${leftPct}%;width:${widthPct}%;background:${barColorBase}"
+                   onmouseenter="showProjectTip(event, this)" onmouseleave="hideTip()"
+                   data-info="${segInfo}">${barLabel}</div>`;
+      });
 
       h += '</div></div>';
     });
