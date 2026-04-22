@@ -416,6 +416,36 @@ function renderClientDetail() {
       <div class="cli-stat"><div class="cli-stat-l">Період</div><div class="cli-stat-s" style="font-size:11px;margin-top:6px">${dateRange}</div></div>
     </div>`;
 
+  // Calculate timeline range from tasks' dates
+  const allDates = [];
+  tasks.forEach(t => {
+    if (t.start) allDates.push(new Date(t.start));
+    if (t.end) allDates.push(new Date(t.end));
+  });
+  let rangeStart, rangeEnd;
+  if (allDates.length) {
+    allDates.sort((a,b) => a-b);
+    rangeStart = new Date(allDates[0].getFullYear(), allDates[0].getMonth(), 1);
+    rangeEnd = new Date(allDates[allDates.length-1].getFullYear(), allDates[allDates.length-1].getMonth()+1, 0);
+  } else {
+    rangeStart = new Date(CUR_YEAR, CUR_MONTH-1, 1);
+    rangeEnd = new Date(CUR_YEAR, CUR_MONTH+2, 0);
+  }
+  const startMK = monthKey(rangeStart.getFullYear(), rangeStart.getMonth());
+  const endMK = monthKey(rangeEnd.getFullYear(), rangeEnd.getMonth());
+  const mCount = endMK - startMK + 1;
+  const curMK = monthKey(CUR_YEAR, CUR_MONTH);
+
+  // Timeline header
+  h += '<div class="timeline" style="position:relative;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden">';
+  h += '<div class="tl-header"><div class="tl-label-col">Задача</div><div class="tl-months">';
+  for (let i = 0; i < mCount; i++) {
+    const mk = startMK + i;
+    const isCur = mk === curMK;
+    h += `<div class="tl-month${isCur ? ' cur' : ''}" onclick="showMonthDetail(${mk % 12}, ${Math.floor(mk/12)})">${monthLabel(mk)}</div>`;
+  }
+  h += '</div></div>';
+
   TEAM.forEach(m => {
     const mTasks = byMember[m];
     if (!mTasks || !mTasks.length) return;
@@ -428,26 +458,73 @@ function renderClientDetail() {
       return (a.start || '9999') < (b.start || '9999') ? -1 : 1;
     });
 
-    h += `<div class="cli-section">
-      <div class="cli-section-hdr"><span class="cli-section-dot" style="background:${TCOLOR[m]}"></span>${m} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${mTasks.length} задач)</span></div>`;
+    h += `<div class="tl-section">
+      <div class="tl-section-hdr"><span class="tl-section-dot" style="background:${TCOLOR[m]}"></span>${m} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${mTasks.length} задач)</span></div>`;
 
     mTasks.forEach(t => {
       const cat = categoryOf(t.tags);
       const catInfo = CATEGORIES[cat] || CATEGORIES.other;
       const statusClr = STATUS_CLR[t.status] || '#94a3b8';
-      const datesStr = t.start ? (t.end && t.end !== t.start ? `${t.start} → ${t.end}` : t.start) : '—';
-      h += `<div class="cli-task">
-        <div class="cli-task-name" title="${t.name}">${catInfo.icon} ${t.name}</div>
-        <div class="cli-task-status" style="background:${statusClr}22;color:${statusClr}">${STATUS_UA[t.status] || t.status}</div>
-        <div class="cli-task-dates">${datesStr}</div>
-        <div class="cli-task-cat">${catInfo.label}</div>
-      </div>`;
+      const label = t.name.length > 60 ? t.name.slice(0, 58) + '…' : t.name;
+
+      // Calculate bar position
+      let leftPct = 0, widthPct = 3;
+      if (t.start) {
+        const s = new Date(t.start);
+        const e = t.end ? new Date(t.end) : new Date(t.start);
+        const sMK = monthKey(s.getFullYear(), s.getMonth()) + (s.getDate()-1)/30;
+        const eMK = monthKey(e.getFullYear(), e.getMonth()) + (e.getDate()-1)/30;
+        leftPct = Math.max(0, ((sMK - startMK) / mCount) * 100);
+        const rightPct = Math.min(100, ((eMK - startMK) / mCount) * 100);
+        widthPct = Math.max(rightPct - leftPct, 2);
+      } else {
+        // No date — show as placeholder at end
+        leftPct = 0;
+        widthPct = 0;
+      }
+
+      const barColor = ['Done all','Підтверджено'].includes(t.status) ? TBAR[m] + '88' : TBAR[m];
+
+      h += `<div class="tl-row">
+        <div class="tl-row-label" title="${t.name}">
+          <span class="det-badge" style="background:${statusClr}22;color:${statusClr};margin-right:6px;font-size:9px;padding:2px 6px">${STATUS_UA[t.status] || t.status}</span>
+          ${catInfo.icon} ${label}
+        </div>
+        <div class="tl-row-track">`;
+
+      for (let i = 0; i < mCount; i++) h += '<div class="tl-row-cell"></div>';
+
+      if (t.start && widthPct > 0) {
+        const tipData = JSON.stringify({name:t.name,team:[m],tasks:1,active:['in process','Перевірка'].includes(t.status)?1:0,status:[t.status],category:catInfo.label}).replace(/"/g,'&quot;');
+        h += `<div class="tl-bar cat-${cat}" style="left:${leftPct}%;width:${widthPct}%;background:${barColor}"
+                   onmouseenter="showProjectTip(event,this)" onmouseleave="hideTip()"
+                   data-info="${tipData}">${t.name.length > 25 ? t.name.slice(0, 23) + '…' : t.name}</div>`;
+      } else {
+        h += `<div style="position:absolute;right:10px;top:8px;font-size:10px;color:#94a3b8;font-style:italic">без дат</div>`;
+      }
+      h += '</div></div>';
     });
 
     h += '</div>';
   });
 
-  h += '</div>';
+  // Today marker
+  if (curMK >= startMK && curMK <= endMK) {
+    const todayMK = curMK + (NOW.getDate() - 1) / 30;
+    const todayPct = ((todayMK - startMK) / mCount) * 100;
+    h += `<div class="tl-today" style="pointer-events:none"></div>`;
+    requestAnimationFrame(() => {
+      const container = el.querySelector('.timeline');
+      const track = container && container.querySelector('.tl-row-track');
+      const label = container && container.querySelector('.tl-label-col');
+      const todayLine = container && container.querySelector('.tl-today');
+      if (track && label && todayLine) {
+        todayLine.style.left = (label.offsetWidth + (todayPct / 100) * track.offsetWidth) + 'px';
+      }
+    });
+  }
+
+  h += '</div></div>';
   el.innerHTML = h;
 }
 
