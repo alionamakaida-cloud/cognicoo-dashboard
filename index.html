@@ -341,22 +341,48 @@ function buildProjects() {
     }
     p.active = p.tasks.some(t => ['in process', 'Перевірка', 'Backlog'].includes(t.status));
 
-    // Build segments per category with their date ranges
+    // Build segments per category with GAP DETECTION
+    // Cluster tasks into segments - if gap between tasks > 14 days, new segment
+    const GAP_DAYS = 14;
     p.segments = [];
     Object.entries(p.categories).forEach(([cat, info]) => {
-      const starts = info.starts, ends = info.ends;
-      let segStart, segEnd;
-      if (starts.length) {
-        segStart = new Date(Math.min(...starts));
-        segEnd = ends.length ? new Date(Math.max(...ends)) : segStart;
-        if (segEnd - segStart < 7*24*3600*1000) {
-          segEnd = new Date(segEnd.getTime() + 14*24*3600*1000);
-        }
-      } else {
-        segStart = p.startDate;
-        segEnd = p.endDate;
+      // Build sorted list of {start, end} per individual task
+      const spans = [];
+      for (let i = 0; i < info.starts.length; i++) {
+        const s = info.starts[i];
+        const e = info.ends[i] || s;
+        spans.push({ s, e });
       }
-      p.segments.push({ cat, count: info.count, startDate: segStart, endDate: segEnd });
+      if (!spans.length) {
+        p.segments.push({ cat, count: info.count, startDate: p.startDate, endDate: p.endDate });
+        return;
+      }
+      spans.sort((a,b) => a.s - b.s);
+
+      // Merge spans with gap < GAP_DAYS, create new segment if gap bigger
+      let currentSeg = { cat, count: 0, startDate: spans[0].s, endDate: spans[0].e };
+      currentSeg.count = 1;
+      for (let i = 1; i < spans.length; i++) {
+        const gapMs = spans[i].s - currentSeg.endDate;
+        const gapDays = gapMs / (24*3600*1000);
+        if (gapDays > GAP_DAYS) {
+          // Extend current segment to visible minimum, push, start new
+          if (currentSeg.endDate - currentSeg.startDate < 2*24*3600*1000) {
+            currentSeg.endDate = new Date(currentSeg.endDate.getTime() + 2*24*3600*1000);
+          }
+          p.segments.push(currentSeg);
+          currentSeg = { cat, count: 1, startDate: spans[i].s, endDate: spans[i].e };
+        } else {
+          // Merge: extend end if needed
+          currentSeg.count++;
+          if (spans[i].e > currentSeg.endDate) currentSeg.endDate = spans[i].e;
+        }
+      }
+      // Make sure last segment has min width
+      if (currentSeg.endDate - currentSeg.startDate < 2*24*3600*1000) {
+        currentSeg.endDate = new Date(currentSeg.endDate.getTime() + 2*24*3600*1000);
+      }
+      p.segments.push(currentSeg);
     });
     // Sort segments by start date
     p.segments.sort((a,b) => a.startDate - b.startDate);
