@@ -239,6 +239,7 @@ let view = 'year';
 let filterTeam = new Set(TEAM);
 let filterCat = new Set(['client','strategy','event','vacation']); // default: main workload + vacation
 let filterClient = null; // null = all clients, otherwise client name
+let showArchived = false; // hide clients with no activity in visible range by default
 const NOW = new Date();
 const CUR_YEAR = NOW.getFullYear();
 const CUR_MONTH = NOW.getMonth();
@@ -736,6 +737,10 @@ function toggleCat(k) {
   if (filterCat.size === 0) filterCat.add('client');
   render();
 }
+function toggleArchived() {
+  showArchived = !showArchived;
+  render();
+}
 
 // ─── TIMELINE ───
 function renderTimeline() {
@@ -743,13 +748,30 @@ function renderTimeline() {
   const range = getMonthRange();
   const { start: startMK, count: mCount } = range;
   const curMK = monthKey(CUR_YEAR, CUR_MONTH);
+  const endMK = startMK + mCount;
 
-  // Group projects by member (each project already has a specific member)
+  // Check if project has any segment overlapping visible range
+  function isVisible(p) {
+    if (!p.segments || !p.segments.length) return true;
+    return p.segments.some(seg => {
+      const sMK = monthKey(seg.startDate.getFullYear(), seg.startDate.getMonth()) + (seg.startDate.getDate()-1)/30;
+      const eMK = monthKey(seg.endDate.getFullYear(), seg.endDate.getMonth()) + (seg.endDate.getDate()-1)/30;
+      return sMK < endMK && eMK > startMK;
+    });
+  }
+
+  // Group projects by member, filter by visibility in range (unless showArchived)
   const groups = {};
+  let archivedCount = 0;
   TEAM.forEach(m => { if (filterTeam.has(m)) groups[m] = []; });
   projects.forEach(p => {
     const m = p.member;
-    if (groups[m]) groups[m].push(p);
+    if (!groups[m]) return;
+    if (!showArchived && !isVisible(p)) {
+      archivedCount++;
+      return;
+    }
+    groups[m].push(p);
   });
 
   // Calculate today position
@@ -757,6 +779,17 @@ function renderTimeline() {
   const todayPct = ((todayMK - startMK) / mCount) * 100;
 
   let h = '<div class="timeline" style="position:relative">';
+
+  // Archive toggle banner (shown when there are hidden clients)
+  if (archivedCount > 0 || showArchived) {
+    const btnLabel = showArchived
+      ? `◉ Показано всі (${archivedCount} поза діапазоном)`
+      : `🗄 Показати архів (+${archivedCount} без активності у видимому діапазоні)`;
+    const btnBg = showArchived ? '#14b8a6' : '#94a3b8';
+    h += `<div style="padding:8px 14px;background:#f8fafc;border-bottom:1px solid #e2e8f0;display:flex;justify-content:flex-end">
+      <button class="cfchip" style="background:${btnBg};color:#fff;border-color:transparent" onclick="toggleArchived()">${btnLabel}</button>
+    </div>`;
+  }
 
   // Month header
   h += '<div class="tl-header"><div class="tl-label-col">Проєкт / Клієнт</div><div class="tl-months">';
