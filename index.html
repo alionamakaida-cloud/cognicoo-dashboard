@@ -75,6 +75,8 @@ h1{font-size:20px;font-weight:700;letter-spacing:-.3px;color:#0f172a}
 .tl-bar.cat-education{height:10px;top:12px;background:repeating-linear-gradient(135deg,#a5f3fc,#a5f3fc 6px,#cffafe 6px,#cffafe 12px) !important;opacity:.8}
 .tl-bar.cat-event{border:2px solid #f43f5e;box-shadow:0 0 0 2px rgba(244,63,94,.15),0 2px 6px rgba(244,63,94,.25)}
 .tl-bar.cat-strategy{border-left:4px solid #a78bfa;padding-left:4px}
+.tl-bar.cat-vacation{background:linear-gradient(135deg,#5eead4,#14b8a6) !important;border:2px solid #0d9488;box-shadow:0 2px 6px rgba(20,184,166,.35);color:#fff;font-weight:700}
+.tl-bar.cat-vacation::before{content:'🏖️ '}
 
 /* Category filter chip */
 .cfchip{border:1px solid #e2e8f0;border-radius:18px;padding:5px 12px;cursor:pointer;font-size:11px;font-weight:600;transition:all .12s;background:#fff;color:#64748b;display:inline-flex;align-items:center;gap:5px}
@@ -199,6 +201,7 @@ const CATEGORIES = {
   ops:       {label:'Операційка', icon:'⚙️', color:'#f59e0b'},
   education: {label:'Освіта',     icon:'🎓', color:'#06b6d4'},
   event:     {label:'Подія',      icon:'📅', color:'#f43f5e'},
+  vacation:  {label:'Відпустка',  icon:'🏖️', color:'#14b8a6'},
   other:     {label:'Інше',       icon:'•',  color:'#94a3b8'}
 };
 // Tag → category mapping (accepts tags array OR task object with {tags, name})
@@ -212,10 +215,15 @@ function categoryOf(tagsOrTask) {
   }
   const t = tags.map(x => x.toLowerCase());
 
+  // Auto-detect vacation from name (highest priority — overrides team work color)
+  const vacationKeywords = ['vacation', 'відпу', 'отпуск', 'відпочинок', 'holiday', 'off day', 'day off'];
+  if (vacationKeywords.some(kw => name.includes(kw))) return 'vacation';
+  if (t.some(x => x === 'vacation' || x === 'відпустка')) return 'vacation';
+
   // Auto-detect events from name (for tasks without proper tag)
-  const eventKeywords = ['vacation', 'відпу', 'отпуск', 'трансфер', 'transfer',
-                         'відрядж', 'retreat', 'ретрит', 'конференц', 'conference',
-                         'воркшоп', 'workshop', 'подкаст', 'podcast'];
+  const eventKeywords = ['трансфер', 'transfer', 'відрядж', 'retreat', 'ретрит',
+                         'конференц', 'conference', 'воркшоп', 'workshop',
+                         'подкаст', 'podcast'];
   if (eventKeywords.some(kw => name.includes(kw))) return 'event';
 
   if (t.some(x => x.includes('ivent') || x.includes('event'))) return 'event';
@@ -229,7 +237,7 @@ function categoryOf(tagsOrTask) {
 let allTasks = [];
 let view = 'year';
 let filterTeam = new Set(TEAM);
-let filterCat = new Set(['client','strategy','event']); // default: main workload
+let filterCat = new Set(['client','strategy','event','vacation']); // default: main workload + vacation
 let filterClient = null; // null = all clients, otherwise client name
 const NOW = new Date();
 const CUR_YEAR = NOW.getFullYear();
@@ -741,8 +749,8 @@ function renderTimeline() {
     h += `<div class="tl-section">`;
     h += `<div class="tl-section-hdr"><span class="tl-section-dot" style="background:${TCOLOR[member]}"></span>${member} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${memberProjects.length} проєктів)</span></div>`;
 
-    // Sort: projects with primary client/strategy first
-    const catOrder = {client:0, strategy:1, event:2, education:3, ops:4, other:5};
+    // Sort: projects with primary client/strategy first, vacation near top for visibility
+    const catOrder = {vacation:0, event:1, client:2, strategy:3, education:4, ops:5, other:6};
     memberProjects.sort((a,b) => (catOrder[a.primaryCategory]||9) - (catOrder[b.primaryCategory]||9));
 
     memberProjects.forEach(p => {
