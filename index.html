@@ -201,9 +201,23 @@ const CATEGORIES = {
   event:     {label:'Подія',      icon:'📅', color:'#f43f5e'},
   other:     {label:'Інше',       icon:'•',  color:'#94a3b8'}
 };
-// Tag → category mapping
-function categoryOf(tags) {
-  const t = (tags || []).map(x => x.toLowerCase());
+// Tag → category mapping (accepts tags array OR task object with {tags, name})
+function categoryOf(tagsOrTask) {
+  let tags = [], name = '';
+  if (Array.isArray(tagsOrTask)) {
+    tags = tagsOrTask;
+  } else if (tagsOrTask && typeof tagsOrTask === 'object') {
+    tags = tagsOrTask.tags || [];
+    name = (tagsOrTask.name || '').toLowerCase();
+  }
+  const t = tags.map(x => x.toLowerCase());
+
+  // Auto-detect events from name (for tasks without proper tag)
+  const eventKeywords = ['vacation', 'відпу', 'отпуск', 'трансфер', 'transfer',
+                         'відрядж', 'retreat', 'ретрит', 'конференц', 'conference',
+                         'воркшоп', 'workshop', 'подкаст', 'podcast'];
+  if (eventKeywords.some(kw => name.includes(kw))) return 'event';
+
   if (t.some(x => x.includes('ivent') || x.includes('event'))) return 'event';
   if (t.some(x => x.includes('client'))) return 'client';
   if (t.some(x => x === 'operations' || x.includes('legal') || x.includes('finance'))) return 'ops';
@@ -255,7 +269,7 @@ function monthKey(y, m) { return y * 12 + m; }
 function activeTasks() {
   return allTasks.filter(t => {
     if (filterTeam.size > 0 && !t.team.some(m => filterTeam.has(m))) return false;
-    if (filterCat.size > 0 && !filterCat.has(categoryOf(t.tags))) return false;
+    if (filterCat.size > 0 && !filterCat.has(categoryOf(t))) return false;
     if (filterClient && !(t.clients || []).includes(filterClient)) return false;
     return true;
   });
@@ -265,7 +279,7 @@ function opsTasks() {
   return allTasks.filter(t => {
     if (filterTeam.size > 0 && !t.team.some(m => filterTeam.has(m))) return false;
     if (filterClient && !(t.clients || []).includes(filterClient)) return false;
-    const c = categoryOf(t.tags);
+    const c = categoryOf(t);
     return c === 'ops' || c === 'education';
   });
 }
@@ -281,7 +295,7 @@ function buildProjects() {
   activeTasks().forEach(t => {
     const cList = t.clients && t.clients.length ? t.clients : ['Інше'];
     const members = t.team.length ? t.team : ['—'];
-    const cat = categoryOf(t.tags);
+    const cat = categoryOf(t);
     cList.forEach(c => {
       members.forEach(m => {
         const key = c + '||' + m;
@@ -495,7 +509,7 @@ function renderClientDetail() {
       <div class="tl-section-hdr"><span class="tl-section-dot" style="background:${TCOLOR[m]}"></span>${m} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${mTasks.length} задач)</span></div>`;
 
     mTasks.forEach(t => {
-      const cat = categoryOf(t.tags);
+      const cat = categoryOf(t);
       const catInfo = CATEGORIES[cat] || CATEGORIES.other;
       const statusClr = STATUS_CLR[t.status] || '#94a3b8';
       const label = t.name.length > 60 ? t.name.slice(0, 58) + '…' : t.name;
@@ -571,7 +585,7 @@ function renderOpsPanel() {
   const byMember = {};
   TEAM.forEach(m => { if (filterTeam.has(m)) byMember[m] = { ops: [], education: [] }; });
   ops.forEach(t => {
-    const cat = categoryOf(t.tags);
+    const cat = categoryOf(t);
     t.team.forEach(m => {
       if (byMember[m]) byMember[m][cat].push(t);
     });
@@ -754,7 +768,7 @@ function renderTimeline() {
         const widthPct = Math.max(rightPct - leftPct, 2);
         if (widthPct <= 0) return;
         const segCatInfo = CATEGORIES[seg.cat] || CATEGORIES.other;
-        const segInfo = JSON.stringify({name:p.name + ' · ' + segCatInfo.label, team:[p.member], tasks:seg.count, active:p.tasks.filter(t=>['in process','Перевірка'].includes(t.status) && categoryOf(t.tags)===seg.cat).length, status:[...p.statuses], category:segCatInfo.label}).replace(/"/g,'&quot;');
+        const segInfo = JSON.stringify({name:p.name + ' · ' + segCatInfo.label, team:[p.member], tasks:seg.count, active:p.tasks.filter(t=>['in process','Перевірка'].includes(t.status) && categoryOf(t)===seg.cat).length, status:[...p.statuses], category:segCatInfo.label}).replace(/"/g,'&quot;');
         const barLabel = seg.cat === p.primaryCategory ? p.name : segCatInfo.icon;
         h += `<div class="tl-bar cat-${seg.cat}" style="left:${leftPct}%;width:${widthPct}%;background:${barColorBase}"
                    onmouseenter="showProjectTip(event, this)" onmouseleave="hideTip()"
@@ -822,7 +836,7 @@ function showMonthDetail(mi, yr) {
   function tasksInMonth(member) {
     return allTasks.filter(t => {
       if (!t.team.includes(member)) return false;
-      if (filterCat.size > 0 && !filterCat.has(categoryOf(t.tags))) return false;
+      if (filterCat.size > 0 && !filterCat.has(categoryOf(t))) return false;
       if (filterClient && !(t.clients || []).includes(filterClient)) return false;
       const s = t.start ? new Date(t.start) : null;
       const e = t.end ? new Date(t.end) : s;
@@ -875,7 +889,7 @@ function showMonthDetail(mi, yr) {
         const leftPct = ((taskDay1 - 1) / daysInMonth) * 100;
         const widthPct = Math.max(((taskDay2 - taskDay1 + 1) / daysInMonth) * 100, 3);
 
-        const cat = categoryOf(t.tags);
+        const cat = categoryOf(t);
         const catInfo = CATEGORIES[cat] || CATEGORIES.other;
         const barColor = TBAR[member];
         const statusClr = STATUS_CLR[t.status] || '#94a3b8';
