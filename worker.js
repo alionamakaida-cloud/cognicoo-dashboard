@@ -94,8 +94,9 @@ export default {
         // Tags
         const tags = ((pr['Tags'] || {}).multi_select || []).map(t => t.name);
 
-        // Progress (0-100)
-        const progress = ((pr['Progress'] || {}).number) ?? null;
+        // Progress - formula that returns string like "50%" or "-"
+        const progRaw = ((pr['Progress'] || {}).formula || {}).string || null;
+        const progress = progRaw && progRaw !== '-' ? parseInt(progRaw) / 100 : null;
 
         return { id: p.id, name, team, status: st, start, end, clients, priority, tags, progress };
       });
