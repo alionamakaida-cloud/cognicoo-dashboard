@@ -729,6 +729,7 @@ function renderPipeline() {
 }
 
 // ─── HEATMAP (графік навантажень) ───
+const hmTips = {};
 function renderHeatmap() {
   const MAX_TASKS = 8;
   // Count tasks per person per month (task overlaps month if its [start..end] intersects)
@@ -793,8 +794,10 @@ function renderHeatmap() {
         const me = new Date(CUR_YEAR, mi + 1, 0);
         return s <= me && e >= ms;
       }).map(t => t.name).join(', ');
-      const tipText = `<b>${m} - ${MONTHS_FULL[mi]}</b><br>${v} задач<br><span style=color:#94a3b8>${projs || '—'}</span>`;
-      h += `<td style="background:${bg};${fade}${cur}" onclick="showMonthDetail(${mi}, ${CUR_YEAR})" onmouseenter="showTip2(event,'${tipText.replace(/'/g, "\\'")}')" onmouseleave="hideTip()">${v || ''}</td>`;
+      const safeProjs = (projs || '—').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      const tipId = `hm_${m}_${mi}`;
+      hmTips[tipId] = `<b>${m} - ${MONTHS_FULL[mi]}</b><br>${v} задач<br><span style=color:#94a3b8>${safeProjs}</span>`;
+      h += `<td style="background:${bg};${fade}${cur}" onclick="showMonthDetail(${mi}, ${CUR_YEAR})" onmouseenter="showTip2(event,'${tipId}')" onmouseleave="hideTip()">${v || ''}</td>`;
     }
     h += '</tr>';
   });
@@ -837,9 +840,9 @@ function renderHeatmap() {
   document.getElementById('heatmap').innerHTML = h;
 }
 
-function showTip2(e, html) {
+function showTip2(e, key) {
   const tip = document.getElementById('tip');
-  tip.innerHTML = html;
+  tip.innerHTML = hmTips[key] || key;
   tip.style.display = 'block';
   let x = e.clientX + 14, y = e.clientY + 14;
   if (x + 280 > window.innerWidth) x = e.clientX - 290;
