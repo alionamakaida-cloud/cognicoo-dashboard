@@ -271,7 +271,8 @@ async function loadData() {
       if (r.ok) {
         const d = await r.json();
         const NAMES = {'Алена Макайда':'Альона','Alena Makaida':'Альона','Andrii Suslenko':'Андрій','Tanya Telegina':'Таня'};
-        allTasks = (d.tasks || []).map(t => ({...t, team: t.team.map(n => NAMES[n] || n)}));
+        const STATUS_MAP = {'in process (internal)':'in process','В роботі (external)':'in process','Перевірка (ext)':'Перевірка','Підтверджено (ext)':'Підтверджено','Done all (int)':'Done all'};
+        allTasks = (d.tasks || []).map(t => ({...t, team: t.team.map(n => NAMES[n] || n), status: STATUS_MAP[t.status] || t.status}));
         document.getElementById('subtitle').textContent = `${allTasks.length} задач · оновлено ${new Date(d.fetched).toLocaleString('uk-UA')}`;
         render();
         return;
