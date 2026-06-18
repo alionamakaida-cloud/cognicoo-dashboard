@@ -332,16 +332,15 @@ function buildProjects() {
         // Track per-category date spans
         if (!map[key].categories[cat]) map[key].categories[cat] = { starts: [], ends: [], count: 0 };
         map[key].categories[cat].count++;
-        if (t.start) {
-          map[key].categories[cat].starts.push(new Date(t.start));
-          map[key].startDates.push(new Date(t.start));
+        const tStart = t.start ? new Date(t.start) : (t.end ? new Date(t.end) : null);
+        const tEnd = t.end ? new Date(t.end) : (t.start ? new Date(t.start) : null);
+        if (tStart) {
+          map[key].categories[cat].starts.push(tStart);
+          map[key].startDates.push(tStart);
         }
-        if (t.end) {
-          map[key].categories[cat].ends.push(new Date(t.end));
-          map[key].endDates.push(new Date(t.end));
-        } else if (t.start) {
-          map[key].categories[cat].ends.push(new Date(t.start));
-          map[key].endDates.push(new Date(t.start));
+        if (tEnd) {
+          map[key].categories[cat].ends.push(tEnd);
+          map[key].endDates.push(tEnd);
         }
         map[key].statuses.add(t.status);
       });
@@ -374,7 +373,11 @@ function buildProjects() {
         spans.push({ s, e });
       }
       if (!spans.length) {
-        p.segments.push({ cat, count: info.count, startDate: p.startDate, endDate: p.endDate });
+        if (info.ends.length) {
+          const fallbackEnd = new Date(Math.max(...info.ends));
+          const fallbackStart = info.starts.length ? new Date(Math.min(...info.starts)) : new Date(fallbackEnd.getTime() - 14*24*3600*1000);
+          p.segments.push({ cat, count: info.count, startDate: fallbackStart, endDate: fallbackEnd });
+        }
         return;
       }
       spans.sort((a,b) => a.s - b.s);
