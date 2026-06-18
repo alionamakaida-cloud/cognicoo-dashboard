@@ -63,23 +63,16 @@ export default {
         safety++;
       }
 
-      // Transform pages to simplified task objects
-      const NAMES = {
-        'Алена Макайда': 'Альона',
-        'Andrii Suslenko': 'Андрій',
-        'Tanya Telegina': 'Таня'
-      };
-
       const tasks = allPages.map(p => {
         const pr = p.properties || {};
 
         // Task name
         const titleArr = (pr['Task name'] || {}).title || [];
-        const name = titleArr.map(t => t.plain_text).join('') || '—';
+        const name = titleArr.map(t => t.plain_text).join('') || '';
 
-        // Assignee
+        // Assignee - raw names, mapping done in dashboard
         const people = (pr['Assignee'] || {}).people || [];
-        const team = people.map(pe => NAMES[pe.name] || pe.name);
+        const team = people.map(pe => pe.name);
 
         // Status
         const st = ((pr['Status'] || {}).status || {}).name || '';

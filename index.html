@@ -270,7 +270,8 @@ async function loadData() {
       const r = await fetch(WORKER_URL);
       if (r.ok) {
         const d = await r.json();
-        allTasks = d.tasks || [];
+        const NAMES = {'Алена Макайда':'Альона','Alena Makaida':'Альона','Andrii Suslenko':'Андрій','Tanya Telegina':'Таня'};
+        allTasks = (d.tasks || []).map(t => ({...t, team: t.team.map(n => NAMES[n] || n)}));
         document.getElementById('subtitle').textContent = `${allTasks.length} задач · оновлено ${new Date(d.fetched).toLocaleString('uk-UA')}`;
         render();
         return;
