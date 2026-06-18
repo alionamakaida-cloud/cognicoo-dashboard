@@ -69,6 +69,7 @@ h1{font-size:20px;font-weight:700;letter-spacing:-.3px;color:#0f172a}
 /* Gantt bar */
 .tl-bar{position:absolute;height:22px;top:6px;border-radius:6px;display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;z-index:2;transition:opacity .15s,transform .1s;min-width:16px}
 .tl-bar:hover{opacity:.85;transform:scaleY(1.1)}
+.tl-bar .pct{font-size:9px;opacity:.7;margin-left:4px;font-weight:400}
 
 /* Category variants — зберігаємо колір команди, додаємо тільки візуальну особливість */
 .tl-bar.cat-ops{height:12px;top:11px;background:repeating-linear-gradient(45deg,#f59e0b,#f59e0b 6px,#fb923c 6px,#fb923c 12px) !important;opacity:1;border:1px solid #d97706;color:#fff;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,.3)}
@@ -294,6 +295,15 @@ function loadDemo() {
 }
 
 // ─── HELPERS ───
+function progressBg(color, pct) {
+  if (pct === null || pct === undefined) return `background:${color}`;
+  const p = Math.round(pct * 100);
+  return `background:linear-gradient(90deg, ${color} ${p}%, ${color}44 ${p}%)`;
+}
+function progressLabel(pct) {
+  if (pct === null || pct === undefined) return '';
+  return `<span class="pct">${Math.round(pct * 100)}%</span>`;
+}
 function parseDate(s) { return s ? new Date(s) : null; }
 function monthKey(y, m) { return y * 12 + m; }
 function activeTasks() {
@@ -332,8 +342,9 @@ function buildProjects() {
         if (!map[key]) map[key] = { name: c, member: m, categories: {}, tasks: [], startDates: [], endDates: [], statuses: new Set() };
         map[key].tasks.push(t);
         // Track per-category date spans
-        if (!map[key].categories[cat]) map[key].categories[cat] = { starts: [], ends: [], count: 0 };
+        if (!map[key].categories[cat]) map[key].categories[cat] = { starts: [], ends: [], progresses: [], count: 0 };
         map[key].categories[cat].count++;
+        if (t.progress !== null && t.progress !== undefined) map[key].categories[cat].progresses.push(t.progress);
         const tStart = t.start ? new Date(t.start) : (t.end ? new Date(t.end) : null);
         const tEnd = t.end ? new Date(t.end) : (t.start ? new Date(t.start) : null);
         if (tStart) {
@@ -383,9 +394,10 @@ function buildProjects() {
         return;
       }
       spans.sort((a,b) => a.s - b.s);
+      const avgP = info.progresses.length ? info.progresses.reduce((a,b) => a+b, 0) / info.progresses.length : null;
 
       // Merge spans with gap < GAP_DAYS, create new segment if gap bigger
-      let currentSeg = { cat, count: 0, startDate: spans[0].s, endDate: spans[0].e };
+      let currentSeg = { cat, count: 0, startDate: spans[0].s, endDate: spans[0].e, avgProgress: avgP };
       currentSeg.count = 1;
       for (let i = 1; i < spans.length; i++) {
         const gapMs = spans[i].s - currentSeg.endDate;
@@ -396,7 +408,7 @@ function buildProjects() {
             currentSeg.endDate = new Date(currentSeg.endDate.getTime() + 2*24*3600*1000);
           }
           p.segments.push(currentSeg);
-          currentSeg = { cat, count: 1, startDate: spans[i].s, endDate: spans[i].e };
+          currentSeg = { cat, count: 1, startDate: spans[i].s, endDate: spans[i].e, avgProgress: avgP };
         } else {
           // Merge: extend end if needed
           currentSeg.count++;
@@ -605,9 +617,9 @@ function renderClientDetail() {
 
       if (hasDate && widthPct > 0) {
         const tipData = JSON.stringify({name:t.name,team:[m],tasks:1,active:['in process','Перевірка'].includes(t.status)?1:0,status:[t.status],category:catInfo.label}).replace(/"/g,'&quot;');
-        h += `<div class="tl-bar cat-${cat}" style="left:${leftPct}%;width:${widthPct}%;background:${barColor}"
+        h += `<div class="tl-bar cat-${cat}" style="left:${leftPct}%;width:${widthPct}%;${progressBg(barColor, t.progress)}"
                    onmouseenter="showProjectTip(event,this)" onmouseleave="hideTip()"
-                   data-info="${tipData}">${t.name.length > 25 ? t.name.slice(0, 23) + '…' : t.name}</div>`;
+                   data-info="${tipData}">${t.name.length > 25 ? t.name.slice(0, 23) + '…' : t.name}${progressLabel(t.progress)}</div>`;
       } else if (!hasDate) {
         h += `<div style="position:absolute;right:10px;top:8px;font-size:10px;color:#94a3b8;font-style:italic">без дат</div>`;
       }
@@ -987,9 +999,9 @@ function renderTimeline() {
         const segCatInfo = CATEGORIES[seg.cat] || CATEGORIES.other;
         const segInfo = JSON.stringify({name:p.name + ' · ' + segCatInfo.label, team:[p.member], tasks:seg.count, active:p.tasks.filter(t=>['in process','Перевірка'].includes(t.status) && categoryOf(t)===seg.cat).length, status:[...p.statuses], category:segCatInfo.label}).replace(/"/g,'&quot;');
         const barLabel = seg.cat === p.primaryCategory ? p.name : segCatInfo.icon;
-        h += `<div class="tl-bar cat-${seg.cat}" style="left:${leftPct}%;width:${widthPct}%;background:${barColorBase}"
+        h += `<div class="tl-bar cat-${seg.cat}" style="left:${leftPct}%;width:${widthPct}%;${progressBg(barColorBase, seg.avgProgress)}"
                    onmouseenter="showProjectTip(event, this)" onmouseleave="hideTip()"
-                   data-info="${segInfo}">${barLabel}</div>`;
+                   data-info="${segInfo}">${barLabel}${progressLabel(seg.avgProgress)}</div>`;
       });
 
       h += '</div></div>';
@@ -1121,9 +1133,9 @@ function showMonthDetail(mi, yr) {
 
         for (let i = 0; i < 4; i++) h += '<div class="tl-row-cell"></div>';
 
-        h += `<div class="tl-bar cat-${cat}" style="left:${leftPct}%;width:${widthPct}%;background:${barColor}"
+        h += `<div class="tl-bar cat-${cat}" style="left:${leftPct}%;width:${widthPct}%;${progressBg(barColor, t.progress)}"
                    onmouseenter="showProjectTip(event,this)" onmouseleave="hideTip()"
-                   data-info="${tipData}">${label}</div>`;
+                   data-info="${tipData}">${label}${progressLabel(t.progress)}</div>`;
         h += '</div></div>';
       });
     }

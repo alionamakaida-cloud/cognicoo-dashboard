@@ -94,7 +94,10 @@ export default {
         // Tags
         const tags = ((pr['Tags'] || {}).multi_select || []).map(t => t.name);
 
-        return { id: p.id, name, team, status: st, start, end, clients, priority, tags };
+        // Progress (0-100)
+        const progress = ((pr['Progress'] || {}).number) ?? null;
+
+        return { id: p.id, name, team, status: st, start, end, clients, priority, tags, progress };
       });
 
       return new Response(JSON.stringify({ tasks, count: tasks.length, fetched: new Date().toISOString() }), { headers: CORS });
