@@ -208,9 +208,10 @@ const TEAM = ['Андрій', 'Таня', 'Альона'];
 const TCOLOR = {'Андрій': '#6366f1', 'Таня': '#10b981', 'Альона': '#ec4899'};
 const TBAR = {'Андрій': '#a5b4fc', 'Таня': '#6ee7b7', 'Альона': '#f9a8d4'};
 const TBAR_DARK = {'Андрій': '#818cf8', 'Таня': '#34d399', 'Альона': '#f472b6'};
-const STATUS_ORDER = ['Backlog', 'in process', 'Перевірка', 'Підтверджено', 'Done all'];
-const STATUS_UA = {'Backlog':'Запит','in process':'В роботі','Перевірка':'Перевірка','Підтверджено':'Підтверджено','Done all':'Виконано'};
-const STATUS_CLR = {'Backlog':'#94a3b8','in process':'#6366f1','Перевірка':'#f59e0b','Підтверджено':'#22c55e','Done all':'#10b981'};
+const STATUS_ORDER = ['Backlog', 'in process', 'Перевірка', 'Відправлено', 'Approval', 'Підтверджено', 'Done all'];
+const STATUS_UA = {'Backlog':'Запит','in process':'В роботі','Перевірка':'Перевірка','Відправлено':'Відправлено','Approval':'Погодження','Підтверджено':'Підтверджено','Done all':'Виконано'};
+const STATUS_CLR = {'Backlog':'#94a3b8','in process':'#6366f1','Перевірка':'#f59e0b','Відправлено':'#8b5cf6','Approval':'#f97316','Підтверджено':'#22c55e','Done all':'#10b981'};
+const ACTIVE_STATUSES = ['in process', 'Перевірка', 'Відправлено', 'Approval'];
 const MONTHS_UA = ['Січ','Лют','Бер','Кві','Тра','Чер','Лип','Сер','Вер','Жов','Лис','Гру'];
 const MONTHS_FULL = ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'];
 
@@ -272,8 +273,13 @@ async function loadData() {
       if (r.ok) {
         const d = await r.json();
         const NAMES = {'Алена Макайда':'Альона','Alena Makaida':'Альона','Andrii Suslenko':'Андрій','Tanya Telegina':'Таня'};
-        const STATUS_MAP = {'in process (internal)':'in process','В роботі (external)':'in process','Перевірка (ext)':'Перевірка','Підтверджено (ext)':'Підтверджено','Done all (int)':'Done all'};
-        allTasks = (d.tasks || []).map(t => ({...t, team: t.team.map(n => NAMES[n] || n), status: STATUS_MAP[t.status] || t.status}));
+        const STATUS_MAP = {'in process (internal)':'in process','В роботі (external)':'in process','Перевірка (ext)':'Перевірка','Відправлено (ext)':'Відправлено','Approval (int)':'Approval','Підтверджено (ext)':'Підтверджено','Done all (int)':'Done all'};
+        allTasks = (d.tasks || []).map(t => {
+          const team = t.team.map(n => NAMES[n] || n);
+          const status = STATUS_MAP[t.status] || t.status;
+          if (status === 'Approval' && !team.includes('Андрій')) team.push('Андрій');
+          return {...t, team, status};
+        });
         document.getElementById('subtitle').textContent = `${allTasks.length} задач · оновлено ${new Date(d.fetched).toLocaleString('uk-UA')}`;
         render();
         return;
@@ -371,7 +377,7 @@ function buildProjects() {
       p.startDate = new Date(CUR_YEAR, CUR_MONTH, 1);
       p.endDate = new Date(CUR_YEAR, CUR_MONTH + 1, 15);
     }
-    p.active = p.tasks.some(t => ['in process', 'Перевірка', 'Backlog'].includes(t.status));
+    p.active = p.tasks.some(t => [...ACTIVE_STATUSES, 'Backlog'].includes(t.status));
 
     // Build segments per category with GAP DETECTION
     // Cluster tasks into segments - if gap between tasks > 14 days, new segment
@@ -513,7 +519,7 @@ function renderClientDetail() {
   });
 
   const total = tasks.length;
-  const active = tasks.filter(t => ['in process','Перевірка'].includes(t.status)).length;
+  const active = tasks.filter(t => ACTIVE_STATUSES.includes(t.status)).length;
   const done = tasks.filter(t => ['Done all','Підтверджено'].includes(t.status)).length;
   const backlog = tasks.filter(t => t.status === 'Backlog').length;
 
@@ -570,7 +576,7 @@ function renderClientDetail() {
     if (!mTasks || !mTasks.length) return;
 
     // Sort by status (active first) then by date
-    const statusOrder = {'in process':0,'Перевірка':1,'Backlog':2,'Підтверджено':3,'Done all':4};
+    const statusOrder = {'in process':0,'Перевірка':1,'Відправлено':2,'Approval':3,'Backlog':4,'Підтверджено':5,'Done all':6};
     mTasks.sort((a,b) => {
       const d = (statusOrder[a.status] ?? 9) - (statusOrder[b.status] ?? 9);
       if (d !== 0) return d;
@@ -616,7 +622,7 @@ function renderClientDetail() {
       for (let i = 0; i < mCount; i++) h += '<div class="tl-row-cell"></div>';
 
       if (hasDate && widthPct > 0) {
-        const tipData = JSON.stringify({name:t.name,team:[m],tasks:1,active:['in process','Перевірка'].includes(t.status)?1:0,status:[t.status],category:catInfo.label}).replace(/"/g,'&quot;');
+        const tipData = JSON.stringify({name:t.name,team:[m],tasks:1,active:ACTIVE_STATUSES.includes(t.status)?1:0,status:[t.status],category:catInfo.label}).replace(/"/g,'&quot;');
         h += `<div class="tl-bar cat-${cat}" style="left:${leftPct}%;width:${widthPct}%;${progressBg(barColor, t.progress)}"
                    onmouseenter="showProjectTip(event,this)" onmouseleave="hideTip()"
                    data-info="${tipData}">${t.name.length > 25 ? t.name.slice(0, 23) + '…' : t.name}${progressLabel(t.progress)}</div>`;
@@ -673,7 +679,7 @@ function renderOpsPanel() {
     if (!byMember[m]) return;
     const opsCount = byMember[m].ops.length;
     const eduCount = byMember[m].education.length;
-    const active = [...byMember[m].ops, ...byMember[m].education].filter(t => ['in process','Перевірка','Backlog'].includes(t.status)).length;
+    const active = [...byMember[m].ops, ...byMember[m].education].filter(t => [...ACTIVE_STATUSES, 'Backlog'].includes(t.status)).length;
     if (opsCount + eduCount === 0) return;
     h += `<div class="ops-item">
       <div class="ops-item-lbl"><span style="color:${TCOLOR[m]}">●</span> ${m}</div>
@@ -700,7 +706,7 @@ function renderTeamCards() {
   TEAM.forEach(m => {
     if (!filterTeam.has(m)) return;
     const tasks = allTasks.filter(t => t.team.includes(m));
-    const active = tasks.filter(t => t.status === 'in process' || t.status === 'Перевірка');
+    const active = tasks.filter(t => ACTIVE_STATUSES.includes(t.status));
     const done = tasks.filter(t => t.status === 'Done all' || t.status === 'Підтверджено');
     const pct = tasks.length ? Math.round(done.length / tasks.length * 100) : 0;
     h += `<div class="tcard">
@@ -716,7 +722,7 @@ function renderTeamCards() {
 function renderIndicators() {
   const t = activeTasks();
   const active = t.filter(x => x.status === 'in process').length;
-  const review = t.filter(x => x.status === 'Перевірка').length;
+  const review = t.filter(x => ['Перевірка', 'Відправлено', 'Approval'].includes(x.status)).length;
   const done = t.filter(x => x.status === 'Done all' || x.status === 'Підтверджено').length;
   const clients = new Set(t.flatMap(x => x.clients)).size;
   document.getElementById('indicators').innerHTML = `
@@ -997,7 +1003,7 @@ function renderTimeline() {
         const widthPct = Math.max(rightPct - leftPct, 2);
         if (widthPct <= 0) return;
         const segCatInfo = CATEGORIES[seg.cat] || CATEGORIES.other;
-        const segInfo = JSON.stringify({name:p.name + ' · ' + segCatInfo.label, team:[p.member], tasks:seg.count, active:p.tasks.filter(t=>['in process','Перевірка'].includes(t.status) && categoryOf(t)===seg.cat).length, status:[...p.statuses], category:segCatInfo.label}).replace(/"/g,'&quot;');
+        const segInfo = JSON.stringify({name:p.name + ' · ' + segCatInfo.label, team:[p.member], tasks:seg.count, active:p.tasks.filter(t=>ACTIVE_STATUSES.includes(t.status) && categoryOf(t)===seg.cat).length, status:[...p.statuses], category:segCatInfo.label}).replace(/"/g,'&quot;');
         const barLabel = seg.cat === p.primaryCategory ? p.name : segCatInfo.icon;
         h += `<div class="tl-bar cat-${seg.cat}" style="left:${leftPct}%;width:${widthPct}%;${progressBg(barColorBase, seg.avgProgress)}"
                    onmouseenter="showProjectTip(event, this)" onmouseleave="hideTip()"
@@ -1122,7 +1128,7 @@ function showMonthDetail(mi, yr) {
         const barColor = TBAR[member];
         const statusClr = STATUS_CLR[t.status] || '#94a3b8';
         const label = t.name.length > 35 ? t.name.slice(0, 33) + '…' : t.name;
-        const tipData = JSON.stringify({name:t.name,team:[member],tasks:1,active:['in process','Перевірка'].includes(t.status)?1:0,status:[t.status],category:catInfo.label}).replace(/"/g,'&quot;');
+        const tipData = JSON.stringify({name:t.name,team:[member],tasks:1,active:ACTIVE_STATUSES.includes(t.status)?1:0,status:[t.status],category:catInfo.label}).replace(/"/g,'&quot;');
 
         h += `<div class="tl-row">
           <div class="tl-row-label" title="${t.name}">
