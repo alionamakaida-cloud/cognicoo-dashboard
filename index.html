@@ -1049,11 +1049,10 @@ function showMonthDetail(mi, yr) {
     weeks.push({ label: `${d1}-${d2} ${MONTHS_UA[mi]}`, d1, d2 });
   }
 
-  // Get tasks for this month per member (respects category + client filters)
+  // Get tasks for this month per member (all categories, respects client filter)
   function tasksInMonth(member) {
     return allTasks.filter(t => {
       if (!t.team.includes(member)) return false;
-      if (filterCat.size > 0 && !filterCat.has(categoryOf(t))) return false;
       if (filterClient && !(t.clients || []).includes(filterClient)) return false;
       const s = t.start ? new Date(t.start) : (t.end ? new Date(t.end) : null);
       const e = t.end ? new Date(t.end) : (t.start ? new Date(t.start) : null);
