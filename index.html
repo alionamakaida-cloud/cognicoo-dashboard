@@ -76,6 +76,7 @@ h1{font-size:20px;font-weight:700;letter-spacing:-.3px;color:#0f172a}
 .tl-bar.cat-education{height:12px;top:11px;background:repeating-linear-gradient(135deg,#0891b2,#0891b2 6px,#22d3ee 6px,#22d3ee 12px) !important;opacity:1;border:1px solid #0e7490;color:#fff;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,.3)}
 .tl-bar.cat-event{border:2px solid #f43f5e;box-shadow:0 0 0 2px rgba(244,63,94,.15),0 2px 6px rgba(244,63,94,.25)}
 .tl-bar.cat-strategy{border-left:4px solid #a78bfa;padding-left:4px}
+.tl-bar.status-approval{border:2px solid #ea580c;box-shadow:0 0 0 1px rgba(234,88,12,.2)}
 .tl-bar.cat-vacation{background:linear-gradient(135deg,#5eead4,#14b8a6) !important;border:2px solid #0d9488;box-shadow:0 2px 6px rgba(20,184,166,.35);color:#fff;font-weight:700}
 .tl-bar.cat-vacation::before{content:'🏖️ '}
 
@@ -210,7 +211,7 @@ const TBAR = {'Андрій': '#a5b4fc', 'Таня': '#6ee7b7', 'Альона': 
 const TBAR_DARK = {'Андрій': '#818cf8', 'Таня': '#34d399', 'Альона': '#f472b6'};
 const STATUS_ORDER = ['Backlog', 'in process', 'Перевірка', 'Відправлено', 'Approval', 'Підтверджено', 'Done all'];
 const STATUS_UA = {'Backlog':'Запит','in process':'В роботі','Перевірка':'Перевірка','Відправлено':'Відправлено','Approval':'Погодження','Підтверджено':'Підтверджено','Done all':'Виконано'};
-const STATUS_CLR = {'Backlog':'#94a3b8','in process':'#6366f1','Перевірка':'#f59e0b','Відправлено':'#8b5cf6','Approval':'#f97316','Підтверджено':'#22c55e','Done all':'#10b981'};
+const STATUS_CLR = {'Backlog':'#94a3b8','in process':'#6366f1','Перевірка':'#f59e0b','Відправлено':'#8b5cf6','Approval':'#ea580c','Підтверджено':'#22c55e','Done all':'#10b981'};
 const ACTIVE_STATUSES = ['in process', 'Перевірка', 'Відправлено', 'Approval'];
 const MONTHS_UA = ['Січ','Лют','Бер','Кві','Тра','Чер','Лип','Сер','Вер','Жов','Лис','Гру'];
 const MONTHS_FULL = ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'];
@@ -623,7 +624,7 @@ function renderClientDetail() {
 
       if (hasDate && widthPct > 0) {
         const tipData = JSON.stringify({name:t.name,team:[m],tasks:1,active:ACTIVE_STATUSES.includes(t.status)?1:0,status:[t.status],category:catInfo.label}).replace(/"/g,'&quot;');
-        h += `<div class="tl-bar cat-${cat}" style="left:${leftPct}%;width:${widthPct}%;${progressBg(barColor, t.progress)}"
+        h += `<div class="tl-bar cat-${cat}${t.status==='Approval'?' status-approval':''}" style="left:${leftPct}%;width:${widthPct}%;${progressBg(barColor, t.progress)}"
                    onmouseenter="showProjectTip(event,this)" onmouseleave="hideTip()"
                    data-info="${tipData}">${t.name.length > 25 ? t.name.slice(0, 23) + '…' : t.name}${progressLabel(t.progress)}</div>`;
       } else if (!hasDate) {
@@ -1139,7 +1140,7 @@ function showMonthDetail(mi, yr) {
 
         for (let i = 0; i < 4; i++) h += '<div class="tl-row-cell"></div>';
 
-        h += `<div class="tl-bar cat-${cat}" style="left:${leftPct}%;width:${widthPct}%;${progressBg(barColor, t.progress)}"
+        h += `<div class="tl-bar cat-${cat}${t.status==='Approval'?' status-approval':''}" style="left:${leftPct}%;width:${widthPct}%;${progressBg(barColor, t.progress)}"
                    onmouseenter="showProjectTip(event,this)" onmouseleave="hideTip()"
                    data-info="${tipData}">${label}${progressLabel(t.progress)}</div>`;
         h += '</div></div>';
