@@ -84,12 +84,26 @@ export default {
         // Status
         const st = ((pr['Status'] || {}).status || {}).name || '';
 
-        // Due date (start) and End Date
-        const dateObj = (pr['Due date'] || {}).date || null;
-        const start = dateObj ? dateObj.start : null;
-        // End Date: separate property OR range end from Due date
+        // Dates: extract start and end from available properties
+        // "End Date" can be a single date OR a date range (start→end)
+        // "Due date" is a fallback / alternative date property
         const endDateObj = (pr['End Date'] || {}).date || null;
-        const end = endDateObj ? endDateObj.start : (dateObj ? dateObj.end : null);
+        const dueDateObj = (pr['Due date'] || {}).date || null;
+
+        let start = null, end = null;
+        if (endDateObj && endDateObj.end) {
+          // "End Date" is a date range → start and end from range
+          start = endDateObj.start;
+          end = endDateObj.end;
+        } else if (endDateObj) {
+          // "End Date" is a single date → use as end, check Due date for start
+          end = endDateObj.start;
+          start = dueDateObj ? dueDateObj.start : null;
+        } else if (dueDateObj) {
+          // Only "Due date" exists
+          start = dueDateObj.start;
+          end = dueDateObj.end || dueDateObj.start;
+        }
 
         // Client
         const clients = ((pr['Client'] || {}).multi_select || []).map(c => c.name);
