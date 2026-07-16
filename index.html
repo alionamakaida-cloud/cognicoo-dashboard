@@ -1091,13 +1091,19 @@ function showMonthDetail(mi, yr) {
   // Mini timeline
   h += '<div class="timeline" style="position:relative">';
 
-  // Week header
+  // Week header with day numbers
   h += '<div class="tl-header"><div class="tl-label-col">Задача</div><div class="tl-months">';
   weeks.forEach((w, i) => {
-    // Highlight current week
     const today = new Date();
     const isCur = today.getFullYear() === yr && today.getMonth() === mi && today.getDate() >= w.d1 && today.getDate() <= w.d2;
-    h += `<div class="tl-month${isCur ? ' cur' : ''}">${w.label}</div>`;
+    let days = '';
+    for (let d = w.d1; d <= w.d2; d++) {
+      const isToday = today.getFullYear() === yr && today.getMonth() === mi && today.getDate() === d;
+      const dow = new Date(yr, mi, d).getDay();
+      const isWeekend = dow === 0 || dow === 6;
+      days += `<span style="display:inline-block;width:${100/(w.d2-w.d1+1)}%;text-align:center;font-size:9px;font-weight:${isToday?'700':'400'};color:${isToday?'#ef4444':isWeekend?'#cbd5e1':'#94a3b8'}">${d}</span>`;
+    }
+    h += `<div class="tl-month${isCur ? ' cur' : ''}" style="display:flex;flex-direction:column;padding:4px 0"><span style="font-size:11px;margin-bottom:2px">${w.label}</span><div>${days}</div></div>`;
   });
   h += '</div></div>';
 
@@ -1109,16 +1115,31 @@ function showMonthDetail(mi, yr) {
     h += '<div class="tl-section">';
     h += `<div class="tl-section-hdr"><span class="tl-section-dot" style="background:${TCOLOR[member]}"></span>${member} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${tasks.length} задач)</span></div>`;
 
-    if (tasks.length === 0) {
+    const DONE = ['Done all', 'Підтверджено'];
+    const sorted = [...tasks].sort((a, b) => {
+      const aD = DONE.includes(a.status) ? 1 : 0;
+      const bD = DONE.includes(b.status) ? 1 : 0;
+      if (aD !== bD) return aD - bD;
+      const aS = new Date(a.start || a.end || 0);
+      const bS = new Date(b.start || b.end || 0);
+      return aS - bS;
+    });
+
+    if (sorted.length === 0) {
       h += '<div class="tl-row"><div class="tl-row-label" style="color:#94a3b8;font-style:italic">Вільний</div><div class="tl-row-track">';
       for (let i = 0; i < 4; i++) h += '<div class="tl-row-cell"></div>';
       h += '</div></div>';
     } else {
-      tasks.forEach(t => {
+      let prevDone = false;
+      sorted.forEach(t => {
+        const isDone = DONE.includes(t.status);
+        if (isDone && !prevDone) {
+          h += `<div style="padding:3px 14px;font-size:10px;color:#94a3b8;border-top:1px dashed #e2e8f0;margin-top:2px">✓ Виконані</div>`;
+          prevDone = true;
+        }
         const s = new Date(t.start || t.end);
         const e = new Date(t.end || t.start);
 
-        // Position within month (0 to daysInMonth)
         const taskDay1 = Math.max(1, s.getMonth() === mi && s.getFullYear() === yr ? s.getDate() : 1);
         const taskDay2 = Math.min(daysInMonth, e.getMonth() === mi && e.getFullYear() === yr ? e.getDate() : daysInMonth);
 
@@ -1127,10 +1148,17 @@ function showMonthDetail(mi, yr) {
 
         const cat = categoryOf(t);
         const catInfo = CATEGORIES[cat] || CATEGORIES.other;
-        const barColor = TBAR[member];
+        const barColor = isDone ? TBAR[member] + '66' : TBAR[member];
         const statusClr = STATUS_CLR[t.status] || '#94a3b8';
         const label = t.name.length > 35 ? t.name.slice(0, 33) + '…' : t.name;
         const tipData = JSON.stringify({name:t.name,team:[member],tasks:1,active:ACTIVE_STATUSES.includes(t.status)?1:0,status:[t.status],category:catInfo.label}).replace(/"/g,'&quot;');
+
+        // Done marker: checkmark at end date position
+        let doneMarker = '';
+        if (isDone && e.getMonth() === mi && e.getFullYear() === yr) {
+          const endPct = ((e.getDate() - 0.5) / daysInMonth) * 100;
+          doneMarker = `<div style="position:absolute;left:${endPct}%;top:1px;transform:translateX(-50%);font-size:13px;z-index:3;filter:drop-shadow(0 1px 1px rgba(0,0,0,.2))" title="Завершено ${e.getDate()} ${MONTHS_UA[mi]}">✅</div>`;
+        }
 
         h += `<div class="tl-row">
           <div class="tl-row-label" title="${t.name}">
@@ -1141,9 +1169,9 @@ function showMonthDetail(mi, yr) {
 
         for (let i = 0; i < 4; i++) h += '<div class="tl-row-cell"></div>';
 
-        h += `<div class="tl-bar cat-${cat}${t.status==='Approval'?' status-approval':''}" style="left:${leftPct}%;width:${widthPct}%;${progressBg(barColor, t.progress)}"
+        h += `<div class="tl-bar cat-${cat}${t.status==='Approval'?' status-approval':''}" style="left:${leftPct}%;width:${widthPct}%;${isDone ? 'background:'+barColor : progressBg(barColor, t.progress)}"
                    onmouseenter="showProjectTip(event,this)" onmouseleave="hideTip()"
-                   data-info="${tipData}">${label}${progressLabel(t.progress)}</div>`;
+                   data-info="${tipData}">${isDone ? '✓ ' : ''}${label}${isDone ? '' : progressLabel(t.progress)}</div>${doneMarker}`;
         h += '</div></div>';
       });
     }
