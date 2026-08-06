@@ -206,7 +206,8 @@ h1{font-size:20px;font-weight:700;letter-spacing:-.3px;color:#0f172a}
 
 <script>
 const WORKER_URL = 'https://cognicoo-notion-proxy.alionamakaida.workers.dev/';
-const TEAM = ['Андрій', 'Таня', 'Альона'];
+const TEAM = ['Андрій', 'Альона', 'Таня'];
+const TEAM_LABEL = {'Андрій':'Андрій', 'Альона':'Альона', 'Таня':'Таня (проєктна робота)'};
 const TCOLOR = {'Андрій': '#6366f1', 'Таня': '#10b981', 'Альона': '#ec4899'};
 const TBAR = {'Андрій': '#a5b4fc', 'Таня': '#6ee7b7', 'Альона': '#f9a8d4'};
 const TBAR_DARK = {'Андрій': '#818cf8', 'Таня': '#34d399', 'Альона': '#f472b6'};
@@ -588,7 +589,7 @@ function renderClientDetail() {
     });
 
     h += `<div class="tl-section">
-      <div class="tl-section-hdr"><span class="tl-section-dot" style="background:${TCOLOR[m]}"></span>${m} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${mTasks.length} задач)</span></div>`;
+      <div class="tl-section-hdr"><span class="tl-section-dot" style="background:${TCOLOR[m]}"></span>${TEAM_LABEL[m]||m} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${mTasks.length} задач)</span></div>`;
 
     mTasks.forEach(t => {
       const cat = categoryOf(t);
@@ -684,7 +685,7 @@ function renderOpsPanel() {
     const active = [...byMember[m].ops, ...byMember[m].education].filter(t => [...ACTIVE_STATUSES, 'Backlog'].includes(t.status)).length;
     if (opsCount + eduCount === 0) return;
     h += `<div class="ops-item">
-      <div class="ops-item-lbl"><span style="color:${TCOLOR[m]}">●</span> ${m}</div>
+      <div class="ops-item-lbl"><span style="color:${TCOLOR[m]}">●</span> ${TEAM_LABEL[m]||m}</div>
       <div class="ops-item-val">${opsCount + eduCount}</div>
       <div class="ops-item-sub">⚙️ ${opsCount} операц. · 🎓 ${eduCount} освіта · ${active} активних</div>
     </div>`;
@@ -712,7 +713,7 @@ function renderTeamCards() {
     const done = tasks.filter(t => t.status === 'Done all' || t.status === 'Підтверджено');
     const pct = tasks.length ? Math.round(done.length / tasks.length * 100) : 0;
     h += `<div class="tcard">
-      <div class="tcard-name"><span class="tcard-dot" style="background:${TCOLOR[m]}"></span>${m}</div>
+      <div class="tcard-name"><span class="tcard-dot" style="background:${TCOLOR[m]}"></span>${TEAM_LABEL[m]||m}</div>
       <div class="tcard-stat">${active.length} активних · ${tasks.length} всього</div>
       <div class="tcard-bar"><div class="tcard-fill" style="width:${pct}%;background:${TBAR_DARK[m]}"></div></div>
       <div class="tcard-stat">${pct}% виконано (${done.length}/${tasks.length})</div>
@@ -799,7 +800,7 @@ function renderHeatmap() {
 
   TEAM.forEach(m => {
     if (!filterTeam.has(m)) return;
-    h += `<tr><td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${TCOLOR[m]};margin-right:6px;vertical-align:middle"></span>${m}</td>`;
+    h += `<tr><td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${TCOLOR[m]};margin-right:6px;vertical-align:middle"></span>${TEAM_LABEL[m]||m}</td>`;
     for (let mi = 0; mi < 12; mi++) {
       const v = map[m][mi];
       const bg = v ? heatColor(v) : '#f8fafc';
@@ -849,7 +850,7 @@ function renderHeatmap() {
     const st = statusOf(v);
     const pct = Math.min(Math.round(v / MAX_TASKS * 100), 100);
     h += `<div class="hm-avail-card">
-      <div class="hm-avail-name"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${TCOLOR[m]}"></span>${m}
+      <div class="hm-avail-name"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${TCOLOR[m]}"></span>${TEAM_LABEL[m]||m}
         <span class="hm-status" style="background:${st.bg};color:${st.color}">${st.label}</span>
       </div>
       <div style="font-size:11px;color:#64748b">${MONTHS_FULL[CUR_MONTH]}: <b>${v}</b> задач з ${MAX_TASKS} макс.</div>
@@ -876,7 +877,7 @@ function renderFilters() {
   let h = '';
   TEAM.forEach(m => {
     const on = filterTeam.has(m);
-    h += `<button class="fchip ${on?'on':'off'}" style="${on?'background:'+TCOLOR[m]:''}" onclick="toggleFilter('${m}')">${m}</button>`;
+    h += `<button class="fchip ${on?'on':'off'}" style="${on?'background:'+TCOLOR[m]:''}" onclick="toggleFilter('${m}')">${TEAM_LABEL[m]||m}</button>`;
   });
   h += `<button class="fchip ${filterTeam.size===TEAM.length?'on':'off'}" style="${filterTeam.size===TEAM.length?'background:#64748b':''}" onclick="toggleAll()">Всі</button>`;
   document.getElementById('filters').innerHTML = h;
@@ -976,7 +977,7 @@ function renderTimeline() {
     const memberProjects = groups[member];
 
     h += `<div class="tl-section">`;
-    h += `<div class="tl-section-hdr"><span class="tl-section-dot" style="background:${TCOLOR[member]}"></span>${member} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${memberProjects.length} проєктів)</span></div>`;
+    h += `<div class="tl-section-hdr"><span class="tl-section-dot" style="background:${TCOLOR[member]}"></span>${TEAM_LABEL[member]||member} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${memberProjects.length} проєктів)</span></div>`;
 
     // Sort: projects with primary client/strategy first, vacation near top for visibility
     const catOrder = {vacation:0, event:1, client:2, strategy:3, education:4, ops:5, other:6};
@@ -1113,7 +1114,7 @@ function showMonthDetail(mi, yr) {
     const tasks = tasksInMonth(member);
 
     h += '<div class="tl-section">';
-    h += `<div class="tl-section-hdr"><span class="tl-section-dot" style="background:${TCOLOR[member]}"></span>${member} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${tasks.length} задач)</span></div>`;
+    h += `<div class="tl-section-hdr"><span class="tl-section-dot" style="background:${TCOLOR[member]}"></span>${TEAM_LABEL[member]||member} <span style="color:#94a3b8;font-weight:400;font-size:11px">(${tasks.length} задач)</span></div>`;
 
     const DONE = ['Done all', 'Підтверджено'];
     const sorted = [...tasks].sort((a, b) => {
@@ -1204,7 +1205,7 @@ function hideDetail() { document.getElementById('detail').classList.remove('open
 // ─── LEGEND ───
 function renderLegend() {
   let h = '';
-  TEAM.forEach(m => { h += `<div class="li"><div class="lb" style="background:${TBAR[m]}"></div>${m}</div>`; });
+  TEAM.forEach(m => { h += `<div class="li"><div class="lb" style="background:${TBAR[m]}"></div>${TEAM_LABEL[m]||m}</div>`; });
   h += '<span style="margin:0 8px;color:#cbd5e1">|</span>';
   STATUS_ORDER.forEach(s => { h += `<div class="li"><div class="lb" style="background:${STATUS_CLR[s]}"></div>${STATUS_UA[s]}</div>`; });
   document.getElementById('legend').innerHTML = h;
